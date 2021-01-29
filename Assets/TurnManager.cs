@@ -7,12 +7,12 @@ using UnityEngine.Events;
 public class TurnManager : MonoBehaviour
 {
     public TextMeshProUGUI turntext;
-    public int day = 18;
-    public int month = 2;
+    public int day = 1;
+    public int month = 1;
     public int year = 1510;
 
-    const int DAYSPERMONTH = 30;
-    const int MONTHSPERYEAH = 12;
+    const int DAYSPERMONTH = 3;
+    const int MONTHSPERYEAH = 4;
 
     public UnityEvent OnNewTurn;
 

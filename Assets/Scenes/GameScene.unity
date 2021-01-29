@@ -626,8 +626,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turntext: {fileID: 1335244396}
-  day: 18
-  month: 2
+  day: 1
+  month: 1
   year: 1510
   OnNewTurn:
     m_PersistentCalls:

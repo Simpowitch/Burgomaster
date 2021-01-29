@@ -9,17 +9,22 @@ public class CharacterCreation : MonoBehaviour
     public TextMeshProUGUI raceText;
     public Image characterVisualsRenderer;
     public TextMeshProUGUI strength, constitution, wisdom, intelligence, diplomacy, charisma;
+    public Image bannerVisualsRenderer;
 
     public RacePreset[] racePresets;
     RacePreset currentRacePreset;
+    public Sprite[] banners;
 
     int currentRacePresetIndex = 0;
     int currentSpriteIndex = 0;
+    int bannerIndex = 0;
 
     private void Start()
     {
         currentRacePresetIndex = Random.Range(0, racePresets.Length);
         SetRacePreset(racePresets[currentRacePresetIndex]);
+
+        bannerVisualsRenderer.sprite = banners[bannerIndex];
     }
 
     public void ChangeRace(bool next)
@@ -32,6 +37,12 @@ public class CharacterCreation : MonoBehaviour
     {
         Sprite newSprite = next ? currentRacePreset.sprites.Next(ref currentSpriteIndex) : currentRacePreset.sprites.Previous(ref currentSpriteIndex);
         characterVisualsRenderer.sprite = newSprite;
+    }
+
+    public void ChangeBanner(bool next)
+    {
+        Sprite newSprite = next ? banners.Next(ref bannerIndex) : banners.Previous(ref bannerIndex);
+        bannerVisualsRenderer.sprite = newSprite;
     }
 
     private void SetRacePreset(RacePreset racePreset)
