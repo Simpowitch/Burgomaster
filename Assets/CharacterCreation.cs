@@ -10,48 +10,44 @@ public class CharacterCreation : MonoBehaviour
     public Image characterVisualsRenderer;
     public TextMeshProUGUI strength, constitution, wisdom, intelligence, diplomacy, charisma;
 
-    public Character[] characters;
-    Character currentCharacter;
-    int currentCharacterVisualIndex = 0;
+    public RacePreset[] racePresets;
+    RacePreset currentRacePreset;
+
+    int currentRacePresetIndex = 0;
+    int currentSpriteIndex = 0;
 
     private void Start()
     {
-        SetCharacter(Random.Range(0, characters.Length));
+        currentRacePresetIndex = Random.Range(0, racePresets.Length);
+        SetRacePreset(racePresets[currentRacePresetIndex]);
     }
 
-    public void ChangeCharacter(bool next)
+    public void ChangeRace(bool next)
     {
-        int newIndex = currentCharacterVisualIndex;
-
-        if (next)
-        {
-            newIndex++;
-            if (newIndex >= characters.Length)
-                newIndex = 0;
-        }
-        else
-        {
-            newIndex--;
-            if (newIndex < 0)
-                newIndex = characters.Length - 1;
-        }
-        SetCharacter(newIndex);
+        RacePreset newRacePreset = next ? racePresets.Next(ref currentRacePresetIndex) : racePresets.Previous(ref currentRacePresetIndex);
+        SetRacePreset(newRacePreset);
     }
 
-
-    private void SetCharacter(int index)
+    public void ChangeCharacterVisuals(bool next)
     {
-        currentCharacterVisualIndex = index;
-        currentCharacter = characters[index];
+        Sprite newSprite = next ? currentRacePreset.sprites.Next(ref currentSpriteIndex) : currentRacePreset.sprites.Previous(ref currentSpriteIndex);
+        characterVisualsRenderer.sprite = newSprite;
+    }
 
-        raceText.text = currentCharacter.race.ToString();
-        characterVisualsRenderer.sprite = currentCharacter.sprite;
+    private void SetRacePreset(RacePreset racePreset)
+    {
+        currentRacePreset = racePreset;
 
-        strength.text = currentCharacter.strength.ToString();
-        constitution.text = currentCharacter.constitution.ToString();
-        wisdom.text = currentCharacter.wisdom.ToString();
-        intelligence.text = currentCharacter.intelligence.ToString();
-        diplomacy.text = currentCharacter.diplomacy.ToString();
-        charisma.text = currentCharacter.charisma.ToString();
+        raceText.text = currentRacePreset.race.ToString();
+
+        currentSpriteIndex = 0;
+        characterVisualsRenderer.sprite = currentRacePreset.sprites[currentSpriteIndex];
+
+        strength.text = currentRacePreset.strength.ToString();
+        constitution.text = currentRacePreset.constitution.ToString();
+        wisdom.text = currentRacePreset.wisdom.ToString();
+        intelligence.text = currentRacePreset.intelligence.ToString();
+        diplomacy.text = currentRacePreset.diplomacy.ToString();
+        charisma.text = currentRacePreset.charisma.ToString();
     }
 }
