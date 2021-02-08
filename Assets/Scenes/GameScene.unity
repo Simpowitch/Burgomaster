@@ -706,11 +706,6 @@ MonoBehaviour:
     m_Bits: 4294967295
   keyRotationSpeed: 30
   mouseTooltip: {fileID: 1543977451}
-  resourceInventory:
-    capacity: 100
-    gold: 10
-    wood: 10
-    food: 10
 --- !u!1 &75812201
 GameObject:
   m_ObjectHideFlags: 0
@@ -3897,7 +3892,7 @@ GameObject:
   - component: {fileID: 789186166}
   - component: {fileID: 789186165}
   - component: {fileID: 789186167}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CityBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
