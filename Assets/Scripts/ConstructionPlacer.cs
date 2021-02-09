@@ -7,7 +7,6 @@ public class ConstructionPlacer : MonoBehaviour
     bool canSpawn = false;
     [SerializeField] GameObject blueprint = null;
     MeshRenderer[] renderers;
-    public Cost cost;
     [SerializeField] Material allowed = null, forbidden = null;
 
     public string TooltipExplanation { get; private set; }
