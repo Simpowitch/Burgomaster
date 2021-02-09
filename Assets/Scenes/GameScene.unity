@@ -664,12 +664,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turntext: {fileID: 1335244396}
+  turn: 1
   day: 1
   month: 1
   year: 1510
-  OnNewTurn:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &54775922
 Transform:
   m_ObjectHideFlags: 0
@@ -704,7 +702,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 4294967295
-  keyRotationSpeed: 30
+  keyRotationSpeed: 60
   mouseTooltip: {fileID: 1543977451}
 --- !u!1 &75812201
 GameObject:

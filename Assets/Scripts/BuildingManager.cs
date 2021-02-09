@@ -67,16 +67,16 @@ public class BuildingManager : MonoBehaviour
         //Rotate Left
         if (Input.GetKey(KeyCode.Comma))
         {
-            previewObject.transform.rotation *= Quaternion.Euler(Vector3.forward * -keyRotationSpeed * Time.deltaTime);
+            previewObject.transform.rotation *= Quaternion.Euler(Vector3.forward * keyRotationSpeed * Time.deltaTime);
         }
         //Rotate Right
         if (Input.GetKey(KeyCode.Period))
         {
-            previewObject.transform.rotation *= Quaternion.Euler(Vector3.forward * keyRotationSpeed * Time.deltaTime);
+            previewObject.transform.rotation *= Quaternion.Euler(Vector3.forward * -keyRotationSpeed * Time.deltaTime);
         }
         //Rotate 90 degrees right
         if (Input.GetKeyDown(KeyCode.R))
-            previewObject.transform.rotation *= Quaternion.Euler(Vector3.forward * 90f);
+            previewObject.transform.rotation *= Quaternion.Euler(Vector3.forward * -90f);
     }
 
     private void SpawnPreviewObject()
