@@ -12,6 +12,10 @@ public class Building : MonoBehaviour
     [SerializeField] Transform canvasTransform = null;
     [SerializeField] Bar progressBar = null;
 
+    [SerializeField] List<CityResource> income = null, upkeep = null, projectCost = null;
+
+    public Player Player { private get; set; }
+
     private void Start()
     {
         TurnManager.OnNewTurnBegun += NewTurn;
@@ -30,6 +34,11 @@ public class Building : MonoBehaviour
                 FinishConstruction();
             }
             UpdateProgress();
+        }
+        else
+        {
+            Player.AddResources(income);
+            Player.RemoveResources(upkeep);
         }
     }
 

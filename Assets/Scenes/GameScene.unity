@@ -644,6 +644,7 @@ GameObject:
   - component: {fileID: 54775922}
   - component: {fileID: 54775921}
   - component: {fileID: 54775923}
+  - component: {fileID: 54775924}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -694,6 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54894d7ab408530479b9bbf667ff8e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 54775924}
   c: {fileID: 519420031}
   m_Raycaster: {fileID: 2143000230}
   structureParent: {fileID: 134703992}
@@ -704,6 +706,20 @@ MonoBehaviour:
     m_Bits: 4294967295
   keyRotationSpeed: 60
   mouseTooltip: {fileID: 1543977451}
+--- !u!114 &54775924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54775920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67b645dc408a50d47a9fc1ed9e2a2641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startGold: 1000
+  goldText: {fileID: 362034312}
 --- !u!1 &75812201
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,10 +5,10 @@ using UnityEngine;
 public class ConstructionPlacer : MonoBehaviour
 {
     bool canSpawn = false;
-    [SerializeField] GameObject blueprint = null;
+    [SerializeField] Building blueprint = null;
     MeshRenderer[] renderers;
     [SerializeField] Material allowed = null, forbidden = null;
-
+    public Player Player { private get; set; }
     public string TooltipExplanation { get; private set; }
 
     private void Start()
@@ -32,7 +32,8 @@ public class ConstructionPlacer : MonoBehaviour
         CheckCanSpawn();
         if (canSpawn)
         {
-            Instantiate(blueprint, this.transform.position, this.transform.rotation, this.transform.parent);
+            Building building = Instantiate(blueprint, this.transform.position, this.transform.rotation, this.transform.parent);
+            building.Player = Player;
             return true;
         }
         else

@@ -97,11 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be72e8275888a954f8f4258bf22fc9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueprint: {fileID: 3668743877501653832, guid: 56c0791e2e3fe8c49ae608be1d9bd705, type: 3}
-  cost:
-    gold: 0
-    wood: 1
-    food: 0
+  blueprint: {fileID: 7756636901298708955, guid: 56c0791e2e3fe8c49ae608be1d9bd705, type: 3}
   allowed: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   forbidden: {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!61 &69645502036427831

@@ -7,13 +7,14 @@ using UnityEngine.UI;
 
 public class BuildingManager : MonoBehaviour
 {
-    ConstructionPlacer previewObject;
+    [SerializeField] Player player = null;
     [SerializeField] Camera c = null;
     [SerializeField] GraphicRaycaster m_Raycaster = null;
     [SerializeField] Transform structureParent = null;
     [SerializeField] ConstructionPlacer[] blueprints = null;
     public LayerMask mask;
     int index;
+    ConstructionPlacer previewObject;
     [SerializeField] float keyRotationSpeed = 30;
 
     string latestTooltip;
@@ -85,6 +86,7 @@ public class BuildingManager : MonoBehaviour
             DestroyPreviewObject();
 
         previewObject = Instantiate(blueprints[index], structureParent);
+        previewObject.Player = player;
     }
 
     public void CancelBuild()
