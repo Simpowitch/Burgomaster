@@ -35,11 +35,6 @@ public class Building : MonoBehaviour
             }
             UpdateProgress();
         }
-        else
-        {
-            Player.AddResources(income);
-            Player.RemoveResources(upkeep);
-        }
     }
 
     private void UpdateProgress()
@@ -51,7 +46,12 @@ public class Building : MonoBehaviour
 
     private void FinishConstruction()
     {
+        TurnManager.OnNewTurnBegun -= NewTurn;
+
         isConstructing = false;
         spriteRenderer.material = constructed;
+
+        Player.IncreaseTurnIncome(income);
+        Player.IncreaseTurnExpenses(upkeep);
     }
 }
