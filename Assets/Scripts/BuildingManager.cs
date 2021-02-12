@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using System;
 
 public class BuildingManager : MonoBehaviour
 {
@@ -99,6 +98,12 @@ public class BuildingManager : MonoBehaviour
         if (previewObject.ConfirmSpawn())
         {
             mouseTooltip.Hide();
+            player.PayForProject();
+            if (!player.CanPayForCurrentProject())
+            {
+                CancelBuild();
+                this.enabled = false;
+            }
         }
     }
 
@@ -112,6 +117,7 @@ public class BuildingManager : MonoBehaviour
 
     public void SetConstructionIndex(int index)
     {
+        this.enabled = true;
         this.index = index;
 
         //Change object if already one clicked

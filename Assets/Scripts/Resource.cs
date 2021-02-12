@@ -37,4 +37,15 @@ public class Resource
         }
         return null;
     }
+
+    public static bool IsAffordable(Resource[] costs, Resource[] availableResources)
+    {
+        for (int i = 0; i < costs.Length; i++)
+        {
+            Resource resourceToCheck = GetResourceByType(availableResources, costs[i].resourceType);
+            if (costs[i].value > resourceToCheck.value)
+                return false;
+        }
+        return true;
+    }
 }

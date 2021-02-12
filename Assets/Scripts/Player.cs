@@ -1,16 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public Resource[] startResources;
+    public Project[] availableProjects;
 
     Resource[] resources;
     Resource[] incomes;
     Resource[] expenses;
 
     public ResourcePanelUI[] resourcePanels;
+    public ProjectOverviewUI projectOverview;
+
+    Project chosenProject;
 
     private void Start()
     {
@@ -35,8 +38,19 @@ public class Player : MonoBehaviour
         }
 
         UpdateEconomyUI();
+
+        projectOverview.UpdateProjectList(availableProjects, this);
         TurnManager.OnNewTurnBegun += NewTurn;
     }
+
+    public void SelectProject(Project project)
+    {
+        chosenProject = project;
+        project.OnProjectSelected?.Invoke();
+    }
+
+    public void PayForProject() => RemoveResources(chosenProject.costToBegin);
+    public bool CanPayForCurrentProject() => IsAffordable(chosenProject.costToBegin);
 
     private void NewTurn(object sender, TurnManager.OnTurnEventArgs e)
     {
@@ -65,9 +79,12 @@ public class Player : MonoBehaviour
         {
             resourcePanels[i].UpdatePanel(resources[i].value, incomes[i].value, expenses[i].value);
         }
+        projectOverview.UpdateAffordables();
     }
 
-    public void AddResources(List<Resource> allResourcesToAdd)
+    public bool IsAffordable(Resource[] costs) => Resource.IsAffordable(costs, resources);
+
+    public void AddResources(Resource[] allResourcesToAdd)
     {
         foreach (var resouceToAdd in allResourcesToAdd)
         {
@@ -76,7 +93,7 @@ public class Player : MonoBehaviour
         UpdateEconomyUI();
     }
 
-    public void RemoveResources(List<Resource> allResourcesToRemove)
+    public void RemoveResources(Resource[] allResourcesToRemove)
     {
         foreach (var resourceToRemove in allResourcesToRemove)
         {
@@ -85,7 +102,7 @@ public class Player : MonoBehaviour
         UpdateEconomyUI();
     }
 
-    public void IncreaseTurnIncome(List<Resource> allNewIncomes)
+    public void IncreaseTurnIncome(Resource[] allNewIncomes)
     {
         foreach (var newIncome in allNewIncomes)
         {
@@ -94,7 +111,7 @@ public class Player : MonoBehaviour
         UpdateEconomyUI();
     }
 
-    public void IncreaseTurnExpenses(List<Resource> allNewExpenses)
+    public void IncreaseTurnExpenses(Resource[] allNewExpenses)
     {
         foreach (var newExpense in allNewExpenses)
         {
