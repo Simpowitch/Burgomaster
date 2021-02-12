@@ -12,32 +12,63 @@ public class TurnManager : MonoBehaviour
     }
 
     public TextMeshProUGUI turntext;
+
+    public enum SeasonPart { Early, Mid, Late, END}
+    public enum Season { Spring, Summer, Autumn, Winter, END }
+    public SeasonPart seasonPart;
+    public Season season;
+
     public int turn = 1;
-    public int day = 1;
-    public int month = 1;
+    //public int day = 1;
+    //public int month = 1;
     public int year = 1510;
 
-    const int DAYSPERMONTH = 3;
-    const int MONTHSPERYEAH = 4;
+    //const int DAYSPERMONTH = 3;
+    //const int MONTHSPERYEAH = 4;
 
     public static event EventHandler<OnTurnEventArgs> OnNewTurnBegun;
 
+    private void Start()
+    {
+        UpdateUI();
+    }
+
     public void ChangeTurn()
     {
-        day++;
         turn++;
         OnNewTurnBegun?.Invoke(this, new OnTurnEventArgs { turn = turn });
 
-        if (day > DAYSPERMONTH)
+        seasonPart++;
+        if (seasonPart == SeasonPart.END)
         {
-            day = 1;
-            month++;
-            if (month > MONTHSPERYEAH)
+            seasonPart = SeasonPart.Early;
+            season++;
+            if (season == Season.END)
             {
-                month = 1;
+                season = Season.Spring;
                 year++;
             }
         }
-        turntext.text = $"{day} / {month} / {year}";
+
+
+        //day++;
+        //if (day > DAYSPERMONTH)
+        //{
+        //    day = 1;
+        //    month++;
+        //    if (month > MONTHSPERYEAH)
+        //    {
+        //        month = 1;
+        //        year++;
+        //    }
+        //}
+
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        turntext.text = $"{seasonPart} {season} {year}";
+        //turntext.text = $"{day} / {month} / {year}";
     }
 }

@@ -12,7 +12,7 @@ public class Building : MonoBehaviour
     [SerializeField] Transform canvasTransform = null;
     [SerializeField] Bar progressBar = null;
 
-    [SerializeField] List<CityResource> income = null, upkeep = null, projectCost = null;
+    [SerializeField] List<Resource> income = null, upkeep = null, projectCost = null;
 
     public Player Player { private get; set; }
 

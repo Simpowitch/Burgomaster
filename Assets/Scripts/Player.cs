@@ -1,29 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using System;
 
 public class Player : MonoBehaviour
 {
-    public int startGold = 1000;
+    public Resource[] startResources;
 
-    CityResource gold;
-    CityResource goldIncomes;
-    CityResource goldExpenses;
+    Resource[] resources;
+    Resource[] incomes;
+    Resource[] expenses;
 
-    public TextMeshProUGUI goldText;
-    public TextMeshProUGUI goldNetIncomeText;
-
+    public ResourcePanelUI[] resourcePanels;
 
     private void Start()
     {
-        gold = new CityResource { resourceType = ResourceType.Gold, value = startGold };
-        goldIncomes = new CityResource { resourceType = ResourceType.Gold, value = 0 };
-        goldExpenses = new CityResource { resourceType = ResourceType.Gold, value = 0 };
+        resources = new Resource[(int)ResourceType.MAX];
+        for (int i = 0; i < resources.Length; i++)
+        {
+            Resource startResource = Resource.GetResourceByType(startResources, (ResourceType)i);
+            int startValue = startResource != null ? startResource.value : 0;
+            resources[i] = new Resource((ResourceType)i, startValue);
+        }
 
-        goldText.text = gold.value.ToString();
+        incomes = new Resource[(int)ResourceType.MAX];
+        for (int i = 0; i < incomes.Length; i++)
+        {
+            incomes[i] = new Resource((ResourceType)i);
+        }
 
+        expenses = new Resource[(int)ResourceType.MAX];
+        for (int i = 0; i < expenses.Length; i++)
+        {
+            expenses[i] = new Resource((ResourceType)i);
+        }
+
+        UpdateEconomyUI();
         TurnManager.OnNewTurnBegun += NewTurn;
     }
 
@@ -35,99 +46,61 @@ public class Player : MonoBehaviour
     #region Economy
     private void SimulateEconomy()
     {
-        int goldDifference = goldIncomes.value - goldExpenses.value;
+        for (int i = 0; i < resources.Length; i++)
+        {
+            int resourceDifference = incomes[i].value - expenses[i].value;
 
-        if (goldDifference > 0)
-            gold.AddValue(goldDifference);
-        else
-            gold.RemoveValue(goldDifference);
+            if (resourceDifference > 0)
+                resources[i].AddValue(resourceDifference);
+            else if (resourceDifference < 0)
+                resources[i].RemoveValue(resourceDifference * -1);
+        }
+
         UpdateEconomyUI();
     }
 
     private void UpdateEconomyUI()
     {
-        goldText.text = gold.value.ToString();
-        int goldDifference = goldIncomes.value - goldExpenses.value;
-
-        string goldDifferenceText = goldDifference > 0 ? "+ " : "";
-        goldNetIncomeText.text = goldDifferenceText + goldDifference.ToString();
+        for (int i = 0; i < resourcePanels.Length; i++)
+        {
+            resourcePanels[i].UpdatePanel(resources[i].value, incomes[i].value, expenses[i].value);
+        }
     }
 
-    public void AddResources(List<CityResource> cityResources)
+    public void AddResources(List<Resource> allResourcesToAdd)
     {
-        foreach (var resource in cityResources)
+        foreach (var resouceToAdd in allResourcesToAdd)
         {
-            switch (resource.resourceType)
-            {
-                case ResourceType.Gold:
-                    gold.AddValue(resource.value);
-                    break;
-            }
+            resources[(int)resouceToAdd.resourceType].AddValue(resouceToAdd.value);
         }
         UpdateEconomyUI();
     }
 
-    public void RemoveResources(List<CityResource> cityResources)
+    public void RemoveResources(List<Resource> allResourcesToRemove)
     {
-        foreach (var resource in cityResources)
+        foreach (var resourceToRemove in allResourcesToRemove)
         {
-            switch (resource.resourceType)
-            {
-                case ResourceType.Gold:
-                    gold.RemoveValue(resource.value);
-                    break;
-            }
+            resources[(int)resourceToRemove.resourceType].RemoveValue(resourceToRemove.value);
         }
         UpdateEconomyUI();
     }
 
-    public void IncreaseTurnIncome(List<CityResource> cityResources)
+    public void IncreaseTurnIncome(List<Resource> allNewIncomes)
     {
-        foreach (var resource in cityResources)
+        foreach (var newIncome in allNewIncomes)
         {
-            switch (resource.resourceType)
-            {
-                case ResourceType.Gold:
-                    goldIncomes.AddValue(resource.value);
-                    break;
-            }
+            incomes[(int)newIncome.resourceType].AddValue(newIncome.value);
         }
         UpdateEconomyUI();
     }
 
-    public void IncreaseTurnExpenses(List<CityResource> cityResources)
+    public void IncreaseTurnExpenses(List<Resource> allNewExpenses)
     {
-        foreach (var resource in cityResources)
+        foreach (var newExpense in allNewExpenses)
         {
-            switch (resource.resourceType)
-            {
-                case ResourceType.Gold:
-                    goldExpenses.AddValue(resource.value);
-                    break;
-            }
+            expenses[(int)newExpense.resourceType].AddValue(newExpense.value);
         }
         UpdateEconomyUI();
     }
     #endregion
-}
-
-public enum ResourceType { Gold }
-[System.Serializable]
-public class CityResource
-{
-    const int MINVALUE = 0;
-    
-    public int value;
-    public ResourceType resourceType;
-    public bool IsAffordable(int request) => request <= value;
-    public void AddValue(int add)
-    {
-        value += add;
-    }
-
-    public void RemoveValue(int remove)
-    {
-        value -= remove;
-        value = Mathf.Max(value, MINVALUE);
-    }
 }
