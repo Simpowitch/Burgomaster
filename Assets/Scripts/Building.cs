@@ -11,7 +11,7 @@ public class Building : MonoBehaviour
     [SerializeField] Transform canvasTransform = null;
     [SerializeField] Bar progressBar = null;
 
-    [SerializeField] Resource[] income = null, upkeep = null, projectCost = null;
+    [SerializeField] Resource[] income = null, upkeep = null;
 
     public Player Player { private get; set; }
 

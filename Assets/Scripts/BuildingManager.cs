@@ -10,14 +10,14 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] Camera c = null;
     [SerializeField] GraphicRaycaster m_Raycaster = null;
     [SerializeField] Transform structureParent = null;
-    [SerializeField] ConstructionPlacer[] blueprints = null;
     public LayerMask mask;
-    int index;
     ConstructionPlacer previewObject;
     [SerializeField] float keyRotationSpeed = 30;
 
     string latestTooltip;
     [SerializeField] MouseTooltip mouseTooltip = null;
+
+    Project selectedProject;
 
     private void OnDisable()
     {
@@ -84,7 +84,7 @@ public class BuildingManager : MonoBehaviour
         if (previewObject)
             DestroyPreviewObject();
 
-        previewObject = Instantiate(blueprints[index], structureParent);
+        previewObject = Instantiate(selectedProject.blueprint, structureParent);
         previewObject.Player = player;
     }
 
@@ -98,8 +98,8 @@ public class BuildingManager : MonoBehaviour
         if (previewObject.ConfirmSpawn())
         {
             mouseTooltip.Hide();
-            player.PayForProject();
-            if (!player.CanPayForCurrentProject())
+            player.PayForProject(selectedProject);
+            if (!player.CanPayForProject(selectedProject))
             {
                 CancelBuild();
                 this.enabled = false;
@@ -115,13 +115,11 @@ public class BuildingManager : MonoBehaviour
         mouseTooltip.Hide();
     }
 
-    public void SetConstructionIndex(int index)
+    public void SetCurrentProject(Project project)
     {
         this.enabled = true;
-        this.index = index;
-
         //Change object if already one clicked
-        if (previewObject)
+            if (previewObject)
         {
             DestroyPreviewObject();
         }

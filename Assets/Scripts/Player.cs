@@ -4,16 +4,16 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Resource[] startResources;
-    public Project[] availableProjects;
 
     Resource[] resources;
     Resource[] incomes;
     Resource[] expenses;
 
+    public Project[] availableProjects;
+
     public ResourcePanelUI[] resourcePanels;
     public ProjectOverviewUI projectOverview;
-
-    Project chosenProject;
+    public BuildingManager buildingManager;
 
     private void Start()
     {
@@ -43,14 +43,9 @@ public class Player : MonoBehaviour
         TurnManager.OnNewTurnBegun += NewTurn;
     }
 
-    public void SelectProject(Project project)
-    {
-        chosenProject = project;
-        project.OnProjectSelected?.Invoke();
-    }
-
-    public void PayForProject() => RemoveResources(chosenProject.costToBegin);
-    public bool CanPayForCurrentProject() => IsAffordable(chosenProject.costToBegin);
+    public void SelectProject(Project project) => buildingManager.SetCurrentProject(project);
+    public void PayForProject(Project project) => RemoveResources(project.costToBegin);
+    public bool CanPayForProject(Project project) => IsAffordable(project.costToBegin);
 
     private void NewTurn(object sender, TurnManager.OnTurnEventArgs e)
     {
