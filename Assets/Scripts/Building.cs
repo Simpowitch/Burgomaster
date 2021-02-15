@@ -10,6 +10,8 @@ public class Building : MonoBehaviour
     int remainingTurnsToBuild;
     [SerializeField] Transform canvasTransform = null;
     [SerializeField] Bar progressBar = null;
+    [SerializeField] ConstructionPlacer constructionPlacer = null;
+    [SerializeField] Rigidbody2D rb = null;
 
     [SerializeField] Resource[] income = null, upkeep = null;
 
@@ -18,6 +20,11 @@ public class Building : MonoBehaviour
     private void Start()
     {
         TurnManager.OnNewTurnBegun += NewTurn;
+
+        Destroy(constructionPlacer);
+        Destroy(rb);
+        this.gameObject.layer = 0;
+
         remainingTurnsToBuild = turnsToBuild;
         canvasTransform.rotation = Quaternion.identity;
         UpdateProgress();

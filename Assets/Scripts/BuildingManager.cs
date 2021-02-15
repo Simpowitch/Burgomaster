@@ -85,7 +85,6 @@ public class BuildingManager : MonoBehaviour
             DestroyPreviewObject();
 
         previewObject = Instantiate(selectedProject.blueprint, structureParent);
-        previewObject.Player = player;
     }
 
     public void CancelBuild()
@@ -95,8 +94,13 @@ public class BuildingManager : MonoBehaviour
 
     private void ConfirmPlacement()
     {
-        if (previewObject.ConfirmSpawn())
+        if (previewObject.CanSpawn)
         {
+            GameObject newSpawn = Instantiate(selectedProject.blueprint.gameObject, previewObject.transform.position, previewObject.transform.rotation, previewObject.transform.parent);
+            Building newBuilding = newSpawn.GetComponent<Building>();
+            newBuilding.Player = player;
+            newBuilding.enabled = true;
+
             mouseTooltip.Hide();
             player.PayForProject(selectedProject);
             if (!player.CanPayForProject(selectedProject))
@@ -118,8 +122,9 @@ public class BuildingManager : MonoBehaviour
     public void SetCurrentProject(Project project)
     {
         this.enabled = true;
+        selectedProject = project;
         //Change object if already one clicked
-            if (previewObject)
+        if (previewObject)
         {
             DestroyPreviewObject();
         }

@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class ConstructionPlacer : MonoBehaviour
 {
-    bool canSpawn = false;
-    [SerializeField] Building blueprint = null;
+    public bool CanSpawn { get; private set; } = false;
     MeshRenderer[] renderers;
     [SerializeField] Material allowed = null, forbidden = null;
-    public Player Player { private get; set; }
     public string TooltipExplanation { get; private set; }
 
     private void Start()
@@ -17,29 +15,13 @@ public class ConstructionPlacer : MonoBehaviour
         //Visually display if can be spawned or not
         foreach (var renderer in renderers)
         {
-            renderer.material = canSpawn ? allowed : forbidden;
+            renderer.material = CanSpawn ? allowed : forbidden;
         }
     }
 
     private void FixedUpdate()
     {
         CheckCanSpawn();
-    }
-
-    public bool ConfirmSpawn()
-    {
-        CheckCanSpawn();
-        if (canSpawn)
-        {
-            Building building = Instantiate(blueprint, this.transform.position, this.transform.rotation, this.transform.parent);
-            building.Player = Player;
-            return true;
-        }
-        else
-        {
-            Debug.Log("Can't spawn");
-            return false;
-        }
     }
 
     private void CheckCanSpawn()
@@ -58,15 +40,15 @@ public class ConstructionPlacer : MonoBehaviour
         TooltipExplanation = explanation;
 
         //No change
-        if (newState == canSpawn)
+        if (newState == CanSpawn)
             return;
 
-        canSpawn = newState;
+        CanSpawn = newState;
 
         //Visually display if can be spawned or not
         foreach (var renderer in renderers)
         {
-            renderer.material = canSpawn ? allowed : forbidden;
+            renderer.material = CanSpawn ? allowed : forbidden;
         }
     }
 
