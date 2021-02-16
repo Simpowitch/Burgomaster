@@ -26,4 +26,4 @@ MonoBehaviour:
   - resourceType: 2
     value: 16
   sprite: {fileID: 21300000, guid: 96d0a59b728ac8d478f45203b2d30238, type: 3}
-  blueprint: {fileID: 6578892546364835199, guid: 7c422a7bd33129b42801e51190242038, type: 3}
+  blueprint: {fileID: 878028592654923265, guid: e64e4d66a772e42448c5d7bedaecbe9c, type: 3}

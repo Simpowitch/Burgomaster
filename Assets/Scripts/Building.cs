@@ -3,10 +3,11 @@ using System;
 
 public class Building : MonoBehaviour
 {
-    Action OnCompletion;
+    protected Action OnCompletion;
 
     [SerializeField] SpriteRenderer spriteRenderer = null;
     [SerializeField] Material constructed = null;
+    protected bool isFinished = false;
     bool isConstructing = true;
     int turnsToBuild = 2;
     int remainingTurnsToBuild;
@@ -15,18 +16,17 @@ public class Building : MonoBehaviour
     [SerializeField] ConstructionPlacer constructionPlacer = null;
     [SerializeField] Rigidbody2D rb = null;
 
-    Resource[] income = null, upkeep = null;
+    protected Resource[] income = null, upkeep = null;
 
-    Player player;
+    protected Player player;
 
     [SerializeField] Sprite[] themes = null;
     public int ThemeIndex { get; private set; } = 0; 
     public bool HasThemes => themes != null && themes.Length > 0;
 
-    public void Setup(Player player, Project project, int themeIndex)
+    public virtual void Setup(Player player, Project project, int themeIndex)
     {
         TurnManager.OnNewTurnBegun += NewTurn;
-        OnCompletion += () => player.IncreasePopulation(project.populationChange);
 
         Destroy(constructionPlacer);
         Destroy(rb);
@@ -72,11 +72,12 @@ public class Building : MonoBehaviour
         progressBar.SetNewValues(progressNormalized);
     }
 
-    private void FinishConstruction()
+    protected virtual void FinishConstruction()
     {
         TurnManager.OnNewTurnBegun -= NewTurn;
         OnCompletion?.Invoke();
 
+        isFinished = true;
         isConstructing = false;
         spriteRenderer.material = constructed;
 
