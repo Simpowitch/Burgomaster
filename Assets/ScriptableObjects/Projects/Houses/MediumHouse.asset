@@ -14,9 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectName: Medium House
   category: 0
-  turnsToComplete: 4
   costToBegin:
   - resourceType: 0
     value: 100
-  sprite: {fileID: 21300000, guid: 3732519ded995bf48845ed23fa5eeaf6, type: 3}
-  blueprint: {fileID: -290498604195182959, guid: 78957a1d1db7e9b4091c28094a9d23c5, type: 3}
+  turnsToComplete: 4
+  populationChange: 6
+  income:
+  - resourceType: 0
+    value: 30
+  upkeep:
+  - resourceType: 2
+    value: 9
+  sprite: {fileID: 21300000, guid: e3b4b7c882596cf4a8db86e373f73cb3, type: 3}
+  blueprint: {fileID: 4924658110832094036, guid: 423afecceb4c05046ac2991af5aca959, type: 3}

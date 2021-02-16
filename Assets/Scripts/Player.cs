@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     public Resource[] startResources;
 
+    int population;
     Resource[] resources;
     Resource[] incomes;
     Resource[] expenses;
@@ -115,4 +116,7 @@ public class Player : MonoBehaviour
         UpdateEconomyUI();
     }
     #endregion
+
+    public void IncreasePopulation(int increase) => population += increase;
+    public void DecreasePopulation(int decrease) => population -= decrease;
 }

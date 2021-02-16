@@ -801,9 +801,9 @@ MonoBehaviour:
   - resourceType: 3
     value: 1000
   availableProjects:
-  - {fileID: 11400000, guid: f13bcb34b7aa29d4eaa074cbbf97e2a0, type: 2}
-  - {fileID: 11400000, guid: c1ecec57849d30a4c9afd2a5465cfc38, type: 2}
   - {fileID: 11400000, guid: e3b04175c58b1734c85a454bfb2c92f1, type: 2}
+  - {fileID: 11400000, guid: c1ecec57849d30a4c9afd2a5465cfc38, type: 2}
+  - {fileID: 11400000, guid: f13bcb34b7aa29d4eaa074cbbf97e2a0, type: 2}
   - {fileID: 11400000, guid: 398eaef2212c8674f8e3052ac884629c, type: 2}
   - {fileID: 11400000, guid: 28b6ce96cbdf8b840ad210ab84b044c6, type: 2}
   - {fileID: 11400000, guid: 2cd0678c46225284dbd002441651eb33, type: 2}
@@ -5742,7 +5742,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &806738405
 MonoBehaviour:

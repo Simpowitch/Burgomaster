@@ -77,6 +77,13 @@ public class BuildingManager : MonoBehaviour
         //Rotate 90 degrees right
         if (Input.GetKeyDown(KeyCode.R))
             previewObject.transform.rotation *= Quaternion.Euler(Vector3.forward * -90f);
+
+        //Change to next available theme
+        if (Input.GetKeyDown(KeyCode.B))
+            previewObject.ChangeTheme(true);
+        //Change to previous available theme
+        if (Input.GetKeyDown(KeyCode.V))
+            previewObject.ChangeTheme(false);
     }
 
     private void SpawnPreviewObject()
@@ -98,8 +105,7 @@ public class BuildingManager : MonoBehaviour
         {
             GameObject newSpawn = Instantiate(selectedProject.blueprint.gameObject, previewObject.transform.position, previewObject.transform.rotation, previewObject.transform.parent);
             Building newBuilding = newSpawn.GetComponent<Building>();
-            newBuilding.Player = player;
-            newBuilding.enabled = true;
+            newBuilding.Setup(player, selectedProject, previewObject.CurrentTheme);
 
             mouseTooltip.Hide();
             player.PayForProject(selectedProject);

@@ -14,7 +14,7 @@ public static class ListExtension
     {
         currentIndex--;
         if (currentIndex < 0)
-            currentIndex = 0;
+            currentIndex = list.Count-1;
         return list[currentIndex];
     }
 
@@ -30,7 +30,7 @@ public static class ListExtension
     {
         currentIndex--;
         if (currentIndex < 0)
-            currentIndex = 0;
+            currentIndex = array.Length - 1;
         return array[currentIndex];
     }
 }

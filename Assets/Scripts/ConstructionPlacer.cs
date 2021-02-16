@@ -7,6 +7,9 @@ public class ConstructionPlacer : MonoBehaviour
     MeshRenderer[] renderers;
     [SerializeField] Material allowed = null, forbidden = null;
     public string TooltipExplanation { get; private set; }
+    [SerializeField] Building building = null;
+
+    public int CurrentTheme => building.ThemeIndex;
 
     private void Start()
     {
@@ -51,6 +54,8 @@ public class ConstructionPlacer : MonoBehaviour
             renderer.material = CanSpawn ? allowed : forbidden;
         }
     }
+
+    public void ChangeTheme(bool next) => building.ChangeTheme(next);
 
     List<Collider2D> collisions = new List<Collider2D>();
 

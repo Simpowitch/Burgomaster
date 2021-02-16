@@ -14,11 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectName: Tavern
   category: 2
-  turnsToComplete: 5
   costToBegin:
   - resourceType: 0
     value: 50
   - resourceType: 1
     value: 50
-  sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  blueprint: {fileID: 0}
+  turnsToComplete: 5
+  populationChange: 0
+  income:
+  - resourceType: 0
+    value: 50
+  upkeep:
+  - resourceType: 2
+    value: 10
+  sprite: {fileID: 21300000, guid: 54a628255252c374885676cea3a18ba6, type: 3}
+  blueprint: {fileID: 1228069518793808170, guid: 8ca2dcbf9855aae43b1e1f5147e1ad49, type: 3}

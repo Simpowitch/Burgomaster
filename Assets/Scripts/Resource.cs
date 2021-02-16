@@ -48,4 +48,9 @@ public class Resource
         }
         return true;
     }
+
+    public Resource Copy()
+    {
+        return new Resource(this.resourceType, this.value, this.canBeNegative);
+    }
 }

@@ -1,32 +1,54 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Building : MonoBehaviour
 {
+    Action OnCompletion;
+
     [SerializeField] SpriteRenderer spriteRenderer = null;
     [SerializeField] Material constructed = null;
     bool isConstructing = true;
-    [SerializeField] int turnsToBuild = 2;
+    int turnsToBuild = 2;
     int remainingTurnsToBuild;
     [SerializeField] Transform canvasTransform = null;
     [SerializeField] Bar progressBar = null;
     [SerializeField] ConstructionPlacer constructionPlacer = null;
     [SerializeField] Rigidbody2D rb = null;
 
-    [SerializeField] Resource[] income = null, upkeep = null;
+    Resource[] income = null, upkeep = null;
 
-    public Player Player { private get; set; }
+    Player player;
 
-    private void Start()
+    [SerializeField] Sprite[] themes = null;
+    public int ThemeIndex { get; private set; } = 0; 
+    public bool HasThemes => themes != null && themes.Length > 0;
+
+    public void Setup(Player player, Project project, int themeIndex)
     {
         TurnManager.OnNewTurnBegun += NewTurn;
+        OnCompletion += () => player.IncreasePopulation(project.populationChange);
 
         Destroy(constructionPlacer);
         Destroy(rb);
         this.gameObject.layer = 0;
-
-        remainingTurnsToBuild = turnsToBuild;
         canvasTransform.rotation = Quaternion.identity;
+
+        this.player = player;
+        income = new Resource[project.income.Length];
+        for (int i = 0; i < project.income.Length; i++)
+        {
+            income[i] = project.income[i].Copy();
+        }
+        upkeep = new Resource[project.upkeep.Length];
+        for (int i = 0; i < project.upkeep.Length; i++)
+        {
+            upkeep[i] = project.upkeep[i].Copy();
+        }
+        turnsToBuild = project.turnsToComplete;
+        remainingTurnsToBuild = turnsToBuild;
+
+        SetThemeIndex(themeIndex);
+
         UpdateProgress();
     }
 
@@ -53,11 +75,28 @@ public class Building : MonoBehaviour
     private void FinishConstruction()
     {
         TurnManager.OnNewTurnBegun -= NewTurn;
+        OnCompletion?.Invoke();
 
         isConstructing = false;
         spriteRenderer.material = constructed;
 
-        Player.IncreaseTurnIncome(income);
-        Player.IncreaseTurnExpenses(upkeep);
+        player.IncreaseTurnIncome(income);
+        player.IncreaseTurnExpenses(upkeep);
+    }
+
+    public void ChangeTheme(bool next)
+    {
+        if (HasThemes)
+        {
+            int previousIndex = ThemeIndex;
+            spriteRenderer.sprite = next ? themes.Next(ref previousIndex) : themes.Previous(ref previousIndex);
+            ThemeIndex = previousIndex;
+        }
+    }
+
+    private void SetThemeIndex(int index)
+    {
+        spriteRenderer.sprite = themes[index];
+        ThemeIndex = index;
     }
 }
