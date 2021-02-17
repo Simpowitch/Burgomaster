@@ -14,7 +14,7 @@ public class ProjectOverviewUI : MonoBehaviour
     private List<ProjectPanelUI> uniqueTab = new List<ProjectPanelUI>();
     public Toggle allToggle;
 
-    public void UpdateProjectList(Project[] availableProjects, Player player)
+    public void UpdateProjectList(List<Project> availableProjects, Player player)
     {
         foreach (var projectPanel in allTab)
         {
@@ -28,7 +28,7 @@ public class ProjectOverviewUI : MonoBehaviour
 
         allToggle.Select();
 
-        for (int i = 0; i < availableProjects.Length; i++)
+        for (int i = 0; i < availableProjects.Count; i++)
         {
             ProjectPanelUI newPanel = Instantiate(projectPanel_BP, projectParent);
 

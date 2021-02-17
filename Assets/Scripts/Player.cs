@@ -10,11 +10,34 @@ public class Player : MonoBehaviour
     Resource[] incomes;
     Resource[] expenses;
 
-    public Project[] availableProjects;
+    [SerializeField] List<Project> allProjects = new List<Project>();
+    List<Project> availableProjects = new List<Project>();
 
-    public ResourcePanelUI[] resourcePanels;
-    public ProjectOverviewUI projectOverview;
-    public BuildingManager buildingManager;
+    [SerializeField] ResourcePanelUI[] resourcePanels = null;
+    [SerializeField] ProjectOverviewUI projectOverview = null;
+    [SerializeField] AbilityScoreUI abilityScoreUI = null;
+    [SerializeField] BuildingManager buildingManager = null;
+
+    List<ServiceBuilding>
+        authoritarianServices = new List<ServiceBuilding>(),
+        cunningServices = new List<ServiceBuilding>(),
+        diplomaticServices = new List<ServiceBuilding>(),
+        liberalServices = new List<ServiceBuilding>(),
+        natureServices = new List<ServiceBuilding>(),
+        religiousServices = new List<ServiceBuilding>();
+
+    public enum AbilityScore
+    {
+        Authoritarian,
+        Cunning,
+        Diplomatic,
+        Liberal,
+        Nature,
+        Religious,
+        UNUSED,
+    }
+    int[] abilityScores = new int[6];
+
 
     private void OnEnable()
     {
@@ -49,13 +72,14 @@ public class Player : MonoBehaviour
         }
 
         UpdateEconomyUI();
+        UpdateAbilityScoreUI();
 
-        projectOverview.UpdateProjectList(availableProjects, this);
+        UpdateAvailableProjects();
     }
 
     public void SelectProject(Project project) => buildingManager.SetCurrentProject(project);
     public void PayForProject(Project project) => RemoveResources(project.costToBegin);
-    public bool CanPayForProject(Project project) => IsAffordable(project.costToBegin);
+    public bool CanDoProject(Project project) => availableProjects.Contains(project) && IsAffordable(project.costToBegin);
 
     private void EndOfTurn(object sender, TurnManager.OnTurnEventArgs e)
     {
@@ -128,4 +152,85 @@ public class Player : MonoBehaviour
 
     public void IncreasePopulation(int increase) => population += increase;
     public void DecreasePopulation(int decrease) => population -= decrease;
+
+    public void AddService(AbilityScore tag, ServiceBuilding serviceBuilding)
+    {
+        switch (tag)
+        {
+            case AbilityScore.UNUSED:
+                Debug.LogError("Service building is missing tag");
+                break;
+            case AbilityScore.Authoritarian:
+                authoritarianServices.Add(serviceBuilding);
+                break;
+            case AbilityScore.Cunning:
+                cunningServices.Add(serviceBuilding);
+                break;
+            case AbilityScore.Diplomatic:
+                diplomaticServices.Add(serviceBuilding);
+                break;
+            case AbilityScore.Liberal:
+                liberalServices.Add(serviceBuilding);
+                break;
+            case AbilityScore.Nature:
+                natureServices.Add(serviceBuilding);
+                break;
+            case AbilityScore.Religious:
+                religiousServices.Add(serviceBuilding);
+                break;
+        }
+        UpdateAvailableProjects();
+    }
+
+    public List<ServiceBuilding> GetServices(AbilityScore tag)
+    {
+        switch (tag)
+        {
+            case AbilityScore.UNUSED:
+            default:
+                return null;
+            case AbilityScore.Authoritarian:
+                return authoritarianServices;
+            case AbilityScore.Cunning:
+                return cunningServices;
+            case AbilityScore.Diplomatic:
+                return diplomaticServices;
+            case AbilityScore.Liberal:
+                return liberalServices;
+            case AbilityScore.Nature:
+                return natureServices;
+            case AbilityScore.Religious:
+                return religiousServices;
+        }
+    }
+
+    public void ChangeAbilityScore(AbilityScore abilityScore, int change = 1)
+    {
+        abilityScores[(int)abilityScore] += change;
+        UpdateAbilityScoreUI();
+    }
+
+    private void UpdateAbilityScoreUI() => abilityScoreUI.UpdateUI(abilityScores);
+
+    private void UpdateAvailableProjects()
+    {
+        availableProjects.Clear();
+        foreach (var project in allProjects)
+        {
+            if (project.serviceBuildingRequirement == null || project.serviceBuildingRequirement.RequirementFullfilled(this))
+            {
+                availableProjects.Add(project);
+            }
+        }
+        projectOverview.UpdateProjectList(availableProjects, this);
+    }
+
+    public void RemoveUniqueProject(Project project)
+    {
+        if (allProjects.Contains(project))
+        {
+            allProjects.Remove(project);
+            UpdateAvailableProjects();
+        }
+    }
 }

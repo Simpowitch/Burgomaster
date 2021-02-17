@@ -19,6 +19,7 @@ MonoBehaviour:
     value: 50
   turnsToComplete: 3
   populationChange: 4
+  abilityScore: 6
   income:
   - resourceType: 0
     value: 8
@@ -27,3 +28,6 @@ MonoBehaviour:
     value: 4
   sprite: {fileID: 21300000, guid: 8d9baaf1222874248aa5d629815a4046, type: 3}
   blueprint: {fileID: 878028592654923265, guid: ccf4b50ebb734b345b364c2794406f9c, type: 3}
+  serviceBuildingRequirement:
+    type: 0
+    value: 0

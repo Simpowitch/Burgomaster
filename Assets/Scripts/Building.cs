@@ -26,12 +26,12 @@ public class Building : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        TurnManager.OnTurnBegunLate += NewTurn;
+        TurnManager.OnTurnBegunLate += OnTurnBegunLate;
     }
 
     protected virtual void OnDisable()
     {
-        TurnManager.OnTurnBegunLate -= NewTurn;
+        TurnManager.OnTurnBegunLate -= OnTurnBegunLate;
     }
 
     public virtual void Setup(Player player, Project project, int themeIndex)
@@ -60,7 +60,7 @@ public class Building : MonoBehaviour
         UpdateProgress();
     }
 
-    private void NewTurn(object sender, TurnManager.OnTurnEventArgs e)
+    private void OnTurnBegunLate(object sender, TurnManager.OnTurnEventArgs e)
     {
         if (isConstructing)
         {
@@ -82,7 +82,7 @@ public class Building : MonoBehaviour
 
     protected virtual void FinishConstruction()
     {
-        TurnManager.OnTurnBegunLate -= NewTurn;
+        TurnManager.OnTurnBegunLate -= OnTurnBegunLate;
         OnCompletion?.Invoke();
 
         isFinished = true;
@@ -105,6 +105,8 @@ public class Building : MonoBehaviour
 
     private void SetThemeIndex(int index)
     {
+        if (themes == null || index >= themes.Length)
+            return;
         spriteRenderer.sprite = themes[index];
         ThemeIndex = index;
     }

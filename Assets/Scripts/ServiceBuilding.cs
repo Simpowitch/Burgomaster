@@ -5,19 +5,25 @@ public class ServiceBuilding : Building
     [SerializeField] float effectRadius = 3f;
     public const float FACTORINCREASE = 0.1f;
 
+    Player.AbilityScore abilityScore;
+
+
     protected override void OnEnable()
     {
+        base.OnEnable();
         TurnManager.OnTurnBegunLate += OnNewTurnLate;
     }
 
     protected override void OnDisable()
     {
+        base.OnDisable();
         TurnManager.OnTurnBegunLate -= OnNewTurnLate;
     }
 
     public override void Setup(Player player, Project project, int themeIndex)
     {
         base.Setup(player, project, themeIndex);
+        abilityScore = project.abilityScore;
     }
 
     void OnNewTurnLate(object sender, TurnManager.OnTurnEventArgs e)
@@ -33,6 +39,7 @@ public class ServiceBuilding : Building
         base.FinishConstruction();
 
         AddChangeToNearbyResidences();
+        player.AddService(abilityScore, this);
     }
 
     void AddChangeToNearbyResidences()

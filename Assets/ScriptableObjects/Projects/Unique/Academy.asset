@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectName: Academy
   category: 3
-  turnsToComplete: 10
   costToBegin:
   - resourceType: 0
     value: 200
@@ -22,5 +21,13 @@ MonoBehaviour:
     value: 50
   - resourceType: 1
     value: 50
-  sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  blueprint: {fileID: 0}
+  turnsToComplete: 10
+  populationChange: 0
+  abilityScore: 3
+  income: []
+  upkeep: []
+  sprite: {fileID: 21300000, guid: 41339b19db1561245b340a0298a17d60, type: 3}
+  blueprint: {fileID: 5822658783910710594, guid: 6d174de468ac92843961994acb0eac4e, type: 3}
+  serviceBuildingRequirement:
+    type: 3
+    value: 1

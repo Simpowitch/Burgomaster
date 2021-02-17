@@ -109,7 +109,7 @@ public class BuildingManager : MonoBehaviour
 
             mouseTooltip.Hide();
             player.PayForProject(selectedProject);
-            if (!player.CanPayForProject(selectedProject))
+            if (!player.CanDoProject(selectedProject))
             {
                 CancelBuild();
                 this.enabled = false;

@@ -800,31 +800,20 @@ MonoBehaviour:
     value: 1000
   - resourceType: 3
     value: 1000
-  availableProjects:
+  allProjects:
   - {fileID: 11400000, guid: e3b04175c58b1734c85a454bfb2c92f1, type: 2}
   - {fileID: 11400000, guid: c1ecec57849d30a4c9afd2a5465cfc38, type: 2}
   - {fileID: 11400000, guid: f13bcb34b7aa29d4eaa074cbbf97e2a0, type: 2}
-  - {fileID: 11400000, guid: 398eaef2212c8674f8e3052ac884629c, type: 2}
-  - {fileID: 11400000, guid: 28b6ce96cbdf8b840ad210ab84b044c6, type: 2}
-  - {fileID: 11400000, guid: 2cd0678c46225284dbd002441651eb33, type: 2}
-  - {fileID: 11400000, guid: 0d80a95cd9f7df843ab961ce13334e26, type: 2}
-  - {fileID: 11400000, guid: a4eddb98f729f59489cc20d51c1c1069, type: 2}
-  - {fileID: 11400000, guid: 540291b88ecdcb042adfbb3068d435fc, type: 2}
-  - {fileID: 11400000, guid: 50f94115674196141890fdbfe3d9c2db, type: 2}
   - {fileID: 11400000, guid: 1d6699c09d5e88644bab000af8d9a9cd, type: 2}
-  - {fileID: 11400000, guid: b77e8533427a56b4681679d3b784f74c, type: 2}
   - {fileID: 11400000, guid: 22e1ca168a681e34a8b7e989f56289b1, type: 2}
-  - {fileID: 11400000, guid: 434cf84b1d503f041bd8331b9061dabf, type: 2}
   - {fileID: 11400000, guid: 1e77ac9a79a755547ab5caa34c617d9a, type: 2}
-  - {fileID: 11400000, guid: ae54658aae5284643add48c41eee232d, type: 2}
-  - {fileID: 11400000, guid: 4693c917055955c43ab226fa5d98a8d5, type: 2}
-  - {fileID: 11400000, guid: bbf3ec4d6319a6a468d0f1b5d87f09dc, type: 2}
   resourcePanels:
   - {fileID: 1387685085}
   - {fileID: 185622192}
   - {fileID: 987834272}
   - {fileID: 1685804283}
   projectOverview: {fileID: 1031548715}
+  abilityScoreUI: {fileID: 2036768157}
   buildingManager: {fileID: 54775923}
 --- !u!1 &75812201
 GameObject:
@@ -16035,6 +16024,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2036768156}
+  - component: {fileID: 2036768157}
   m_Layer: 5
   m_Name: Player Character
   m_TagString: Untagged
@@ -16070,6 +16060,24 @@ RectTransform:
   m_AnchoredPosition: {x: 5, y: -50}
   m_SizeDelta: {x: 260, y: 390}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &2036768157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036768155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bff8ce19e97abd4185bfd7aad2f4d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoritarian: {fileID: 1639293860}
+  cunning: {fileID: 1666087114}
+  diplomatic: {fileID: 1236698682}
+  liberal: {fileID: 2106215383}
+  nature: {fileID: 698813865}
+  religious: {fileID: 745640608}
 --- !u!1 &2052456937
 GameObject:
   m_ObjectHideFlags: 0

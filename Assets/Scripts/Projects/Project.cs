@@ -10,7 +10,29 @@ public class Project : ScriptableObject
     public Resource[] costToBegin;
     public int turnsToComplete;
     public int populationChange;
+    public Player.AbilityScore abilityScore = Player.AbilityScore.UNUSED;
     public Resource[] income = null, upkeep = null;
     public Sprite sprite;
     public ConstructionPlacer blueprint = null;
+
+    public ServiceBuildingRequirement serviceBuildingRequirement;
+
+    [System.Serializable]
+    public abstract class Requirement
+    {
+        public abstract bool RequirementFullfilled(Player player);
+    }
+    [System.Serializable]
+    public class ServiceBuildingRequirement : Requirement
+    {
+        public Player.AbilityScore type = Player.AbilityScore.UNUSED;
+        public int value;
+
+        public override bool RequirementFullfilled(Player player)
+        {
+            if (type == Player.AbilityScore.UNUSED)
+                return true;
+            return value <= player.GetServices(type).Count;
+        }
+    }
 }

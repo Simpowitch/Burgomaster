@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectName: Lyseum
   category: 3
-  turnsToComplete: 10
   costToBegin:
   - resourceType: 0
     value: 200
@@ -22,5 +21,13 @@ MonoBehaviour:
     value: 50
   - resourceType: 1
     value: 50
+  turnsToComplete: 10
+  populationChange: 0
+  abilityScore: 3
+  income: []
+  upkeep: []
   sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   blueprint: {fileID: 0}
+  serviceBuildingRequirement:
+    type: 2
+    value: 1
