@@ -24,10 +24,18 @@ public class Building : MonoBehaviour
     public int ThemeIndex { get; private set; } = 0; 
     public bool HasThemes => themes != null && themes.Length > 0;
 
+    protected virtual void OnEnable()
+    {
+        TurnManager.OnTurnBegunLate += NewTurn;
+    }
+
+    protected virtual void OnDisable()
+    {
+        TurnManager.OnTurnBegunLate -= NewTurn;
+    }
+
     public virtual void Setup(Player player, Project project, int themeIndex)
     {
-        TurnManager.OnNewTurnBegun += NewTurn;
-
         Destroy(constructionPlacer);
         Destroy(rb);
         this.gameObject.layer = 0;
@@ -74,7 +82,7 @@ public class Building : MonoBehaviour
 
     protected virtual void FinishConstruction()
     {
-        TurnManager.OnNewTurnBegun -= NewTurn;
+        TurnManager.OnTurnBegunLate -= NewTurn;
         OnCompletion?.Invoke();
 
         isFinished = true;

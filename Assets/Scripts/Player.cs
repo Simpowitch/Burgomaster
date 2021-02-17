@@ -16,6 +16,16 @@ public class Player : MonoBehaviour
     public ProjectOverviewUI projectOverview;
     public BuildingManager buildingManager;
 
+    private void OnEnable()
+    {
+        TurnManager.OnTurnEnding += EndOfTurn;
+    }
+
+    private void OnDisable()
+    {
+        TurnManager.OnTurnEnding -= EndOfTurn;
+    }
+
     private void Start()
     {
         resources = new Resource[(int)ResourceType.MAX];
@@ -41,14 +51,13 @@ public class Player : MonoBehaviour
         UpdateEconomyUI();
 
         projectOverview.UpdateProjectList(availableProjects, this);
-        TurnManager.OnNewTurnBegun += NewTurn;
     }
 
     public void SelectProject(Project project) => buildingManager.SetCurrentProject(project);
     public void PayForProject(Project project) => RemoveResources(project.costToBegin);
     public bool CanPayForProject(Project project) => IsAffordable(project.costToBegin);
 
-    private void NewTurn(object sender, TurnManager.OnTurnEventArgs e)
+    private void EndOfTurn(object sender, TurnManager.OnTurnEventArgs e)
     {
         SimulateEconomy();
     }

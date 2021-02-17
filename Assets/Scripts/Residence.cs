@@ -6,9 +6,6 @@ public class Residence : Building
     List<ServiceBuilding> nearbyServices = new List<ServiceBuilding>();
     int basePopulationChange;
 
-    public delegate void ResidenceHandler(Residence residence);
-    public static ResidenceHandler OnResidenceSpawned;
-
     public override void Setup(Player player, Project project, int themeIndex)
     {
         base.Setup(player, project, themeIndex);
@@ -19,7 +16,6 @@ public class Residence : Building
     protected override void FinishConstruction()
     {
         base.FinishConstruction();
-        OnResidenceSpawned?.Invoke(this);
     }
 
     public void AddServiceBuilding(ServiceBuilding serviceBuilding)

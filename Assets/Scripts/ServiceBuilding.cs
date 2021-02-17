@@ -5,19 +5,27 @@ public class ServiceBuilding : Building
     [SerializeField] float effectRadius = 3f;
     public const float FACTORINCREASE = 0.1f;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        Residence.OnResidenceSpawned += CheckEffectOnSpawnedResidence;
+        TurnManager.OnTurnBegunLate += OnNewTurnLate;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        Residence.OnResidenceSpawned -= CheckEffectOnSpawnedResidence;
+        TurnManager.OnTurnBegunLate -= OnNewTurnLate;
     }
 
     public override void Setup(Player player, Project project, int themeIndex)
     {
         base.Setup(player, project, themeIndex);
+    }
+
+    void OnNewTurnLate(object sender, TurnManager.OnTurnEventArgs e)
+    {
+        if (!isFinished)
+            return;
+
+        AddChangeToNearbyResidences();
     }
 
     protected override void FinishConstruction()
@@ -35,23 +43,6 @@ public class ServiceBuilding : Building
         {
             Residence residence = collider.GetComponent<Residence>();
             if (residence)
-            {
-                residence.AddServiceBuilding(this);
-            }
-        }
-    }
-
-    void CheckEffectOnSpawnedResidence(Residence spawnedResidence)
-    {
-        if (!isFinished)
-            return;
-
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(this.transform.position, effectRadius);
-
-        foreach (var collider in colliders)
-        {
-            Residence residence = collider.GetComponent<Residence>();
-            if (residence && residence == spawnedResidence)
             {
                 residence.AddServiceBuilding(this);
             }

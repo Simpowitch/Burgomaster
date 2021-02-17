@@ -11,7 +11,7 @@ public class TurnManager : MonoBehaviour
 
     public TextMeshProUGUI turntext;
 
-    public enum SeasonPart { Early, Mid, Late, END}
+    public enum SeasonPart { Early, Mid, Late, END }
     public enum Season { Spring, Summer, Autumn, Winter, END }
     public SeasonPart seasonPart;
     public Season season;
@@ -24,7 +24,9 @@ public class TurnManager : MonoBehaviour
     //const int DAYSPERMONTH = 3;
     //const int MONTHSPERYEAH = 4;
 
-    public static event EventHandler<OnTurnEventArgs> OnNewTurnBegun;
+    public static event EventHandler<OnTurnEventArgs> OnTurnBegun;
+    public static event EventHandler<OnTurnEventArgs> OnTurnBegunLate;
+    public static event EventHandler<OnTurnEventArgs> OnTurnEnding;
 
     private void Start()
     {
@@ -33,8 +35,10 @@ public class TurnManager : MonoBehaviour
 
     public void ChangeTurn()
     {
+        OnTurnEnding?.Invoke(this, new OnTurnEventArgs { turn = turn });
         turn++;
-        OnNewTurnBegun?.Invoke(this, new OnTurnEventArgs { turn = turn });
+        OnTurnBegun?.Invoke(this, new OnTurnEventArgs { turn = turn });
+        OnTurnBegunLate?.Invoke(this, new OnTurnEventArgs { turn = turn });
 
         seasonPart++;
         if (seasonPart == SeasonPart.END)
@@ -47,7 +51,6 @@ public class TurnManager : MonoBehaviour
                 year++;
             }
         }
-
 
         //day++;
         //if (day > DAYSPERMONTH)
