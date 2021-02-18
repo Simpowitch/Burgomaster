@@ -8,7 +8,7 @@ public class Building : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer = null;
     [SerializeField] Material constructed = null;
     protected bool isFinished = false;
-    bool isConstructing = true;
+    [SerializeField] ProjectConstructionSlot[] constructionSlots = null;
     int turnsToBuild = 2;
     int remainingTurnsToBuild;
     [SerializeField] Transform canvasTransform = null;
@@ -21,17 +21,17 @@ public class Building : MonoBehaviour
     protected Player player;
 
     [SerializeField] Sprite[] themes = null;
-    public int ThemeIndex { get; private set; } = 0; 
+    public int ThemeIndex { get; private set; } = 0;
     public bool HasThemes => themes != null && themes.Length > 0;
 
     protected virtual void OnEnable()
     {
-        TurnManager.OnTurnBegunLate += OnTurnBegunLate;
+        TurnManager.OnUpdateConstruction += UpdateConstruction;
     }
 
     protected virtual void OnDisable()
     {
-        TurnManager.OnTurnBegunLate -= OnTurnBegunLate;
+        TurnManager.OnUpdateConstruction -= UpdateConstruction;
     }
 
     public virtual void Setup(Player player, Project project, int themeIndex)
@@ -57,23 +57,30 @@ public class Building : MonoBehaviour
 
         SetThemeIndex(themeIndex);
 
-        UpdateProgress();
-    }
-
-    private void OnTurnBegunLate(object sender, TurnManager.OnTurnEventArgs e)
-    {
-        if (isConstructing)
+        foreach (var slot in constructionSlots)
         {
-            remainingTurnsToBuild--;
-            if (remainingTurnsToBuild == 0)
-            {
-                FinishConstruction();
-            }
-            UpdateProgress();
+            slot.gameObject.SetActive(true);
         }
+
+        DisplayConstructionProgress();
     }
 
-    private void UpdateProgress()
+    private void UpdateConstruction(object sender, TurnManager.OnTurnEventArgs e)
+    {
+        foreach (var slot in constructionSlots)
+        {
+            if (slot.IsFilledAndActive)
+            {
+                remainingTurnsToBuild--;
+                if (remainingTurnsToBuild == 0)
+                    FinishConstruction();
+                break;
+            }
+        }
+        DisplayConstructionProgress();
+    }
+
+    private void DisplayConstructionProgress()
     {
         int turnsBuilt = turnsToBuild - remainingTurnsToBuild;
         float progressNormalized = turnsBuilt * 1f / turnsToBuild;
@@ -82,12 +89,17 @@ public class Building : MonoBehaviour
 
     protected virtual void FinishConstruction()
     {
-        TurnManager.OnTurnBegunLate -= OnTurnBegunLate;
+        TurnManager.OnUpdateConstruction -= UpdateConstruction;
         OnCompletion?.Invoke();
 
         isFinished = true;
-        isConstructing = false;
         spriteRenderer.material = constructed;
+
+        foreach (var slot in constructionSlots)
+        {
+            slot.ProjectCompleted = true;
+            slot.gameObject.SetActive(false);
+        }
 
         player.IncreaseTurnIncome(income);
         player.IncreaseTurnExpenses(upkeep);
@@ -110,4 +122,6 @@ public class Building : MonoBehaviour
         spriteRenderer.sprite = themes[index];
         ThemeIndex = index;
     }
+
+    
 }

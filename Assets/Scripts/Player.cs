@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     public Resource[] startResources;
-
+    
     int population;
     Resource[] resources;
     Resource[] incomes;
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] List<Project> allProjects = new List<Project>();
     List<Project> availableProjects = new List<Project>();
 
+    [SerializeField] TextMeshProUGUI populationText = null;
     [SerializeField] ResourcePanelUI[] resourcePanels = null;
     [SerializeField] ProjectOverviewUI projectOverview = null;
     [SerializeField] AbilityScoreUI abilityScoreUI = null;
@@ -41,12 +43,12 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        TurnManager.OnTurnEnding += EndOfTurn;
+        TurnManager.OnProduceIncome += SimulateEconomy;
     }
 
     private void OnDisable()
     {
-        TurnManager.OnTurnEnding -= EndOfTurn;
+        TurnManager.OnProduceIncome -= SimulateEconomy;
     }
 
     private void Start()
@@ -73,6 +75,7 @@ public class Player : MonoBehaviour
 
         UpdateEconomyUI();
         UpdateAbilityScoreUI();
+        populationText.text = population.ToString();
 
         UpdateAvailableProjects();
     }
@@ -81,13 +84,8 @@ public class Player : MonoBehaviour
     public void PayForProject(Project project) => RemoveResources(project.costToBegin);
     public bool CanDoProject(Project project) => availableProjects.Contains(project) && IsAffordable(project.costToBegin);
 
-    private void EndOfTurn(object sender, TurnManager.OnTurnEventArgs e)
-    {
-        SimulateEconomy();
-    }
-
     #region Economy
-    private void SimulateEconomy()
+    private void SimulateEconomy(object sender, TurnManager.OnTurnEventArgs e)
     {
         for (int i = 0; i < resources.Length; i++)
         {
@@ -150,8 +148,16 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    public void IncreasePopulation(int increase) => population += increase;
-    public void DecreasePopulation(int decrease) => population -= decrease;
+    public void IncreasePopulation(int increase)
+    {
+        population += increase;
+        populationText.text = population.ToString();
+    }
+    public void DecreasePopulation(int decrease)
+    {
+        population -= decrease;
+        populationText.text = population.ToString();
+    }
 
     public void AddService(AbilityScore tag, ServiceBuilding serviceBuilding)
     {

@@ -24,9 +24,13 @@ public class TurnManager : MonoBehaviour
     //const int DAYSPERMONTH = 3;
     //const int MONTHSPERYEAH = 4;
 
-    public static event EventHandler<OnTurnEventArgs> OnTurnBegun;
-    public static event EventHandler<OnTurnEventArgs> OnTurnBegunLate;
-    public static event EventHandler<OnTurnEventArgs> OnTurnEnding;
+    
+    public static event EventHandler<OnTurnEventArgs> OnEndTurn;
+    public static event EventHandler<OnTurnEventArgs> OnUpdateConstruction;
+    public static event EventHandler<OnTurnEventArgs> OnUpdateServiceEffects;
+    public static event EventHandler<OnTurnEventArgs> OnUpdateAdvisors;
+    public static event EventHandler<OnTurnEventArgs> OnProduceIncome;
+
 
     private void Start()
     {
@@ -35,10 +39,12 @@ public class TurnManager : MonoBehaviour
 
     public void ChangeTurn()
     {
-        OnTurnEnding?.Invoke(this, new OnTurnEventArgs { turn = turn });
+        OnEndTurn?.Invoke(this, new OnTurnEventArgs { turn = turn });
+        OnProduceIncome?.Invoke(this, new OnTurnEventArgs { turn = turn });
+        OnUpdateConstruction?.Invoke(this, new OnTurnEventArgs { turn = turn });
+        OnUpdateServiceEffects?.Invoke(this, new OnTurnEventArgs { turn = turn });
         turn++;
-        OnTurnBegun?.Invoke(this, new OnTurnEventArgs { turn = turn });
-        OnTurnBegunLate?.Invoke(this, new OnTurnEventArgs { turn = turn });
+        OnUpdateAdvisors?.Invoke(this, new OnTurnEventArgs { turn = turn });
 
         seasonPart++;
         if (seasonPart == SeasonPart.END)

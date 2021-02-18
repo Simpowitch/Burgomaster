@@ -11,13 +11,13 @@ public class ServiceBuilding : Building
     protected override void OnEnable()
     {
         base.OnEnable();
-        TurnManager.OnTurnBegunLate += OnNewTurnLate;
+        TurnManager.OnUpdateServiceEffects += UpdateServiceEffect;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        TurnManager.OnTurnBegunLate -= OnNewTurnLate;
+        TurnManager.OnUpdateServiceEffects -= UpdateServiceEffect;
     }
 
     public override void Setup(Player player, Project project, int themeIndex)
@@ -26,7 +26,7 @@ public class ServiceBuilding : Building
         abilityScore = project.abilityScore;
     }
 
-    void OnNewTurnLate(object sender, TurnManager.OnTurnEventArgs e)
+    void UpdateServiceEffect(object sender, TurnManager.OnTurnEventArgs e)
     {
         if (!isFinished)
             return;
