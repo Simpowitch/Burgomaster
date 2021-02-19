@@ -804,15 +804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b645dc408a50d47a9fc1ed9e2a2641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startResources:
-  - resourceType: 0
-    value: 1000
-  - resourceType: 1
-    value: 1000
-  - resourceType: 2
-    value: 1000
-  - resourceType: 3
-    value: 1000
   allProjects:
   - {fileID: 11400000, guid: e3b04175c58b1734c85a454bfb2c92f1, type: 2}
   - {fileID: 11400000, guid: c1ecec57849d30a4c9afd2a5465cfc38, type: 2}
@@ -820,6 +811,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1d6699c09d5e88644bab000af8d9a9cd, type: 2}
   - {fileID: 11400000, guid: 22e1ca168a681e34a8b7e989f56289b1, type: 2}
   - {fileID: 11400000, guid: 1e77ac9a79a755547ab5caa34c617d9a, type: 2}
+  leaderNameText: {fileID: 1640529507}
+  leaderImage: {fileID: 493477020}
+  bannerImage: {fileID: 172132557}
+  abilityScoreUI: {fileID: 2036768157}
   populationText: {fileID: 1524830237}
   resourcePanels:
   - {fileID: 1387685085}
@@ -827,7 +822,6 @@ MonoBehaviour:
   - {fileID: 987834272}
   - {fileID: 1685804283}
   projectOverview: {fileID: 1031548715}
-  abilityScoreUI: {fileID: 2036768157}
   buildingManager: {fileID: 54775923}
 --- !u!114 &54775925
 MonoBehaviour:

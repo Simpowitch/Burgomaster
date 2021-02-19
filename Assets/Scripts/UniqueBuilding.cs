@@ -1,7 +1,7 @@
 
 public class UniqueBuilding : Building
 {
-    Player.AbilityScore abilityScore;
+    AbilityScore abilityScore;
     public int level;
 
     public override void Setup(Player player, Project project, int themeIndex)

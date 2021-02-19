@@ -1,10 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-public enum Race { Elf, Dwarf, Human }
 
-[System.Serializable]
-public class RacePreset
+[CreateAssetMenu(fileName = "New Race Preset", menuName = "ScriptableObject/RacePreset")]
+public class RacePreset : ScriptableObject
 {
     public Race race;
-    public Sprite[] sprites;
-    public int strength = 10, constitution = 10, wisdom = 10, intelligence = 10, diplomacy = 10, charisma = 10;
 }

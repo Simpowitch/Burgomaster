@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "New Project", menuName = "ScriptableObjects/Project")]
+[CreateAssetMenu(fileName = "New Project", menuName = "ScriptableObject/Project")]
 public class Project : ScriptableObject
 {
     public string projectName;
@@ -10,7 +10,7 @@ public class Project : ScriptableObject
     public Resource[] costToBegin;
     public int turnsToComplete;
     public int populationChange;
-    public Player.AbilityScore abilityScore = Player.AbilityScore.UNUSED;
+    public AbilityScore abilityScore = AbilityScore.UNUSED;
     public Resource[] income = null, upkeep = null;
     public Sprite sprite;
     public ConstructionPlacer blueprint = null;
@@ -25,12 +25,12 @@ public class Project : ScriptableObject
     [System.Serializable]
     public class ServiceBuildingRequirement : Requirement
     {
-        public Player.AbilityScore type = Player.AbilityScore.UNUSED;
+        public AbilityScore type = AbilityScore.UNUSED;
         public int value;
 
         public override bool RequirementFullfilled(Player player)
         {
-            if (type == Player.AbilityScore.UNUSED)
+            if (type == AbilityScore.UNUSED)
                 return true;
             return value <= player.GetServices(type).Count;
         }

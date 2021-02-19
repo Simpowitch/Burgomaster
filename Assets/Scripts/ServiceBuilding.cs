@@ -5,7 +5,7 @@ public class ServiceBuilding : Building
     [SerializeField] float effectRadius = 3f;
     public const float FACTORINCREASE = 0.1f;
 
-    Player.AbilityScore abilityScore;
+    AbilityScore abilityScore;
 
 
     protected override void OnEnable()

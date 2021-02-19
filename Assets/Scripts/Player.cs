@@ -1,24 +1,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public Resource[] startResources;
-    
-    int population;
-    Resource[] resources;
-    Resource[] incomes;
-    Resource[] expenses;
 
     [SerializeField] List<Project> allProjects = new List<Project>();
     List<Project> availableProjects = new List<Project>();
 
+    [SerializeField] TextMeshProUGUI leaderNameText = null;
+    [SerializeField] Image leaderImage = null;
+    [SerializeField] Image bannerImage = null;
+    [SerializeField] AbilityScoreBlockUI abilityScoreUI = null;
+
     [SerializeField] TextMeshProUGUI populationText = null;
     [SerializeField] ResourcePanelUI[] resourcePanels = null;
+
     [SerializeField] ProjectOverviewUI projectOverview = null;
-    [SerializeField] AbilityScoreUI abilityScoreUI = null;
+
     [SerializeField] BuildingManager buildingManager = null;
+
+    int[] abilityScores = new int[6];
+    int population;
+    Resource[] resources;
+    Resource[] incomes;
+    Resource[] expenses;
 
     List<ServiceBuilding>
         authoritarianServices = new List<ServiceBuilding>(),
@@ -27,18 +34,6 @@ public class Player : MonoBehaviour
         liberalServices = new List<ServiceBuilding>(),
         natureServices = new List<ServiceBuilding>(),
         religiousServices = new List<ServiceBuilding>();
-
-    public enum AbilityScore
-    {
-        Authoritarian,
-        Cunning,
-        Diplomatic,
-        Liberal,
-        Nature,
-        Religious,
-        UNUSED,
-    }
-    int[] abilityScores = new int[6];
 
 
     private void OnEnable()
@@ -51,33 +46,69 @@ public class Player : MonoBehaviour
         TurnManager.OnProduceIncome -= SimulateEconomy;
     }
 
+
     private void Start()
     {
-        resources = new Resource[(int)ResourceType.MAX];
-        for (int i = 0; i < resources.Length; i++)
-        {
-            Resource startResource = Resource.GetResourceByType(startResources, (ResourceType)i);
-            int startValue = startResource != null ? startResource.value : 0;
-            resources[i] = new Resource((ResourceType)i, startValue);
-        }
-
-        incomes = new Resource[(int)ResourceType.MAX];
-        for (int i = 0; i < incomes.Length; i++)
-        {
-            incomes[i] = new Resource((ResourceType)i);
-        }
-
-        expenses = new Resource[(int)ResourceType.MAX];
-        for (int i = 0; i < expenses.Length; i++)
-        {
-            expenses[i] = new Resource((ResourceType)i);
-        }
+        LoadSave(ActiveSessionHolder.ActiveSession);
 
         UpdateEconomyUI();
         UpdateAbilityScoreUI();
         populationText.text = population.ToString();
 
         UpdateAvailableProjects();
+    }
+
+    void LoadSave(SaveData data)
+    {
+        //Setup resources
+        resources = new Resource[(int)ResourceType.MAX];
+        for (int i = 0; i < resources.Length; i++)
+        {
+            ResourceType type = (ResourceType)i;
+            switch (type)
+            {
+                case ResourceType.Gold:
+                    resources[i] = new Resource(type, data.CityData.gold, false);
+                    break;
+                case ResourceType.Wood:
+                    resources[i] = new Resource(type, data.CityData.wood, false);
+                    break;
+                case ResourceType.Food:
+                    resources[i] = new Resource(type, data.CityData.food, false);
+                    break;
+                case ResourceType.Iron:
+                    resources[i] = new Resource(type, data.CityData.iron, false);
+                    break;
+                case ResourceType.MAX:
+                    break;
+            }
+        }
+
+        //TODO: Check incomes and expenses in saved data
+        Debug.LogWarning("Loading income and expenses not implemented");
+
+        incomes = new Resource[(int)ResourceType.MAX];
+        for (int i = 0; i < incomes.Length; i++)
+        {
+            incomes[i] = new Resource((ResourceType)i);
+        }
+        expenses = new Resource[(int)ResourceType.MAX];
+        for (int i = 0; i < expenses.Length; i++)
+        {
+            expenses[i] = new Resource((ResourceType)i);
+        }
+
+        //TODO: Load buildings etc
+        Debug.LogWarning("Loading buildings not implemented");
+        Debug.LogWarning("Loading advisors not implemented");
+
+        //Display Load Leader
+        leaderNameText.text = data.LeaderData.leaderName;
+        leaderImage.sprite = LeaderDatabase.GetPortraitByRace(data.LeaderData.raceIndex, data.LeaderData.portraitIndex);
+        bannerImage.sprite = LeaderDatabase.Banners[data.LeaderData.bannerIndex];
+
+        //Display stats
+        abilityScores = data.LeaderData.abilityScores;
     }
 
     public void SelectProject(Project project) => buildingManager.SetCurrentProject(project);
