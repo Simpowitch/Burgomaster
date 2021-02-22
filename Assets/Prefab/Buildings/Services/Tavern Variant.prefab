@@ -79,6 +79,38 @@ PrefabInstance:
       propertyPath: constructionSlots.Array.data[1]
       value: 
       objectReference: {fileID: 7992905211957819698}
+    - target: {fileID: 6200426980556630994, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
+      propertyPath: OnCompletionInspector.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200426980556630994, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
+      propertyPath: OnCompletionInspector.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200426980556630994, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
+      propertyPath: OnCompletionInspector.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200426980556630994, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
+      propertyPath: OnCompletionInspector.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200426980556630994, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
+      propertyPath: OnCompletionInspector.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200426980556630994, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
+      propertyPath: OnCompletionInspector.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200426980556630994, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
+      propertyPath: OnCompletionInspector.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200426980556630994, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
+      propertyPath: OnCompletionInspector.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6437546820424113564, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
       propertyPath: m_Enabled
       value: 0

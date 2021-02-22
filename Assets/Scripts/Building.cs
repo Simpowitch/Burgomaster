@@ -1,9 +1,11 @@
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 public class Building : MonoBehaviour
 {
     protected Action OnCompletion;
+    public UnityEvent OnCompletionInspector;
 
     [SerializeField] SpriteRenderer spriteRenderer = null;
     [SerializeField] Material constructed = null;
@@ -91,6 +93,7 @@ public class Building : MonoBehaviour
     {
         TurnManager.OnUpdateConstruction -= UpdateConstruction;
         OnCompletion?.Invoke();
+        OnCompletionInspector?.Invoke();
 
         isFinished = true;
         spriteRenderer.material = constructed;
