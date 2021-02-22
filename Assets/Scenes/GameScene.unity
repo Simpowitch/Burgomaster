@@ -733,6 +733,7 @@ GameObject:
   - component: {fileID: 54775923}
   - component: {fileID: 54775924}
   - component: {fileID: 54775925}
+  - component: {fileID: 54775926}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -853,6 +854,31 @@ MonoBehaviour:
   - {fileID: 741169089}
   - {fileID: 2120600116}
   - {fileID: 553259640}
+--- !u!114 &54775926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54775920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fdc4b026a071e4f81be33920599e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  banners:
+  - {fileID: 21300000, guid: b8c993505524ce747ae42c2684c0c0af, type: 3}
+  - {fileID: 21300000, guid: b23b72d9d6196d844a7a82c528da7d20, type: 3}
+  - {fileID: 21300000, guid: cf8c168ae0e4ae742b26ab85b2406f89, type: 3}
+  - {fileID: 21300000, guid: e77804c58b39a884aa81978686521a4b, type: 3}
+  - {fileID: 21300000, guid: 951dfc88e3c2fcd429ae4837779752e6, type: 3}
+  - {fileID: 21300000, guid: 24b92858a1ff4eb478c6cc102fec949e, type: 3}
+  - {fileID: 21300000, guid: 735a9e3efed526c4ea633d3f75235853, type: 3}
+  - {fileID: 21300000, guid: ba385d18e9061d9469e64fa780733d65, type: 3}
+  racePresets:
+  - {fileID: 11400000, guid: 936654d4a160ecd45b22748158fdd276, type: 2}
+  - {fileID: 11400000, guid: cf5c75a630dbfea48b8939eb5f71d35b, type: 2}
+  - {fileID: 11400000, guid: 5856fd6786058e74ebd130782d063fcd, type: 2}
 --- !u!1 &75812201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,7 +1502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 33fd9ff7c11138543b98089726d95855, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1484,7 +1510,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ba385d18e9061d9469e64fa780733d65, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

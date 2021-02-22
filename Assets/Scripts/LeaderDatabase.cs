@@ -14,7 +14,10 @@ public class LeaderDatabase : MonoBehaviour
     private void Awake()
     {
         if (initialized)
+        {
+            Destroy(this);
             return;
+        }
 
         Banners = banners;
         Portraits = new Sprite[racePresets.Length][];

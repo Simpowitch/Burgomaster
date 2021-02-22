@@ -60,6 +60,12 @@ public class Player : MonoBehaviour
 
     void LoadSave(SaveData data)
     {
+        if (data == null)
+        {
+            Debug.Log("Creating default data");
+            data = new SaveData(new LeaderData("Debug", new AbilityScoreBlock(), 0, 0, 0, 0), new CityData(100, 100, 100, 100));
+        }
+
         //Setup resources
         resources = new Resource[(int)ResourceType.MAX];
         for (int i = 0; i < resources.Length; i++)
