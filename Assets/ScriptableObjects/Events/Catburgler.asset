@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcafb434df1a3a64689ebf4d2f39afe0, type: 3}
+  m_Name: Catburgler
+  m_EditorClassIdentifier: 
+  scourge:
+    title: Catburgler
+    description: 'A catburgler has been spotted in the slums of the South Ward. Cindy,
+      a human girl reported burgler spoke the words "I am not afraid of the claw-enforcement"
+      before running into the alley with a stolen fish in it''s mouth.
+
+
+      While
+      a single thief might not be a large issue we may need to apply some countermeasures
+      to these reports of increased criminality to make sure the vermin does not
+      spread. '
+    activeResourceDrain:
+    - resourceType: 2
+      value: 5
+    options:
+    - optionText: We shall bring these foul feline faulters to justice! - Increase
+        guard presence
+      cost:
+      - resourceType: 0
+        value: 100
+      checkType: 0
+      challengeRating: 10
+    - optionText: If it's fish they want... - Bribe them
+      cost:
+      - resourceType: 2
+        value: 50
+      checkType: 2
+      challengeRating: 15
+    onCooldown: 0
+    eventSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}

@@ -26,11 +26,21 @@ public class TurnManager : MonoBehaviour
 
     
     public static event EventHandler<OnTurnEventArgs> OnEndTurn;
+    public static event EventHandler<OnTurnEventArgs> OnStartNewTurn;
     public static event EventHandler<OnTurnEventArgs> OnUpdateConstruction;
     public static event EventHandler<OnTurnEventArgs> OnUpdateServiceEffects;
     public static event EventHandler<OnTurnEventArgs> OnUpdateAdvisors;
     public static event EventHandler<OnTurnEventArgs> OnProduceIncome;
 
+    private void Awake()
+    {
+        OnEndTurn = null;
+        OnProduceIncome = null;
+        OnUpdateConstruction = null;
+        OnUpdateServiceEffects = null;
+        OnUpdateAdvisors = null;
+        OnStartNewTurn = null;
+    }
 
     private void Start()
     {
@@ -43,8 +53,9 @@ public class TurnManager : MonoBehaviour
         OnProduceIncome?.Invoke(this, new OnTurnEventArgs { turn = turn });
         OnUpdateConstruction?.Invoke(this, new OnTurnEventArgs { turn = turn });
         OnUpdateServiceEffects?.Invoke(this, new OnTurnEventArgs { turn = turn });
-        turn++;
         OnUpdateAdvisors?.Invoke(this, new OnTurnEventArgs { turn = turn });
+        turn++;
+        OnStartNewTurn?.Invoke(this, new OnTurnEventArgs { turn = turn });
 
         seasonPart++;
         if (seasonPart == SeasonPart.END)
