@@ -10,6 +10,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] ScourgePreset[] allScourges = null;
 
     [SerializeField] Player player = null;
+    [SerializeField] ChallengeResolvementSystem resolvementSystem = null;
 
     [Header("Settings")]
     [SerializeField] int maxScourges = 2;
@@ -24,8 +25,8 @@ public class EventManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI eventTitle = null, eventDescription = null;
     [SerializeField] EventChoiceUI[] eventChoicePanels = null;
 
-
     List<Scourge> activeScourges = new List<Scourge>();
+    Scourge selectedScourge;
 
     private void OnEnable()
     {
@@ -39,30 +40,46 @@ public class EventManager : MonoBehaviour
 
     private void NewTurn(object sender, TurnManager.OnTurnEventArgs e)
     {
-        //Limit to the max number of scourges
-        if (activeScourges.Count < maxScourges)
-        {
-            if (Utility.RandomizeBool(scourgeChance))
-            {
-                ScourgePreset preset = Utility.ReturnRandom(allScourges);
-                Scourge newScourge = new Scourge(preset.scourge);
-                activeScourges.Add(newScourge);
-            }
-        }
-
         foreach (var scourge in activeScourges)
         {
             player.RemoveResources(scourge.activeResourceDrain);
             scourge.onCooldown = false;
         }
 
+        //Limit to the max number of scourges
+        if (activeScourges.Count < maxScourges)
+        {
+            if (Utility.RandomizeBool(scourgeChance))
+            {
+                AddNewScourge();
+            }
+        }
+
         UpdateUI();
     }
 
-    Scourge selectedScourge;
-    public void ShowScourge(int index)
+    private void AddNewScourge()
     {
-        selectedScourge = activeScourges[index];
+        Debug.Log("Adding new scourge");
+        ScourgePreset preset = Utility.ReturnRandom(allScourges);
+        Scourge newScourge = new Scourge(preset.scourge);
+        activeScourges.Add(newScourge);
+        player.ChangeTurnExpenses(newScourge.activeResourceDrain, true);
+        UpdateUI();
+    }
+
+    private void RemoveScourge(Scourge scourge)
+    {
+        activeScourges.Remove(scourge);
+        player.ChangeTurnExpenses(scourge.activeResourceDrain, false);
+        UpdateUI();
+    }
+
+    public void ShowScourge(int index) => ShowScourge(activeScourges[index]);
+
+    private void ShowScourge(Scourge scourge)
+    {
+        selectedScourge = scourge;
 
         //Display event
         mainPanel.SetActive(true);
@@ -89,9 +106,30 @@ public class EventManager : MonoBehaviour
     public void EventChoice(int choiceIndex)
     {
         selectedScourge.onCooldown = true;
+        ShowScourge(selectedScourge);
 
-        //TODO: Resolve selected Scourge/Event
-        //PAY For choice etc.
+        Scourge.Option choice = selectedScourge.options[choiceIndex];
+
+        //Pay For choice
+        player.RemoveResources(choice.cost);
+
+        //Resolve selected Scourge/Event
+        resolvementSystem.SetupChallenge(choice.challengeRating, player.GetAbilityScore(choice.checkType));
+
+        resolvementSystem.OnSucess += () =>
+        {
+            RemoveScourge(selectedScourge);
+            selectedScourge = null;
+            //TODO: Show sucess message on event
+            Debug.Log("Sucess");
+        };
+        resolvementSystem.OnFail += () =>
+        {
+            //TODO: Show fail message on event
+            Debug.Log("Fail");
+        };
+
+        UpdateUI();
     }
 
     private void UpdateUI()

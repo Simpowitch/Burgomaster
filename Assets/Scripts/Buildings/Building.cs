@@ -104,8 +104,8 @@ public class Building : MonoBehaviour
             slot.gameObject.SetActive(false);
         }
 
-        player.IncreaseTurnIncome(income);
-        player.IncreaseTurnExpenses(upkeep);
+        player.ChangeTurnIncomes(income, true);
+        player.ChangeTurnExpenses(upkeep, true);
     }
 
     public void ChangeTheme(bool next)

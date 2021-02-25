@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] BuildingManager buildingManager = null;
 
-    int[] abilityScores = new int[6];
+    public int[] AbilityScores { get; private set; } = new int[6];
     int population;
     Resource[] resources;
     Resource[] incomes;
@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
         bannerImage.sprite = LeaderDatabase.Banners[data.LeaderData.bannerIndex];
 
         //Display stats
-        abilityScores = data.LeaderData.abilityScores;
+        AbilityScores = data.LeaderData.abilityScores;
     }
 
     public void SelectProject(Project project) => buildingManager.SetCurrentProject(project);
@@ -166,23 +166,30 @@ public class Player : MonoBehaviour
         UpdateEconomyUI();
     }
 
-    public void IncreaseTurnIncome(Resource[] allNewIncomes)
+    public void ChangeTurnIncomes(Resource[] affectedIncomes, bool increase)
     {
-        foreach (var newIncome in allNewIncomes)
+        foreach (var income in affectedIncomes)
         {
-            incomes[(int)newIncome.resourceType].AddValue(newIncome.value);
+            if (increase)
+                incomes[(int)income.resourceType].AddValue(income.value);
+            else
+                incomes[(int)income.resourceType].RemoveValue(income.value);
         }
         UpdateEconomyUI();
     }
 
-    public void IncreaseTurnExpenses(Resource[] allNewExpenses)
+    public void ChangeTurnExpenses(Resource[] affectedIncomes, bool increase)
     {
-        foreach (var newExpense in allNewExpenses)
+        foreach (var expense in affectedIncomes)
         {
-            expenses[(int)newExpense.resourceType].AddValue(newExpense.value);
+            if (increase)
+                this.expenses[(int)expense.resourceType].AddValue(expense.value);
+            else
+                this.expenses[(int)expense.resourceType].RemoveValue(expense.value);
         }
         UpdateEconomyUI();
     }
+
     #endregion
 
     public void IncreasePopulation(int increase)
@@ -249,11 +256,13 @@ public class Player : MonoBehaviour
 
     public void ChangeAbilityScore(AbilityScore abilityScore, int change = 1)
     {
-        abilityScores[(int)abilityScore] += change;
+        AbilityScores[(int)abilityScore] += change;
         UpdateAbilityScoreUI();
     }
 
-    private void UpdateAbilityScoreUI() => abilityScoreUI.UpdateUI(abilityScores);
+    public int GetAbilityScore(AbilityScore abilityScore) => AbilityScores[(int)abilityScore];
+
+    private void UpdateAbilityScoreUI() => abilityScoreUI.UpdateUI(AbilityScores);
 
     private void UpdateAvailableProjects()
     {

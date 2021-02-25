@@ -32,15 +32,15 @@ public class TurnManager : MonoBehaviour
     public static event EventHandler<OnTurnEventArgs> OnUpdateAdvisors;
     public static event EventHandler<OnTurnEventArgs> OnProduceIncome;
 
-    private void Awake()
-    {
-        OnEndTurn = null;
-        OnProduceIncome = null;
-        OnUpdateConstruction = null;
-        OnUpdateServiceEffects = null;
-        OnUpdateAdvisors = null;
-        OnStartNewTurn = null;
-    }
+    //private void Awake()
+    //{
+    //    OnEndTurn = null;
+    //    OnProduceIncome = null;
+    //    OnUpdateConstruction = null;
+    //    OnUpdateServiceEffects = null;
+    //    OnUpdateAdvisors = null;
+    //    OnStartNewTurn = null;
+    //}
 
     private void Start()
     {

@@ -33,7 +33,7 @@ public class Residence : Building
                 int valueChange = Mathf.RoundToInt(income[i].value * ServiceBuilding.FACTORINCREASE);
                 incomeChange[i] = new Resource(income[i].resourceType, valueChange);
             }
-            player.IncreaseTurnIncome(incomeChange);
+            player.ChangeTurnIncomes(incomeChange, true);
         }
     }
 }
