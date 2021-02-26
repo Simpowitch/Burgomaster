@@ -7,7 +7,7 @@ using TMPro;
 public class SessionCreator : MonoBehaviour
 {
     public TextMeshProUGUI raceText;
-    public TextMeshProUGUI goldText;
+    public TextMeshProUGUI goldText, ironText, woodText, foodText;
     public Image characterVisualsRenderer;
     public AbilityScoreBlockUI abilityScoreBlockUI;
     public Image bannerVisualsRenderer;
@@ -20,8 +20,6 @@ public class SessionCreator : MonoBehaviour
 
     Race ChosenRace => racePresets[raceIndex].race;
     Background ChosenBackground => backgroundPresets[backgroundIndex].background;
-
-    int startGold;
 
     string leaderName;
     AbilityScoreBlock abilityScoreBlock;
@@ -71,9 +69,10 @@ public class SessionCreator : MonoBehaviour
         backgroundNameText.text = background.backgroundTitle;
         backgroundDescriptionText.text = background.backgroundDescription;
 
-        startGold = background.startCity.gold;
-
-        goldText.text = startGold.ToString();
+        goldText.text = background.startCity.gold.ToString();
+        ironText.text = background.startCity.iron.ToString();
+        foodText.text = background.startCity.food.ToString();
+        woodText.text = background.startCity.wood.ToString();
 
         SetAbilityScores(ChosenRace, background);
     }
@@ -99,12 +98,12 @@ public class SessionCreator : MonoBehaviour
     {
         abilityScoreBlock = new AbilityScoreBlock()
         {
-            authoritarian = racePreset.abilityScores.authoritarian + backgroundPreset.scoreImprovements.authoritarian,
+            authority = racePreset.abilityScores.authority + backgroundPreset.scoreImprovements.authority,
             cunning = racePreset.abilityScores.cunning + backgroundPreset.scoreImprovements.cunning,
-            diplomatic = racePreset.abilityScores.diplomatic + backgroundPreset.scoreImprovements.diplomatic,
-            liberal = racePreset.abilityScores.liberal + backgroundPreset.scoreImprovements.liberal,
+            diplomacy = racePreset.abilityScores.diplomacy + backgroundPreset.scoreImprovements.diplomacy,
+            knowledge = racePreset.abilityScores.knowledge + backgroundPreset.scoreImprovements.knowledge,
             nature = racePreset.abilityScores.nature + backgroundPreset.scoreImprovements.nature,
-            religious = racePreset.abilityScores.religious + backgroundPreset.scoreImprovements.religious,
+            piety = racePreset.abilityScores.piety + backgroundPreset.scoreImprovements.piety,
         };
 
         //Display abilityscores

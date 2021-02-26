@@ -17,12 +17,12 @@ MonoBehaviour:
     backgroundDescription: Former noble, highborn, pretentious, on a quest to build
       something new for the family
     scoreImprovements:
-      authoritarian: 0
+      authority: 0
       cunning: 0
-      diplomatic: 1
-      liberal: 0
+      diplomacy: 1
+      knowledge: 1
       nature: 0
-      religious: 0
+      piety: 0
     startCity:
       gold: 2000
       wood: 100

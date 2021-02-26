@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI leaderNameText = null;
     [SerializeField] Image leaderImage = null;
-    [SerializeField] Image bannerImage = null;
+    [SerializeField] Image bannerImage = null, diceRollBanner = null;
     [SerializeField] AbilityScoreBlockUI abilityScoreUI = null;
 
     [SerializeField] TextMeshProUGUI populationText = null;
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
         if (data == null)
         {
             Debug.Log("Creating default data");
-            data = new SaveData(new LeaderData("Debug", new AbilityScoreBlock(), 0, 0, 0, 0), new CityData(100, 100, 100, 100));
+            data = new SaveData(new LeaderData("Debug", new AbilityScoreBlock { authority = 5, cunning = 4, diplomacy = 3, knowledge = 2, nature = 1, piety = 0 }, 0, 0, 0, 0), new CityData(1000, 1000, 1000, 1000));
         }
 
         //Setup resources
@@ -112,6 +112,7 @@ public class Player : MonoBehaviour
         leaderNameText.text = data.LeaderData.leaderName;
         leaderImage.sprite = LeaderDatabase.GetPortraitByRace(data.LeaderData.raceIndex, data.LeaderData.portraitIndex);
         bannerImage.sprite = LeaderDatabase.Banners[data.LeaderData.bannerIndex];
+        diceRollBanner.sprite = LeaderDatabase.Banners[data.LeaderData.bannerIndex];
 
         //Display stats
         AbilityScores = data.LeaderData.abilityScores;
@@ -210,22 +211,22 @@ public class Player : MonoBehaviour
             case AbilityScore.UNUSED:
                 Debug.LogError("Service building is missing tag");
                 break;
-            case AbilityScore.Authoritarian:
+            case AbilityScore.Authority:
                 authoritarianServices.Add(serviceBuilding);
                 break;
             case AbilityScore.Cunning:
                 cunningServices.Add(serviceBuilding);
                 break;
-            case AbilityScore.Diplomatic:
+            case AbilityScore.Diplomacy:
                 diplomaticServices.Add(serviceBuilding);
                 break;
-            case AbilityScore.Liberal:
+            case AbilityScore.Knowledge:
                 liberalServices.Add(serviceBuilding);
                 break;
             case AbilityScore.Nature:
                 natureServices.Add(serviceBuilding);
                 break;
-            case AbilityScore.Religious:
+            case AbilityScore.Piety:
                 religiousServices.Add(serviceBuilding);
                 break;
         }
@@ -239,17 +240,17 @@ public class Player : MonoBehaviour
             case AbilityScore.UNUSED:
             default:
                 return null;
-            case AbilityScore.Authoritarian:
+            case AbilityScore.Authority:
                 return authoritarianServices;
             case AbilityScore.Cunning:
                 return cunningServices;
-            case AbilityScore.Diplomatic:
+            case AbilityScore.Diplomacy:
                 return diplomaticServices;
-            case AbilityScore.Liberal:
+            case AbilityScore.Knowledge:
                 return liberalServices;
             case AbilityScore.Nature:
                 return natureServices;
-            case AbilityScore.Religious:
+            case AbilityScore.Piety:
                 return religiousServices;
         }
     }

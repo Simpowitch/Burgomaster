@@ -114,7 +114,7 @@ public class EventManager : MonoBehaviour
         player.RemoveResources(choice.cost);
 
         //Resolve selected Scourge/Event
-        resolvementSystem.SetupChallenge(choice.challengeRating, player.GetAbilityScore(choice.checkType));
+        resolvementSystem.SetupChallenge(choice.challengeRating, player.GetAbilityScore(choice.checkType), choice.checkType);
 
         resolvementSystem.OnSucess += () =>
         {

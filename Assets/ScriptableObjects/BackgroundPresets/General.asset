@@ -17,14 +17,14 @@ MonoBehaviour:
     backgroundDescription: Former general in the empire army, sent to this location
       to make a new outpost
     scoreImprovements:
-      authoritarian: 2
-      cunning: 0
-      diplomatic: 0
-      liberal: 0
+      authority: 1
+      cunning: 1
+      diplomacy: 0
+      knowledge: 0
       nature: 0
-      religious: 0
+      piety: 0
     startCity:
       gold: 500
-      wood: 100
-      food: 100
-      iron: 100
+      wood: 200
+      food: 200
+      iron: 200

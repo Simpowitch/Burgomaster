@@ -1,11 +1,11 @@
 public enum AbilityScore
 {
-    Authoritarian,
+    Authority,
     Cunning,
-    Diplomatic,
-    Liberal,
+    Diplomacy,
+    Knowledge,
     Nature,
-    Religious,
+    Piety,
     UNUSED,
 }
 
@@ -14,29 +14,29 @@ public class AbilityScoreBlock
 {
     public static readonly int ABILITYSCORES = 6;
 
-    public int authoritarian,
+    public int authority,
     cunning,
-    diplomatic,
-    liberal,
+    diplomacy,
+    knowledge,
     nature,
-    religious;
+    piety;
 
     public int GetAbilityScore(AbilityScore abilityScore)
     {
         switch (abilityScore)
         {
-            case AbilityScore.Authoritarian:
-                return authoritarian;
+            case AbilityScore.Authority:
+                return authority;
             case AbilityScore.Cunning:
                 return cunning;
-            case AbilityScore.Diplomatic:
-                return diplomatic;
-            case AbilityScore.Liberal:
-                return liberal;
+            case AbilityScore.Diplomacy:
+                return diplomacy;
+            case AbilityScore.Knowledge:
+                return knowledge;
             case AbilityScore.Nature:
                 return nature;
-            case AbilityScore.Religious:
-                return religious;
+            case AbilityScore.Piety:
+                return piety;
             case AbilityScore.UNUSED:
             default:
                 throw new System.Exception("Wrong enum-type of abilityscore");

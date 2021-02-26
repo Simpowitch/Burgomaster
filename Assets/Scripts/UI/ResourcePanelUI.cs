@@ -21,7 +21,7 @@ public class ResourcePanelUI : MonoBehaviour
 
         netIncomeText.enabled = true;
         int difference = income - expense;
-        string differenceText = difference > 0 ? "+ " : "";
+        string differenceText = difference >= 0 ? "+ " : "";
         netIncomeText.text = differenceText + difference.ToString();
     }
 

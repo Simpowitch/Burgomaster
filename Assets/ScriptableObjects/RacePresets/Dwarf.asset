@@ -19,9 +19,9 @@ MonoBehaviour:
     - {fileID: 21300000, guid: a03a4c57f70854e4195e9c9ec8e7e702, type: 3}
     - {fileID: 21300000, guid: 02ccb462675193e42a427079169ffc70, type: 3}
     abilityScores:
-      authoritarian: 1
-      cunning: 1
-      diplomatic: 1
-      liberal: 2
+      authority: 1
+      cunning: 2
+      diplomacy: 1
+      knowledge: 1
       nature: 1
-      religious: 2
+      piety: 2
