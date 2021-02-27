@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class ChallengeResolvementSystem : MonoBehaviour
 {
@@ -21,8 +22,8 @@ public class ChallengeResolvementSystem : MonoBehaviour
     int challengeRating;
     int statModifier;
 
-    public Action OnSucess, OnFail;
-
+    public Action OnSucessConfirmed, OnFailConfirmed;
+    public UnityEvent OnSucessRolled, OnFailRolled;
 
     private void Start()
     {
@@ -37,6 +38,10 @@ public class ChallengeResolvementSystem : MonoBehaviour
 
     public void SetupChallenge(int challengeRating, int statModifier, AbilityScore abilityScore)
     {
+        //Reset old actions
+        OnSucessConfirmed = null;
+        OnFailConfirmed = null;
+
         ChangeState(State.Setup);
 
         challengeResolvementMainPanel.SetActive(true);
@@ -84,7 +89,12 @@ public class ChallengeResolvementSystem : MonoBehaviour
                 cancelButton.gameObject.SetActive(true);
 
                 rollButton.gameObject.SetActive(false);
-                break;
+
+                if (ResultTotal >= challengeRating)
+                    OnSucessRolled?.Invoke();
+                else
+                    OnFailRolled?.Invoke();
+                    break;
         }
     }
 
@@ -99,12 +109,12 @@ public class ChallengeResolvementSystem : MonoBehaviour
         if (ResultTotal >= challengeRating)
         {
             Debug.Log("Success");
-            OnSucess?.Invoke();
+            OnSucessConfirmed?.Invoke();
         }
         else
         {
             Debug.Log("Fail");
-            OnFail?.Invoke();
+            OnFailConfirmed?.Invoke();
         }
     }
 }

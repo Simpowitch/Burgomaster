@@ -24,6 +24,9 @@ public class EventManager : MonoBehaviour
     [SerializeField] Image eventImage = null;
     [SerializeField] TextMeshProUGUI eventTitle = null, eventDescription = null;
     [SerializeField] EventChoiceUI[] eventChoicePanels = null;
+    [SerializeField] TextMeshProUGUI cancelButtonText = null;
+
+    [SerializeField] string preChoiceCancel = "I'll attend this matter another time", postChoiceCancel = "Done";
 
     List<Scourge> activeScourges = new List<Scourge>();
     Scourge selectedScourge;
@@ -101,6 +104,9 @@ public class EventManager : MonoBehaviour
             else
                 eventChoicePanels[i].Show(false);
         }
+
+        //Change default cancel-button text
+        cancelButtonText.text = preChoiceCancel;
     }
 
     public void EventChoice(int choiceIndex)
@@ -116,17 +122,23 @@ public class EventManager : MonoBehaviour
         //Resolve selected Scourge/Event
         resolvementSystem.SetupChallenge(choice.challengeRating, player.GetAbilityScore(choice.checkType), choice.checkType);
 
-        resolvementSystem.OnSucess += () =>
+        resolvementSystem.OnSucessConfirmed += () =>
         {
+            //Show sucess message on event
+            eventDescription.text = choice.sucessDescription;
             RemoveScourge(selectedScourge);
             selectedScourge = null;
-            //TODO: Show sucess message on event
-            Debug.Log("Sucess");
+
+            //Change default cancel-button text
+            cancelButtonText.text = postChoiceCancel;
         };
-        resolvementSystem.OnFail += () =>
+        resolvementSystem.OnFailConfirmed += () =>
         {
-            //TODO: Show fail message on event
-            Debug.Log("Fail");
+            //Show fail message on event
+            eventDescription.text = choice.failDescription;
+
+            //Change default cancel-button text
+            cancelButtonText.text = postChoiceCancel;
         };
 
         UpdateUI();

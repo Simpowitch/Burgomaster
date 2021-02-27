@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 [System.Serializable]
 public class Scourge
@@ -30,5 +29,7 @@ public class Scourge
         public Resource[] cost;
         public AbilityScore checkType;
         public int challengeRating = 10;
+        public string sucessDescription;
+        public string failDescription;
     }
 }

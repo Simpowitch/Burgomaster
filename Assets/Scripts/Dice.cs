@@ -15,8 +15,10 @@ public class Dice : MonoBehaviour
     [SerializeField] Image rend;
 
     [SerializeField] int minIterations = 10, maxIterations = 40;
-    [SerializeField] float timeBetweenIterations = 0.05f;
+    [SerializeField] AnimationCurve diceSpeedInverted = null;
+    [SerializeField] float speedModififer = 2f;
 
+    [SerializeField] Transform rotationObject = null;
 
     // Coroutine that rolls the dice
     public IEnumerator RollTheDice()
@@ -29,6 +31,8 @@ public class Dice : MonoBehaviour
         // before final side appears.
         int iterations = UnityEngine.Random.Range(minIterations, maxIterations + 1);
 
+        float factor = 0f;
+
         for (int i = 0; i < iterations; i++)
         {
             // Pick up random value from 0 to 5 (All inclusive)
@@ -40,8 +44,13 @@ public class Dice : MonoBehaviour
             DiceResult = randomDiceSide + 1;
             OnDiceResultChanged?.Invoke();
 
+            factor = i * 1f / iterations;
+            float timeToNextIteration = diceSpeedInverted.Evaluate(factor) / speedModififer;
+
+            rotationObject.eulerAngles = new Vector3(0, 0, factor * 360f);
+
             // Pause before next itteration
-            yield return new WaitForSeconds(timeBetweenIterations);
+            yield return new WaitForSeconds(timeToNextIteration);
         }
 
         // Assigning final side so you can use this value later in your game
