@@ -7,6 +7,7 @@ public class ProjectConstructionSlot : MonoBehaviour, IPointerClickHandler
 {
     public Image portrait;
     public TextMeshProUGUI queueText;
+    public Sprite defaultPortrait;
 
     public bool IsFilledAndActive => AssignedAdvisor != null && activelyWorkedOn;
 
@@ -17,14 +18,10 @@ public class ProjectConstructionSlot : MonoBehaviour, IPointerClickHandler
         set
         {
             advisor = value;
-            if (value != null)
+            portrait.sprite = value != null ? value.portrait : defaultPortrait;
+            if (value == null)
             {
-                portrait.sprite = value.portrait;
-                portrait.enabled = true;
-            }
-            else
-            {
-                portrait.enabled = false;
+                portrait.color = new Color(1f, 1f, 1f, 1f);
                 queueText.text = "";
             }
         }
@@ -36,7 +33,7 @@ public class ProjectConstructionSlot : MonoBehaviour, IPointerClickHandler
         set
         {
             activelyWorkedOn = value;
-            float alphaTranspherency = value ? 1 : 0.25f;
+            float alphaTranspherency = value ? 1 : 0.5f;
             portrait.color = new Color(1f, 1f, 1f, alphaTranspherency);
         }
     }

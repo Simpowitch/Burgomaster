@@ -12,13 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e52eebe88268b348a70a4af00060387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnCompletionInspector:
+    m_PersistentCalls:
+      m_Calls: []
   spriteRenderer: {fileID: 621403121236588750}
   constructed: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  constructionSlots:
+  - {fileID: 5076458189440853922}
+  - {fileID: 2058029955897264541}
   canvasTransform: {fileID: 6574807111034637824}
   progressBar: {fileID: 1179407265222662342}
   constructionPlacer: {fileID: 266023402303985826}
   rb: {fileID: 6425287316973782367}
   themes: []
+  effectRadius: 3
 --- !u!1001 &7753561343377590089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129,5 +136,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e7e0b762770eca4abf5feb792179598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5076458189440853922 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3308207448355397867, guid: 56c0791e2e3fe8c49ae608be1d9bd705, type: 3}
+  m_PrefabInstance: {fileID: 7753561343377590089}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae994d6454626f449b0316c09c448065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2058029955897264541 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8580968768218746580, guid: 56c0791e2e3fe8c49ae608be1d9bd705, type: 3}
+  m_PrefabInstance: {fileID: 7753561343377590089}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae994d6454626f449b0316c09c448065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
