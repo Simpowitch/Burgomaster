@@ -58,7 +58,7 @@ public class PathEditor : Editor
         Input();
         Draw();
 
-        if (creator.audoUpdate && Event.current.type == EventType.Repaint)
+        if (creator.autoUpdate && Event.current.type == EventType.Repaint)
         {
             creator.UpdateRoad();
         }

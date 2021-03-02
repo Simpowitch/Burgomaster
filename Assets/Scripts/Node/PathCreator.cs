@@ -22,7 +22,8 @@ public class PathCreator : MonoBehaviour
     public float anchorDiameter = 0.1f;
     public float controlDiameter = 0.075f;
     public bool displayControlPoints = true;
-    public bool audoUpdate;
+    public bool autoUpdate;
+    public bool clampUV;
 
     private void Reset()
     {
@@ -37,10 +38,10 @@ public class PathCreator : MonoBehaviour
     public void UpdateRoad()
     {
         Vector2[] points = path.CalculateEvenlySpacedPoints(spacing);
-        GetComponent<MeshFilter>().mesh = CreatePathMesh(points, path.IsClosed);
+        GetComponent<MeshFilter>().mesh = CreatePathMesh(points, path.IsClosed, clampUV);
     }
 
-    Mesh CreatePathMesh(Vector2[] points, bool isClosed)
+    Mesh CreatePathMesh(Vector2[] points, bool isClosed, bool clampUVs)
     {
         Vector3[] verts = new Vector3[points.Length * 2];
         Vector2[] uvs = new Vector2[verts.Length];
@@ -60,7 +61,7 @@ public class PathCreator : MonoBehaviour
             }
             if (i > 0 || isClosed)
             {
-                forward += points[i] - points[(i - 1 + points.Length)% points.Length];
+                forward += points[i] - points[(i - 1 + points.Length) % points.Length];
             }
             forward.Normalize();
 
@@ -69,11 +70,14 @@ public class PathCreator : MonoBehaviour
             verts[vertIndex] = points[i] + left * pathWidth * 0.5f;
             verts[vertIndex + 1] = points[i] - left * pathWidth * 0.5f;
 
-            //Uvs
-            float completionPercent = i / (float)(points.Length - 1);
-            float v = 1 - Mathf.Abs(2 * completionPercent - 1);
-            uvs[vertIndex] = new Vector2(0, v);
-            uvs[vertIndex + 1] = new Vector2(1, v);
+            if (clampUVs)
+            {
+                //Uvs
+                float completionPercent = i / (float)(points.Length - 1);
+                float v = 1 - Mathf.Abs(2 * completionPercent - 1);
+                uvs[vertIndex] = new Vector2(0, v);
+                uvs[vertIndex + 1] = new Vector2(1, v);
+            }
 
             if (i < points.Length - 1 || isClosed)
             {
@@ -88,6 +92,14 @@ public class PathCreator : MonoBehaviour
 
             vertIndex += 2;
             triIndex += 6;
+        }
+
+        if (!clampUVs)
+        {
+            for (int i = 0; i < uvs.Length; i++)
+            {
+                uvs[i] = new Vector2(verts[i].x, verts[i].y);
+            }
         }
 
         Mesh mesh = new Mesh();
