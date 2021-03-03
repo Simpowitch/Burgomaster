@@ -217,6 +217,16 @@ public static class Utility
     }
     #endregion
 
+    public static Vector3[] Vector2ToVector3Array(Vector2[] points)
+    {
+        Vector3[] p = new Vector3[points.Length];
+        for (int i = 0; i < points.Length; i++)
+        {
+            p[i] = points[i];
+        }
+        return p;
+    }
+
     public static T1 GetClosest<T1, T2>(List<T1> list, T2 origin) where T1 : MonoBehaviour where T2 : MonoBehaviour
     {
         float minDistance = float.MaxValue;
