@@ -16,9 +16,9 @@ public class Path
     {
         points = new List<Vector2>
         {
-            centre+Vector2.left,
-            centre+(Vector2.left + Vector2.up) * 0.5f,
-            centre+(Vector2.right + Vector2.down) * 0.5f,
+            centre,
+            centre+(Vector2.right + Vector2.up) * 0.25f,
+            centre+(Vector2.right + Vector2.down) * 0.25f,
             centre+Vector2.right
         };
     }
@@ -76,6 +76,7 @@ public class Path
 
     public int NumberOfSegments => points.Count / 3;
     public int NumberOfPoints => points.Count;
+    public int LastAnchor => isClosed ? points.Count - 3: points.Count -1;
 
     public void AddSegment(Vector2 anchorPos)
     {
@@ -105,25 +106,30 @@ public class Path
     public void DeleteSegment(int anchorIndex)
     {
         //Minimum requirements
-        if (NumberOfSegments <= 2 || isClosed && NumberOfSegments <= 1)
-            return;
-
-        if (anchorIndex == 0) //First anchor
+        if (NumberOfSegments > 2 || !IsClosed && NumberOfSegments > 1)
         {
-            if (isClosed)
+            if (anchorIndex == 0) //First anchor
             {
-                points[points.Count - 1] = points[2];
+                if (isClosed)
+                {
+                    points[points.Count - 1] = points[2];
+                }
+                points.RemoveRange(0, 3);
             }
-            points.RemoveRange(0, 3);
+            else if (anchorIndex == points.Count - 1 && !isClosed) //Last anchor
+            {
+                points.RemoveRange(anchorIndex - 2, 3);
+            }
+            else //Default
+            {
+                points.RemoveRange(anchorIndex - 1, 3);
+            }
         }
-        else if (anchorIndex == points.Count - 1 && !isClosed) //Last anchor
-        {
-            points.RemoveRange(anchorIndex - 2, 3);
-        }
-        else //Default
-        {
-            points.RemoveRange(anchorIndex - 1, 3);
-        }
+    }
+
+    public void DeleteLastSegment()
+    {
+        DeleteSegment(LastAnchor);
     }
 
     public Vector2[] GetPointsInSegment(int index)
@@ -170,6 +176,11 @@ public class Path
         }
     }
 
+    public void MoveLastAnchor(Vector2 newPos)
+    {
+        MovePoint(LastAnchor, newPos);
+    }
+
     public Vector2[] CalculateEvenlySpacedPoints(float spacing, float resolution = 1f)
     {
         List<Vector2> evenlySpacedPoints = new List<Vector2>();
@@ -205,6 +216,7 @@ public class Path
                 previousPoint = pointOnCurve;
             }
         }
+        evenlySpacedPoints.Add(points[LastAnchor]);
 
         return evenlySpacedPoints.ToArray();
     }

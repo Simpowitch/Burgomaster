@@ -11,7 +11,7 @@ public class PathCreator : MonoBehaviour
 
     [Header("Creation Settings")]
     public float pathWidth = 2f;
-    [Range(0.5f, 1.5f)]
+    [Range(0.1f, 1f)]
     public float spacing = 1f;
 
     [Header("Gizmos and Editor")]
@@ -35,9 +35,19 @@ public class PathCreator : MonoBehaviour
         path = new Path(transform.position);
     }
 
-    public void UpdateRoad()
+    public void CreatePath(Vector2 position)
+    {
+        path = new Path(position);
+    }
+
+    public void UpdatePath()
     {
         Vector2[] points = path.CalculateEvenlySpacedPoints(spacing);
         pathVisualizer.Setup(points, path.IsClosed, pathWidth);
+    }
+
+    public void SetSelected(bool selected)
+    {
+        pathVisualizer.SetSelected(selected);
     }
 }

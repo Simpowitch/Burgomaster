@@ -60,7 +60,7 @@ public class PathEditor : Editor
 
         if (creator.autoUpdate && Event.current.type == EventType.Repaint)
         {
-            creator.UpdateRoad();
+            creator.UpdatePath();
         }
     }
 

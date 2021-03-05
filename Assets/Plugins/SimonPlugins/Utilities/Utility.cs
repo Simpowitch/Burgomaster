@@ -5,6 +5,8 @@ using System;
 using Random = UnityEngine.Random;
 using System.Text.RegularExpressions;
 using System.Linq;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public enum Direction2D
 {
@@ -291,6 +293,20 @@ public static class Utility
         return closest;
     }
 
+    public static bool GetObjectUnderMouse2D<T>(out T detection, T ignore = default) where T : MonoBehaviour
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+        foreach (var hit in hits)
+        {
+            detection = hit.transform.GetComponent<T>();
+            if (detection != null && detection != ignore)
+                return true;
+        }
+        detection = default;
+        return false;
+    }
+
     public static bool Between(float a, float b, float testValue)
     {
         if (testValue < b && testValue > a)
@@ -382,5 +398,33 @@ public static class Utility
             originalText += "\n";
 
         return originalText += textToAdd;
+    }
+
+    public static bool IsPointerOverUI(GraphicRaycaster[] graphicRaycasters)
+    {
+        //Set up the new Pointer Event
+        PointerEventData m_PointerEventData = new PointerEventData(EventSystem.current);
+        //Set the Pointer Event Position to that of the mouse position
+        m_PointerEventData.position = Input.mousePosition;
+
+        //Create a list of Raycast Results
+        List<RaycastResult> results = new List<RaycastResult>();
+
+        //Raycast using the Graphics Raycaster and mouse position
+        foreach (var raycaster in graphicRaycasters)
+        {
+            List<RaycastResult> tempResults = new List<RaycastResult>();
+            raycaster.Raycast(m_PointerEventData, tempResults);
+            results.AddRange(tempResults);
+        }
+
+        ////For every result returned, output the name of the GameObject on the Canvas hit by the Ray
+        //foreach (RaycastResult result in results)
+        //{
+        //    Debug.Log("Hit " + result.gameObject.name);
+        //}
+
+        //Return true if results are more than 0
+        return results.Count > 0;
     }
 }

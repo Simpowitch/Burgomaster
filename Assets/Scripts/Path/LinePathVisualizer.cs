@@ -5,10 +5,10 @@ public class LinePathVisualizer : PathVisualizer
 {
     LineRenderer lineRenderer;
 
-    
-
     public override void Setup(Vector2[] points, bool isClosed, float pathWidth)
     {
+        base.Setup(points, isClosed, pathWidth);
+
         if (lineRenderer == null)
             lineRenderer = GetComponent<LineRenderer>();
 
