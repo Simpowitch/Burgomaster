@@ -12,9 +12,9 @@ public class ChallengeResolvementSystem : MonoBehaviour
 
     public Dice dice;
     public GameObject challengeResolvementMainPanel;
-    public TextMeshProUGUI challengeText, modifierText, rollText, totalText;
+    public TextMeshProUGUI challengeText, modifierText, totalText;
     public Button rollButton, diceButton, cancelButton;
-    public Image modifierShield, challengeShield;
+    public Image modifierShield;
     public Sprite[] modifierShields = new Sprite[6], challengeShields = new Sprite[6];
 
     int DiceResult => dice.DiceResult;
@@ -32,7 +32,6 @@ public class ChallengeResolvementSystem : MonoBehaviour
 
     void UpdateNumbers()
     {
-        rollText.text = DiceResult.ToString();
         totalText.text = ResultTotal.ToString();
     }
 
@@ -56,7 +55,6 @@ public class ChallengeResolvementSystem : MonoBehaviour
 
         //Update shields
         modifierShield.sprite = modifierShields[(int)abilityScore];
-        challengeShield.sprite = challengeShields[(int)abilityScore];
 
         UpdateNumbers();
     }
