@@ -13,7 +13,7 @@ public class ChallengeResolvementSystem : MonoBehaviour
     public Dice dice;
     public GameObject challengeResolvementMainPanel;
     public TextMeshProUGUI challengeText, modifierText, totalText;
-    public Button rollButton, diceButton, cancelButton;
+    public Button diceButton, cancelButton;
     public Image modifierShield;
     public Sprite[] modifierShields = new Sprite[6], challengeShields = new Sprite[6];
 
@@ -75,18 +75,13 @@ public class ChallengeResolvementSystem : MonoBehaviour
             case State.Setup:
                 cancelButton.gameObject.SetActive(false);
 
-                rollButton.gameObject.SetActive(true);
-                rollButton.interactable = true;
                 diceButton.interactable = true;
                 break;
             case State.Rolling:
-                rollButton.interactable = false;
                 diceButton.interactable = false;
                 break;
             case State.Done:
                 cancelButton.gameObject.SetActive(true);
-
-                rollButton.gameObject.SetActive(false);
 
                 if (ResultTotal >= challengeRating)
                     OnSucessRolled?.Invoke();
