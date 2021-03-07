@@ -3,29 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RoadManager : MonoBehaviour
+public class PathManager : MonoBehaviour
 {
     public GraphicRaycaster[] graphicRaycasters = null;
 
-    public PathCreator roadCreatorBP;
+    public PathCreator pathCreatorBP;
 
-    public Transform roadParent;
+    public Transform creatorParent;
     public GameObject buttonPanel;
     public Toggle editModeToggle;
 
-    Road selectedRoad;
-    public Road SelectedRoad
+    PathCreator selectedCreator;
+    public PathCreator SelectedCreator
     {
-        get => selectedRoad;
+        get => selectedCreator;
         set
         {
-            if (selectedRoad)
-                selectedRoad.SetSelected(false);
+            if (selectedCreator)
+                selectedCreator.SetSelected(false);
 
-            selectedRoad = value;
+            selectedCreator = value;
 
-            if (selectedRoad)
-                selectedRoad.SetSelected(true);
+            if (selectedCreator)
+                selectedCreator.SetSelected(true);
         }
     }
     PathAnchorPoint selectedAnchor;
@@ -46,11 +46,11 @@ public class RoadManager : MonoBehaviour
         Vector2 mousePos = Utility.GetMouseWorldPosition();
 
         //Check if clicked on different road
-        if (Utility.GetObjectUnderMouse2D(out Road roadUnderMouse, selectedRoad))
+        if (Utility.GetObjectUnderMouse2D(out PathVisualizer pathUnderMouse, SelectedCreator ? SelectedCreator.pathVisualizer : null))
         {
             if (Input.GetKeyDown(KeyCode.Mouse0)) //Left Click
             {
-                SelectedRoad = roadUnderMouse;
+                SelectedCreator = pathUnderMouse.transform.parent.GetComponent<PathCreator>();
                 SetState(State.EditSegments);
                 selectedAnchor = null;
                 editModeToggle.SetIsOnWithoutNotify(true);
@@ -72,7 +72,7 @@ public class RoadManager : MonoBehaviour
                 }
                 break;
             case State.AddAndRemoveSegments:
-                if (SelectedRoad)
+                if (SelectedCreator)
                 {
                     if (Input.GetKeyDown(KeyCode.Mouse0)) //Left Click
                     {
@@ -91,15 +91,15 @@ public class RoadManager : MonoBehaviour
                     }
                     else if (Input.GetKeyDown(KeyCode.Mouse1)) //Right Click
                     {
-                        if (selectedRoad.CanRemoveAnchorPoint)
+                        if (SelectedCreator.CanRemoveAnchorPoint)
                         {
                             Debug.Log("Removing Segment");
-                            selectedRoad.DeleteLastSegment();
+                            SelectedCreator.DeleteLastSegment();
 
                             //SelectedRoadCreator.path.DeleteLastSegment();
                             //selectedAnchor.Delete();
-                            selectedAnchor = selectedRoad.LastAnchorPoint;
-                            buttonPanel.transform.position = selectedRoad.LastAnchorPoint.transform.position;
+                            selectedAnchor = SelectedCreator.LastAnchorPoint;
+                            buttonPanel.transform.position = SelectedCreator.LastAnchorPoint.transform.position;
                             //SelectedRoadCreator.UpdatePath();
                         }
                         else
@@ -156,51 +156,30 @@ public class RoadManager : MonoBehaviour
 
     private void CreateRoad(Vector2 pos)
     {
-        SelectedRoad = Instantiate(roadCreatorBP, roadParent).GetComponentInChildren<Road>();
-        selectedRoad.Setup(pos);
-        selectedAnchor = SelectedRoad.LastAnchorPoint;
+        SelectedCreator = Instantiate(pathCreatorBP, creatorParent);
+        SelectedCreator.Setup(pos);
+        selectedAnchor = SelectedCreator.LastAnchorPoint;
         SetState(State.AddAndRemoveSegments);
-
-        ////Create point 0
-        //PathAnchorPoint newAnchor = Instantiate(roadAnchorPointBP, SelectedRoadCreator.transform);
-        //newAnchor.Setup(SelectedRoadCreator, SelectedRoadCreator.path, 0, pos);
-
-        //selectedRoad.pathAnchorPoints.Add(newAnchor);
-
-        ////Create point 1
-        //newAnchor = Instantiate(roadAnchorPointBP, SelectedRoadCreator.transform);
-        //newAnchor.Setup(SelectedRoadCreator, SelectedRoadCreator.path, SelectedRoadCreator.path.LastAnchor, pos);
-
-        //selectedRoad.pathAnchorPoints.Add(newAnchor);
-
-        //selectedAnchor = newAnchor;
     }
 
     private void CreateNewNodeAndSegment(Vector2 pos)
     {
-        SelectedRoad.AddSegment(pos);
-        selectedAnchor = SelectedRoad.LastAnchorPoint;
-
-        //SelectedRoadCreator.path.AddSegment(pos);
-
-        //PathAnchorPoint newAnchor = Instantiate(roadAnchorPointBP, SelectedRoadCreator.transform);
-        //newAnchor.Setup(SelectedRoadCreator, SelectedRoadCreator.path, SelectedRoadCreator.path.LastAnchor, pos);
-        //selectedAnchor = newAnchor;
+        SelectedCreator.AddSegment(pos);
+        selectedAnchor = SelectedCreator.LastAnchorPoint;
 
         buttonPanel.transform.position = pos;
     }
 
     public void Confirm()
     {
-        SelectedRoad = null;
+        SelectedCreator = null;
         SetState(State.CreateNewRoad);
     }
 
     public void Cancel()
     {
-        SelectedRoad.DestroyRoad();
-        //Destroy(SelectedRoadCreator.gameObject);
-        SelectedRoad = null;
+        SelectedCreator.Destroy();
+        SelectedCreator = null;
         selectedAnchor = null;
         SetState(State.CreateNewRoad);
     }

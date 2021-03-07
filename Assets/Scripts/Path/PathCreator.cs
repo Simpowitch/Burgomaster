@@ -8,6 +8,11 @@ public class PathCreator : MonoBehaviour
     public Path path;
 
     public PathVisualizer pathVisualizer;
+    public PathAnchorPoint anchorPointBP;
+
+    List<PathAnchorPoint> pathAnchorPoints = new List<PathAnchorPoint>();
+    public PathAnchorPoint LastAnchorPoint => pathAnchorPoints[pathAnchorPoints.Count - 1];
+    public bool CanRemoveAnchorPoint => pathAnchorPoints.Count > 2;
 
     [Header("Creation Settings")]
     public float pathWidth = 2f;
@@ -40,14 +45,61 @@ public class PathCreator : MonoBehaviour
         path = new Path(position);
     }
 
+    public PathCreator Setup(Vector2 pos)
+    {
+        //Adds a segment automatically with 2 anchor points
+        CreatePath(pos);
+
+        //Create point 0
+        PathAnchorPoint newAnchor = Instantiate(anchorPointBP, this.transform);
+        newAnchor.Setup(this, path, 0, pos, pathWidth);
+
+        pathAnchorPoints.Add(newAnchor);
+
+        //Create point 1
+        newAnchor = Instantiate(anchorPointBP, this.transform);
+        newAnchor.Setup(this, path, path.LastAnchor, pos, pathWidth);
+
+        pathAnchorPoints.Add(newAnchor);
+
+        return this;
+    }
+
+    public void SetSelected(bool selected)
+    {
+        pathVisualizer.SetSelected(selected);
+        foreach (var anchorPoint in pathAnchorPoints)
+        {
+            anchorPoint.ShowHandle(selected);
+        }
+    }
+
     public void UpdatePath()
     {
         Vector2[] points = path.CalculateEvenlySpacedPoints(spacing);
         pathVisualizer.Setup(points, path.IsClosed, pathWidth);
     }
 
-    public void SetSelected(bool selected)
+    
+
+    public void AddSegment(Vector2 pos)
     {
-        pathVisualizer.SetSelected(selected);
+        path.AddSegment(pos);
+
+        PathAnchorPoint newAnchor = Instantiate(anchorPointBP, this.transform);
+        newAnchor.Setup(this, path, path.LastAnchor, pos, pathWidth);
+
+        pathAnchorPoints.Add(newAnchor);
+    }
+
+    public void DeleteLastSegment()
+    {
+        LastAnchorPoint.Delete();
+        pathAnchorPoints.Remove(LastAnchorPoint);
+    }
+
+    public void Destroy()
+    {
+        Destroy(this.gameObject);
     }
 }
