@@ -54,7 +54,7 @@ MonoBehaviour:
     isClosed: 0
     autoSetControlPoints: 1
   pathVisualizer: {fileID: 3353334764914794920}
-  anchorPointBP: {fileID: 5674730878211437376, guid: ca96a0fef21dbd6468025852b5f3015a, type: 3}
+  anchorPointBP: {fileID: 7251685073414925124, guid: ca96a0fef21dbd6468025852b5f3015a, type: 3}
   pathWidth: 0.1
   spacing: 0.1
   anchorColor: {r: 1, g: 0, b: 0, a: 1}

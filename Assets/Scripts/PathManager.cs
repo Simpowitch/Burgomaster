@@ -45,10 +45,10 @@ public class PathManager : MonoBehaviour
 
         Vector2 mousePos = Utility.GetMouseWorldPosition();
 
-        //Check if clicked on different road
-        if (Utility.GetObjectUnderMouse2D(out PathVisualizer pathUnderMouse, SelectedCreator ? SelectedCreator.pathVisualizer : null))
+        //Check if clicked on new path
+        if (Input.GetKeyDown(KeyCode.Mouse0)) //Left Click
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0)) //Left Click
+            if (Utility.GetObjectUnderMouse2D(out PathVisualizer pathUnderMouse, SelectedCreator ? SelectedCreator.pathVisualizer : null))
             {
                 SelectedCreator = pathUnderMouse.transform.parent.GetComponent<PathCreator>();
                 SetState(State.EditSegments);
@@ -56,7 +56,16 @@ public class PathManager : MonoBehaviour
                 editModeToggle.SetIsOnWithoutNotify(true);
                 return;
             }
+            if (Utility.GetObjectUnderMouse2D(out PathAnchorPoint anchorUnderMouse, selectedAnchor))
+            {
+                SelectedCreator = anchorUnderMouse.transform.parent.GetComponent<PathCreator>();
+                SetState(State.EditSegments);
+                selectedAnchor = anchorUnderMouse;
+                editModeToggle.SetIsOnWithoutNotify(true);
+                return;
+            }
         }
+
 
         switch (state)
         {
