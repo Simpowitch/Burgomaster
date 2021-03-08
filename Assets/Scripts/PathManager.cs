@@ -105,11 +105,8 @@ public class PathManager : MonoBehaviour
                             Debug.Log("Removing Segment");
                             SelectedCreator.DeleteLastSegment();
 
-                            //SelectedRoadCreator.path.DeleteLastSegment();
-                            //selectedAnchor.Delete();
                             selectedAnchor = SelectedCreator.LastAnchorPoint;
                             buttonPanel.transform.position = SelectedCreator.LastAnchorPoint.transform.position;
-                            //SelectedRoadCreator.UpdatePath();
                         }
                         else
                         {
@@ -134,10 +131,15 @@ public class PathManager : MonoBehaviour
                 {
                     if (selectedAnchor)
                     {
-                        selectedAnchor.MovePoint(mousePos);
+                        Vector2 point = mousePos;
+                        if (Utility.GetObjectUnderMouse2D(out PathAnchorPoint anchor, selectedAnchor))
+                        {
+                            point = anchor.transform.position;
+                        }
+
+                        selectedAnchor.MovePoint(point);
 
                         buttonPanel.transform.position = mousePos;
-                        //SelectedRoadCreator.UpdatePath();
                     }
                 }
                 break;
