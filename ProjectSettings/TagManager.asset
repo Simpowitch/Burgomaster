@@ -41,8 +41,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Terrain
+    uniqueID: 3662450861
+    locked: 0
+  - name: TerrainFeatures
+    uniqueID: 1048477767
+    locked: 0
   - name: Buildings
     uniqueID: 2469649049
+    locked: 0
+  - name: Environment
+    uniqueID: 2441245171
     locked: 0
   - name: World UI
     uniqueID: 3708962979

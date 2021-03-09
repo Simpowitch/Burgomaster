@@ -146,7 +146,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1825318247
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &3353334764914794927
@@ -200,7 +200,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  sortingLayer: Buildings
+  sortingLayer: TerrainFeatures
 --- !u!60 &6600387086350931465
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -393,7 +393,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -586004317
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Positions:
   - {x: -0.5065473, y: 0.068129644, z: 0}
