@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handle: {fileID: 7433603875297831034}
-  scaleMultiplier: 2
+  scaleMultiplier: 2.25
 --- !u!1 &6725387457426837044
 GameObject:
   m_ObjectHideFlags: 0
