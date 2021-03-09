@@ -57,6 +57,11 @@ public static class Utility
         return quaternion;
     }
 
+    public static Vector2 DirFromAngle(float angleInDegrees)
+    {
+        return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+    }
+
     public static List<T> ShuffleList<T>(List<T> list)
     {
         int count = list.Count;

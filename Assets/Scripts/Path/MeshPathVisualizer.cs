@@ -36,6 +36,7 @@ public class MeshPathVisualizer : PathVisualizer
     {
         Vector3[] verts = new Vector3[points.Length * 2];
         Vector2[] uvs = new Vector2[verts.Length];
+        Vector2[] uv2s = new Vector2[verts.Length];
 
         int numTris = 2 * (points.Length - 1) + (isClosed ? 2 : 0);
 
@@ -61,6 +62,10 @@ public class MeshPathVisualizer : PathVisualizer
             verts[vertIndex] = points[i] + left * pathWidth * 0.5f;
             verts[vertIndex + 1] = points[i] - left * pathWidth * 0.5f;
 
+            float completionPercent = i / (float)(points.Length - 1);
+            uv2s[vertIndex] = new Vector2(0, completionPercent);
+            uv2s[vertIndex + 1] = new Vector2(1, completionPercent);
+
             if (i < points.Length - 1 || isClosed)
             {
                 tris[triIndex] = vertIndex;
@@ -78,13 +83,15 @@ public class MeshPathVisualizer : PathVisualizer
 
         for (int i = 0; i < uvs.Length; i++)
         {
-            uvs[i] = new Vector2(verts[i].x, verts[i].y);
+            Vector2 worldPos = this.transform.position;
+            uvs[i] = new Vector2(verts[i].x + worldPos.x, verts[i].y + worldPos.y);
         }
 
         Mesh mesh = new Mesh();
         mesh.vertices = verts;
         mesh.triangles = tris;
         mesh.uv = uvs;
+        mesh.uv2 = uv2s;
 
         return mesh;
     }
