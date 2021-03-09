@@ -11,6 +11,8 @@ public class Dice : MonoBehaviour
     // Array of dice sides sprites to load from Resources folder
     public Sprite[] diceSides;
 
+    public Animator animator;
+
     // Reference to sprite renderer to change sprites
     [SerializeField] Image rend;
 
@@ -19,6 +21,11 @@ public class Dice : MonoBehaviour
     [SerializeField] float speedModififer = 2f;
 
     [SerializeField] Transform rotationObject = null;
+
+    private void Awake()
+    {
+        animator.speed = 0;
+    }
 
     // Coroutine that rolls the dice
     public IEnumerator RollTheDice()
@@ -33,6 +40,7 @@ public class Dice : MonoBehaviour
 
         float factor = 0f;
 
+
         for (int i = 0; i < iterations; i++)
         {
             // Pick up random value from 0 to 5 (All inclusive)
@@ -46,6 +54,8 @@ public class Dice : MonoBehaviour
 
             factor = i * 1f / iterations;
             float timeToNextIteration = diceSpeedInverted.Evaluate(factor) / speedModififer;
+
+            animator.speed = 1f - (diceSpeedInverted.Evaluate(factor) / speedModififer);
 
             rotationObject.eulerAngles = new Vector3(0, 0, factor * 360f);
 
