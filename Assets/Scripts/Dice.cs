@@ -68,6 +68,8 @@ public class Dice : MonoBehaviour
         DiceResult = randomDiceSide + 1;
         OnDiceResultChanged?.Invoke();
 
+        animator.speed = 0;
+
         // Show final dice value in Console
         Debug.Log(DiceResult);
     }
