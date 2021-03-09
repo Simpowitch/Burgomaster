@@ -55,7 +55,7 @@ public class Dice : MonoBehaviour
             factor = i * 1f / iterations;
             float timeToNextIteration = diceSpeedInverted.Evaluate(factor) / speedModififer;
 
-            animator.speed = 1f - (diceSpeedInverted.Evaluate(factor) / speedModififer);
+            animator.speed = 1f - (diceSpeedInverted.Evaluate(factor));
 
             rotationObject.eulerAngles = new Vector3(0, 0, factor * 360f);
 
