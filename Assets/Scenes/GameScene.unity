@@ -4509,7 +4509,7 @@ GameObject:
   - component: {fileID: 348381877}
   - component: {fileID: 348381876}
   m_Layer: 5
-  m_Name: Effects
+  m_Name: Panels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8360,7 +8360,7 @@ GameObject:
   - component: {fileID: 645905065}
   - component: {fileID: 645905064}
   m_Layer: 5
-  m_Name: Costs
+  m_Name: Panels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13106,7 +13106,7 @@ GameObject:
   - component: {fileID: 1025135727}
   - component: {fileID: 1025135726}
   m_Layer: 5
-  m_Name: Effects
+  m_Name: Panels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32301,7 +32301,7 @@ GameObject:
   - component: {fileID: 1306994786}
   - component: {fileID: 1306994785}
   m_Layer: 5
-  m_Name: Costs
+  m_Name: Panels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39305,7 +39305,7 @@ GameObject:
   - component: {fileID: 1796616531}
   - component: {fileID: 1796616530}
   m_Layer: 5
-  m_Name: Costs
+  m_Name: Panels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44471,13 +44471,42 @@ MonoBehaviour:
   namePlate: {fileID: 5409652949271087707}
   mainImage: {fileID: 7800399253106006833}
   UIToCanvasSpace: {fileID: 6423225269854446899}
-  button: {fileID: 0}
-  currentEffectPanels: []
-  currentUpkeepPanels: []
-  currentIncomePanels: []
-  upgradeCostPanels: []
-  updradeEffectPanels: []
-  resourceSprites: []
+  button: {fileID: 1124848545}
+  currentEffectPanels:
+  - {fileID: 1978137886}
+  - {fileID: 809132322}
+  - {fileID: 966307995}
+  - {fileID: 963343502}
+  - {fileID: 1130420026}
+  currentUpkeepPanels:
+  - {fileID: 498468612}
+  - {fileID: 1478592688}
+  - {fileID: 847460368}
+  - {fileID: 1133695837}
+  - {fileID: 548034140}
+  currentIncomePanels:
+  - {fileID: 1882610374}
+  - {fileID: 1680464549}
+  - {fileID: 50703080}
+  - {fileID: 1279679902}
+  - {fileID: 505483902}
+  upgradeCostPanels:
+  - {fileID: 1334720239}
+  - {fileID: 424245651}
+  - {fileID: 235379762}
+  - {fileID: 1537413595}
+  - {fileID: 1594755094}
+  updradeEffectPanels:
+  - {fileID: 2025717523}
+  - {fileID: 1414243185}
+  - {fileID: 1439724661}
+  - {fileID: 618940054}
+  - {fileID: 1106710996}
+  resourceSprites:
+  - {fileID: 21300000, guid: 11df4681c7a57b14e8dbd0faf34fe6bd, type: 3}
+  - {fileID: 21300000, guid: 0d51cbada0acbfb4b930eb31bfa927da, type: 3}
+  - {fileID: 21300000, guid: b736d7e395e4de945815990e7fe92c20, type: 3}
+  - {fileID: 21300000, guid: 103b44536bf0cb640a915ec4c9cd692a, type: 3}
 --- !u!1 &7736923839960740905
 GameObject:
   m_ObjectHideFlags: 0
