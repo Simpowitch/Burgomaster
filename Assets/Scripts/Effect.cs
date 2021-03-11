@@ -6,7 +6,7 @@ public class Effect
     public enum Type 
     { 
         Population, 
-        Productivity,
+        ProductivityPercentage,
         Authority,
         Cunning,
         Diplomacy,
@@ -19,7 +19,7 @@ public class Effect
     public int effectValue;
 
     public Sprite Sprite => EffectSpriteDatabase.GetSprite(type);
-    public bool ChangeIsPercentage => type == Type.Productivity;
+    public bool ChangeIsPercentage => type == Type.ProductivityPercentage;
 
     public Effect(Type type, int effectValue)
     {

@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: Academy
   m_EditorClassIdentifier: 
   projectName: Academy
+  description: 
+  sprite: {fileID: 21300000, guid: 41339b19db1561245b340a0298a17d60, type: 3}
   category: 3
+  turnsToComplete: 10
+  abilityScore: 3
+  blueprint: {fileID: 5822658783910710594, guid: 6d174de468ac92843961994acb0eac4e, type: 3}
+  serviceBuildingRequirement:
+    type: 3
+    value: 1
   costToBegin:
   - resourceType: 0
     value: 200
@@ -21,13 +29,14 @@ MonoBehaviour:
     value: 50
   - resourceType: 1
     value: 50
-  turnsToComplete: 10
-  populationChange: 0
-  abilityScore: 3
   income: []
   upkeep: []
-  sprite: {fileID: 21300000, guid: 41339b19db1561245b340a0298a17d60, type: 3}
-  blueprint: {fileID: 5822658783910710594, guid: 6d174de468ac92843961994acb0eac4e, type: 3}
-  serviceBuildingRequirement:
-    type: 3
-    value: 1
+  completionEffects:
+  - type: 2
+    effectValue: 1
+  upgradeCost:
+  - resourceType: 0
+    value: 50
+  upgradeGain:
+  - type: 5
+    effectValue: 1

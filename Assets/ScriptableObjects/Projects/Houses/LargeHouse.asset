@@ -13,21 +13,26 @@ MonoBehaviour:
   m_Name: LargeHouse
   m_EditorClassIdentifier: 
   projectName: Large House
+  description: 
+  sprite: {fileID: 21300000, guid: 96d0a59b728ac8d478f45203b2d30238, type: 3}
   category: 0
+  turnsToComplete: 5
+  abilityScore: 6
+  blueprint: {fileID: 878028592654923265, guid: e64e4d66a772e42448c5d7bedaecbe9c, type: 3}
+  serviceBuildingRequirement:
+    type: 0
+    value: 0
   costToBegin:
   - resourceType: 0
     value: 200
-  turnsToComplete: 5
-  populationChange: 8
-  abilityScore: 6
   income:
   - resourceType: 0
     value: 80
   upkeep:
   - resourceType: 2
     value: 16
-  sprite: {fileID: 21300000, guid: 96d0a59b728ac8d478f45203b2d30238, type: 3}
-  blueprint: {fileID: 878028592654923265, guid: e64e4d66a772e42448c5d7bedaecbe9c, type: 3}
-  serviceBuildingRequirement:
-    type: 0
-    value: 0
+  completionEffects:
+  - type: 0
+    effectValue: 8
+  upgradeCost: []
+  upgradeGain: []

@@ -6,6 +6,7 @@ public class Resource
 {
     public string Name { get => resourceType.ToString(); }
     public bool CanBeNegative { get; private set; }
+    public Sprite Sprite => ResourceSpriteDatabase.GetSprite(resourceType);
 
     public ResourceType resourceType;
     public int value;

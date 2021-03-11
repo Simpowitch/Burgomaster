@@ -4,15 +4,13 @@ using UnityEngine.UI;
 
 public class ResourcePanelUI : MonoBehaviour
 {
-    public Sprite[] sprites;
-
     public TextMeshProUGUI valueText;
     public TextMeshProUGUI netIncomeText;
     public Image image;
 
     public void Setup(ResourceType type)
     {
-        image.sprite = sprites[(int)type];
+        image.sprite = ResourceSpriteDatabase.GetSprite(type);
     }
 
     public void UpdatePanel(int value, int income, int expense)

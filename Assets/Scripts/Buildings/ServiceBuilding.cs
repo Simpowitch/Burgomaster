@@ -34,7 +34,7 @@ public class ServiceBuilding : Building
         {
             switch (effect.type)
             {
-                case Effect.Type.Productivity:
+                case Effect.Type.ProductivityPercentage:
                     productivityInfluence = Utility.PercentageToFactor(effect.effectValue);
                     break;
                 case Effect.Type.Population:

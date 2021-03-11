@@ -19,7 +19,7 @@ public class Residence : Building
                 case Effect.Type.Population:
                     basePopulationChange = effect.effectValue;
                     break;
-                case Effect.Type.Productivity:
+                case Effect.Type.ProductivityPercentage:
                 case Effect.Type.Authority:
                 case Effect.Type.Cunning:
                 case Effect.Type.Diplomacy:

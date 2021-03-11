@@ -16,8 +16,6 @@ public class BuildingInspector : MonoBehaviour
     public SpriteTextPanel[] currentEffectPanels, currentUpkeepPanels, currentIncomePanels;
     public SpriteTextPanel[] upgradeCostPanels, updradeEffectPanels;
 
-    public Sprite[] resourceSprites;
-
     public static BuildingInspector instance;
 
     private void Awake()
@@ -57,7 +55,7 @@ public class BuildingInspector : MonoBehaviour
             currentIncomePanels[i].SetActive(show);
             if (show)
             {
-                currentIncomePanels[i].Setup(incomes[i].value.ToString(), resourceSprites[(int)incomes[i].resourceType]);
+                currentIncomePanels[i].Setup(incomes[i].value.ToString(), incomes[i].Sprite);
             }
         }
 
@@ -68,7 +66,7 @@ public class BuildingInspector : MonoBehaviour
             currentUpkeepPanels[i].SetActive(show);
             if (show)
             {
-                currentUpkeepPanels[i].Setup(upkeep[i].value.ToString(), resourceSprites[(int)upkeep[i].resourceType]);
+                currentUpkeepPanels[i].Setup(upkeep[i].value.ToString(), upkeep[i].Sprite);
             }
         }
 
@@ -86,7 +84,7 @@ public class BuildingInspector : MonoBehaviour
             upgradeCostPanels[i].SetActive(show);
             if (show)
             {
-                upgradeCostPanels[i].Setup(actionCost[i].ToString(), resourceSprites[(int) actionCost[i].resourceType]);
+                upgradeCostPanels[i].Setup(actionCost[i].ToString(), actionCost[i].Sprite);
             }
         }
 
