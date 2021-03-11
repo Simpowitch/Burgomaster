@@ -164,6 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4875204857178523651}
   - component: {fileID: 4875204857178523649}
+  - component: {fileID: 3796833877494842372}
   - component: {fileID: 4875204857178523650}
   - component: {fileID: 7641836494450408719}
   m_Layer: 5
@@ -206,14 +207,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b8c76163c98d54a896d7b91424c160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasRect: {fileID: 0}
-  mainRectTransform: {fileID: 4875204857178523651}
   textField: {fileID: 4875204856786262797}
   backgroundRect: {fileID: 4875204856091862326}
   animator: {fileID: 4875204857178523650}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   allowed: {r: 0, g: 1, b: 0, a: 1}
   forbidden: {r: 1, g: 0, b: 0, a: 1}
+  autoHideTime: 6
+--- !u!114 &3796833877494842372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4875204857178523676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbdcaff7e0e829648b0b20c9074a7c06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasRect: {fileID: 0}
+  updatePositionRect: {fileID: 4875204857178523651}
+  panelSizeRect: {fileID: 4875204856091862326}
+  followMouse: 1
 --- !u!95 &4875204857178523650
 Animator:
   serializedVersion: 3

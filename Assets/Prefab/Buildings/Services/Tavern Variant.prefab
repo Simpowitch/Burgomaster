@@ -127,6 +127,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4378929736460955301, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4378929736460955301, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4378929736460955301, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4378929736460955301, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4884832074413256516, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
       propertyPath: m_Size.x
       value: 0.5
@@ -178,6 +194,10 @@ PrefabInstance:
     - target: {fileID: 6445726287508591617, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
       propertyPath: m_Name
       value: Tavern Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6946597681390511950, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13ffb90aea916f0479c181deb598fab2, type: 3}

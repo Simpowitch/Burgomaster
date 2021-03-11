@@ -5,11 +5,34 @@ public class Residence : Building
 {
     List<ServiceBuilding> nearbyServices = new List<ServiceBuilding>();
     int basePopulationChange;
+    float effectivity = 1f;
+    Effect[] currentEffects;
 
     public override void Setup(Player player, Project project, int themeIndex)
     {
         base.Setup(player, project, themeIndex);
-        this.basePopulationChange = project.populationChange;
+
+        foreach (var effect in projectInfo.completionEffects)
+        {
+            switch (effect.type)
+            {
+                case Effect.Type.Population:
+                    basePopulationChange = effect.effectValue;
+                    break;
+                case Effect.Type.Productivity:
+                case Effect.Type.Authority:
+                case Effect.Type.Cunning:
+                case Effect.Type.Diplomacy:
+                case Effect.Type.Knowledge:
+                case Effect.Type.Nature:
+                case Effect.Type.Piety:
+                    Debug.LogWarning("Unhandled effecttype for Residence");
+                    break;
+            }
+        }
+
+        currentEffects = project.completionEffects;
+
         OnCompletion += () => player.IncreasePopulation(basePopulationChange);
     }
 
@@ -24,16 +47,31 @@ public class Residence : Building
         {
             nearbyServices.Add(serviceBuilding);
 
-            int populationChange = Mathf.RoundToInt(basePopulationChange * ServiceBuilding.FACTORINCREASE);
+            int populationChange = Mathf.RoundToInt(basePopulationChange * serviceBuilding.productivityInfluence);
             player.IncreasePopulation(populationChange);
 
-            Resource[] incomeChange = new Resource[income.Length];
+            Resource[] incomeChange = new Resource[projectInfo.income.Length];
             for (int i = 0; i < incomeChange.Length; i++)
             {
-                int valueChange = Mathf.RoundToInt(income[i].value * ServiceBuilding.FACTORINCREASE);
-                incomeChange[i] = new Resource(income[i].resourceType, valueChange);
+                int valueChange = Mathf.RoundToInt(projectInfo.income[i].value * serviceBuilding.productivityInfluence);
+                incomeChange[i] = new Resource(projectInfo.income[i].resourceType, valueChange);
             }
             player.ChangeTurnIncomes(incomeChange, true);
+
+            effectivity += serviceBuilding.productivityInfluence;
+
+            currentEffects = projectInfo.completionEffects.Copy(effectivity);
         }
+    }
+
+    protected override void Select()
+    {
+        BuildingInspector.instance.Show(true);
+        BuildingInspector.instance.SetupDefault(this.transform, projectInfo.name, projectInfo.sprite, currentEffects, income, upkeep);
+    }
+
+    protected override void DeSelect()
+    {
+        BuildingInspector.instance.Show(false);
     }
 }

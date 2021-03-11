@@ -1,26 +1,45 @@
 using UnityEngine;
 using System;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-public class Building : MonoBehaviour
+public abstract class Building : MonoBehaviour, IPointerClickHandler
 {
+    private static Building selectedBuilding;
+    public static Building SelectedBuilding
+    {
+        get => selectedBuilding;
+        set
+        {
+            if (selectedBuilding)
+                selectedBuilding.DeSelect();
+            selectedBuilding = value;
+            if (selectedBuilding)
+                selectedBuilding.Select();
+        }
+    }
+
     protected Action OnCompletion;
     public UnityEvent OnCompletionInspector;
 
+    [Header("References")]
     [SerializeField] SpriteRenderer spriteRenderer = null;
     [SerializeField] Material constructed = null;
-    protected bool isFinished = false;
     [SerializeField] ProjectConstructionSlot[] constructionSlots = null;
-    int turnsToBuild = 2;
-    int remainingTurnsToBuild;
     [SerializeField] Transform canvasTransform = null;
     [SerializeField] Bar progressBar = null;
     [SerializeField] ConstructionPlacer constructionPlacer = null;
     [SerializeField] Rigidbody2D rb = null;
 
-    protected Resource[] income = null, upkeep = null;
+    
+    protected bool isFinished = false;
+    int turnsToBuild = 2;
+    int remainingTurnsToBuild;
 
     protected Player player;
+    protected Project projectInfo;
+    protected Resource[] income, upkeep;
+
 
     [SerializeField] Sprite[] themes = null;
     public int ThemeIndex { get; private set; } = 0;
@@ -44,16 +63,8 @@ public class Building : MonoBehaviour
         canvasTransform.rotation = Quaternion.identity;
 
         this.player = player;
-        income = new Resource[project.income.Length];
-        for (int i = 0; i < project.income.Length; i++)
-        {
-            income[i] = project.income[i].Copy();
-        }
-        upkeep = new Resource[project.upkeep.Length];
-        for (int i = 0; i < project.upkeep.Length; i++)
-        {
-            upkeep[i] = project.upkeep[i].Copy();
-        }
+        projectInfo = project;
+
         turnsToBuild = project.turnsToComplete;
         remainingTurnsToBuild = turnsToBuild;
 
@@ -63,6 +74,9 @@ public class Building : MonoBehaviour
         {
             slot.gameObject.SetActive(true);
         }
+
+        income = projectInfo.income.Copy();
+        upkeep = projectInfo.upkeep.Copy();
 
         DisplayConstructionProgress();
     }
@@ -126,5 +140,16 @@ public class Building : MonoBehaviour
         ThemeIndex = index;
     }
 
-    
+
+    protected abstract void Select();
+    protected abstract void DeSelect();
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (projectInfo)
+        {
+            Debug.Log("Building selected: " + projectInfo.name);
+            SelectedBuilding = this;
+        }
+    }
 }

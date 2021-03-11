@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-
     [SerializeField] List<Project> allProjects = new List<Project>();
     List<Project> availableProjects = new List<Project>();
 
@@ -20,6 +19,9 @@ public class Player : MonoBehaviour
     [SerializeField] ProjectOverviewUI projectOverview = null;
 
     [SerializeField] BuildingManager buildingManager = null;
+
+    public delegate void PlayerChange();
+    public PlayerChange OnEconomyChanged;
 
     public int[] AbilityScores { get; private set; } = new int[6];
     int population;
@@ -54,6 +56,9 @@ public class Player : MonoBehaviour
         UpdateEconomyUI();
         UpdateAbilityScoreUI();
         populationText.text = population.ToString();
+
+        OnEconomyChanged += UpdateEconomyUI;
+        OnEconomyChanged += UpdateAvailableProjects;
 
         UpdateAvailableProjects();
     }
@@ -149,22 +154,30 @@ public class Player : MonoBehaviour
 
     public bool IsAffordable(Resource[] costs) => Resource.IsAffordable(costs, resources);
 
+    public void AddResource(Resource resource)
+    {
+        resources[(int)resource.resourceType].AddValue(resource.value);
+        OnEconomyChanged?.Invoke();
+    }
     public void AddResources(Resource[] allResourcesToAdd)
     {
         foreach (var resouceToAdd in allResourcesToAdd)
         {
-            resources[(int)resouceToAdd.resourceType].AddValue(resouceToAdd.value);
+            AddResource(resouceToAdd);
         }
-        UpdateEconomyUI();
     }
 
+    public void RemoveResource(Resource resource)
+    {
+        resources[(int)resource.resourceType].RemoveValue(resource.value);
+        OnEconomyChanged?.Invoke();
+    }
     public void RemoveResources(Resource[] allResourcesToRemove)
     {
         foreach (var resourceToRemove in allResourcesToRemove)
         {
-            resources[(int)resourceToRemove.resourceType].RemoveValue(resourceToRemove.value);
+            RemoveResource(resourceToRemove);
         }
-        UpdateEconomyUI();
     }
 
     public void ChangeTurnIncomes(Resource[] affectedIncomes, bool increase)
@@ -176,7 +189,7 @@ public class Player : MonoBehaviour
             else
                 incomes[(int)income.resourceType].RemoveValue(income.value);
         }
-        UpdateEconomyUI();
+        OnEconomyChanged?.Invoke();
     }
 
     public void ChangeTurnExpenses(Resource[] affectedIncomes, bool increase)
@@ -188,7 +201,7 @@ public class Player : MonoBehaviour
             else
                 this.expenses[(int)expense.resourceType].RemoveValue(expense.value);
         }
-        UpdateEconomyUI();
+        OnEconomyChanged?.Invoke();
     }
 
     #endregion

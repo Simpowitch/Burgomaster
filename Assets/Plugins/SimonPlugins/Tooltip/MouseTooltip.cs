@@ -7,8 +7,6 @@ public class MouseTooltip : MonoBehaviour
     public enum ColorText { Default, Allowed, Forbidden }
 
     [Header("References")]
-    [SerializeField] RectTransform canvasRect = null;
-    [SerializeField] RectTransform mainRectTransform = null;
     [SerializeField] Text textField = null;
     [SerializeField] RectTransform backgroundRect = null;
     [SerializeField] Animator animator = null;
@@ -22,23 +20,6 @@ public class MouseTooltip : MonoBehaviour
     [SerializeField] float autoHideTime = 6f;
 
     float textPadding = 0;
-
-    private void Update()
-    {
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent.GetComponent<RectTransform>(), Input.mousePosition, null, out Vector2 localPoint);
-        transform.localPosition = localPoint;
-
-        Vector2 anchoredPosition = mainRectTransform.anchoredPosition;
-        if (anchoredPosition.x + backgroundRect.rect.width > canvasRect.rect.width)
-        {
-            anchoredPosition.x = canvasRect.rect.width - backgroundRect.rect.width;
-        }
-        if (anchoredPosition.y + backgroundRect.rect.height > canvasRect.rect.height)
-        {
-            anchoredPosition.y = canvasRect.rect.height - backgroundRect.rect.height;
-        }
-        mainRectTransform.anchoredPosition = anchoredPosition;
-    }
 
     private void Start()
     {

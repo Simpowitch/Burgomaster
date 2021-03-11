@@ -23,6 +23,7 @@ MonoBehaviour:
   progressBar: {fileID: 6348261372527354273}
   constructionPlacer: {fileID: 5473716750716117445}
   rb: {fileID: 1255557034284465208}
+  inspectionPanel: {fileID: 3237806832708351303}
   themes: []
 --- !u!1001 &2584424397535706670
 PrefabInstance:
@@ -42,6 +43,10 @@ PrefabInstance:
     - target: {fileID: 3668743877501653832, guid: 56c0791e2e3fe8c49ae608be1d9bd705, type: 3}
       propertyPath: m_Name
       value: BASE_Residence Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4641311357566053906, guid: 56c0791e2e3fe8c49ae608be1d9bd705, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6374016668456752569, guid: 56c0791e2e3fe8c49ae608be1d9bd705, type: 3}
       propertyPath: m_RootOrder
@@ -91,6 +96,10 @@ PrefabInstance:
       propertyPath: building
       value: 
       objectReference: {fileID: 4757603752929246544}
+    - target: {fileID: 8833616987258561717, guid: 56c0791e2e3fe8c49ae608be1d9bd705, type: 3}
+      propertyPath: m_Name
+      value: Canvas Progress
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56c0791e2e3fe8c49ae608be1d9bd705, type: 3}
 --- !u!1 &1239694230341283174 stripped
@@ -144,5 +153,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae994d6454626f449b0316c09c448065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3237806832708351303 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1095140395032906601, guid: 56c0791e2e3fe8c49ae608be1d9bd705, type: 3}
+  m_PrefabInstance: {fileID: 2584424397535706670}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a69fd7269faa04780f9a98346e8651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

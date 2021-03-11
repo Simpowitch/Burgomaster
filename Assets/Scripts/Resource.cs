@@ -5,7 +5,7 @@ public enum ResourceType { Gold, Wood, Food, Iron, MAX = 4 }
 public class Resource
 {
     public string Name { get => resourceType.ToString(); }
-    bool canBeNegative;
+    public bool CanBeNegative { get; private set; }
 
     public ResourceType resourceType;
     public int value;
@@ -13,7 +13,7 @@ public class Resource
     {
         this.resourceType = type;
         this.value = startValue;
-        this.canBeNegative = canBeNegative;
+        this.CanBeNegative = canBeNegative;
     }
     public bool IsAffordable(int request) => request <= value;
     public void AddValue(int add)
@@ -24,7 +24,7 @@ public class Resource
     public void RemoveValue(int remove)
     {
         value -= remove;
-        if (!canBeNegative)
+        if (!CanBeNegative)
             value = Mathf.Max(value, 0);
     }
 
@@ -49,8 +49,30 @@ public class Resource
         return true;
     }
 
-    public Resource Copy()
+    public override string ToString()
     {
-        return new Resource(this.resourceType, this.value, this.canBeNegative);
+        string description = "";
+        if (value >= 0)
+            description += "+";
+        description += value.ToString();
+        return description;
+    }
+}
+
+public static class ResourceExtension
+{
+    public static Resource Copy(this Resource resource)
+    {
+        return new Resource(resource.resourceType, resource.value, resource.CanBeNegative);
+    }
+
+    public static Resource[] Copy(this Resource[] resources)
+    {
+        Resource[] newArray = new Resource[resources.Length];
+        for (int i = 0; i < resources.Length; i++)
+        {
+            newArray[i] = resources[i].Copy();
+        }
+        return newArray;
     }
 }

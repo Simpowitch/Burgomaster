@@ -4,7 +4,7 @@ using TMPro;
 
 public class ProjectPanelUI : MonoBehaviour
 {
-    public TextMeshProUGUI projectNamePlate;
+    public TextMeshProUGUI projectNamePlate, description;
     public TextMeshProUGUI turnPlate;
     public Image projectImage;
     public ResourcePanelUI[] costs;
@@ -19,6 +19,8 @@ public class ProjectPanelUI : MonoBehaviour
         this.player = player;
 
         projectNamePlate.text = project.projectName;
+        if (description)
+            description.text = project.description;
         turnPlate.text = project.turnsToComplete.ToString();
         projectImage.sprite = project.sprite;
 

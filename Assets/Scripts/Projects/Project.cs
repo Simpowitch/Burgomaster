@@ -5,17 +5,23 @@ using UnityEngine;
 public class Project : ScriptableObject
 {
     public string projectName;
+    public string description;
+    public Sprite sprite;
+
     public enum Category { Housing, Production, Service, Unique }
     public Category category;
-    public Resource[] costToBegin;
+
     public int turnsToComplete;
-    public int populationChange;
     public AbilityScore abilityScore = AbilityScore.UNUSED;
-    public Resource[] income = null, upkeep = null;
-    public Sprite sprite;
     public ConstructionPlacer blueprint = null;
 
     public ServiceBuildingRequirement serviceBuildingRequirement;
+
+    public Resource[] costToBegin, income, upkeep;
+    public Effect[] completionEffects;
+
+    public Resource[] upgradeCost;
+    public Effect[] upgradeGain;
 
     [System.Serializable]
     public abstract class Requirement
