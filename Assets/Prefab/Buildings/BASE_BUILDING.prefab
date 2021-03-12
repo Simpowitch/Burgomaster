@@ -333,8 +333,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be72e8275888a954f8f4258bf22fc9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowed: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  forbidden: {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
+  renderers:
+  - {fileID: 7135254520419385223}
+  allowed: {fileID: 2100000, guid: 8a54fa1dca91e63469de7e54f02e5928, type: 2}
+  forbidden: {fileID: 2100000, guid: 7db98703c2a5d4543820726bb2ea07ec, type: 2}
   building: {fileID: 0}
 --- !u!1 &6079707150069575772
 GameObject:
@@ -477,7 +479,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7db98703c2a5d4543820726bb2ea07ec, type: 2}
+  - {fileID: 2100000, guid: 8a54fa1dca91e63469de7e54f02e5928, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 public class ConstructionPlacer : MonoBehaviour
 {
     public bool CanSpawn { get; private set; } = false;
-    MeshRenderer[] renderers;
+    [SerializeField] SpriteRenderer[] renderers = null;
     [SerializeField] Material allowed = null, forbidden = null;
     public string TooltipExplanation { get; private set; }
     [SerializeField] Building building = null;
@@ -13,8 +13,6 @@ public class ConstructionPlacer : MonoBehaviour
 
     private void Start()
     {
-        renderers = GetComponentsInChildren<MeshRenderer>();
-
         //Visually display if can be spawned or not
         foreach (var renderer in renderers)
         {
