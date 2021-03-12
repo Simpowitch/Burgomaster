@@ -56,7 +56,7 @@ public class BuildingManager : MonoBehaviour
         if (latestTooltip != newTooltip)
         {
             latestTooltip = newTooltip;
-            if (latestTooltip != "")
+            if (latestTooltip != "" && latestTooltip != null)
             {
                 Debug.Log($"Setup tooltip: {latestTooltip}");
                 mouseTooltip.SetUp(MouseTooltip.ColorText.Default, latestTooltip);

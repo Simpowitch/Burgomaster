@@ -29,7 +29,7 @@ public class MouseTooltip : MonoBehaviour
 
     public void SetUp(ColorText textColor, string message)
     {
-        if (message == "")
+        if (message == "" || message == null)
         {
             Hide();
             return;

@@ -29,12 +29,14 @@ public class Effect
 
     public override string ToString()
     {
-        string description = "";
-        if (effectValue >= 0)
-            description += "+";
-        description += effectValue.ToString();
+        string description = effectValue.ToString();
         if (ChangeIsPercentage)
-            description += "%";
+        {
+            if (effectValue >= 0)
+                description = $"+{description}%";
+            else
+                description = $"{description}%";
+        }
         return description;
     }
 }

@@ -14,6 +14,8 @@ public class ProjectOverviewUI : MonoBehaviour
     private List<ProjectPanelUI> uniqueTab = new List<ProjectPanelUI>();
     public Toggle allToggle;
 
+    public ProjectInspector projectInspector;
+
     public void UpdateProjectList(List<Project> availableProjects, Player player)
     {
         foreach (var projectPanel in allTab)
@@ -48,7 +50,7 @@ public class ProjectOverviewUI : MonoBehaviour
                     break;
             }
             allTab.Add(newPanel);
-            newPanel.Setup(availableProjects[i], player);
+            newPanel.Setup(availableProjects[i], player, this);
         }
     }
 
@@ -63,6 +65,9 @@ public class ProjectOverviewUI : MonoBehaviour
     public void ShowUI(bool show)
     {
         this.gameObject.SetActive(show);
+
+        if (!show)
+            projectInspector.Show(false);
     }
 
     public void ShowAll(bool state) => ShowList(allTab, state);
@@ -81,5 +86,11 @@ public class ProjectOverviewUI : MonoBehaviour
         {
             item.gameObject.SetActive(show);
         }
+    }
+
+    public void SelectedProject(Project selected)
+    {
+        projectInspector.Show(true);
+        projectInspector.Setup(selected);
     }
 }

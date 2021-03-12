@@ -12,11 +12,13 @@ public class ProjectPanelUI : MonoBehaviour
 
     private Project project;
     private Player player;
+    private ProjectOverviewUI overview;
 
-    public void Setup(Project project, Player player)
+    public void Setup(Project project, Player player, ProjectOverviewUI overview)
     {
         this.project = project;
         this.player = player;
+        this.overview = overview;
 
         projectNamePlate.text = project.projectName;
         if (description)
@@ -45,5 +47,6 @@ public class ProjectPanelUI : MonoBehaviour
     public void Clicked()
     {
         player.SelectProject(project);
+        overview.SelectedProject(project);
     }
 }

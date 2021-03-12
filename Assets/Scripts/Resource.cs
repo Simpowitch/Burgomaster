@@ -52,11 +52,7 @@ public class Resource
 
     public override string ToString()
     {
-        string description = "";
-        if (value >= 0)
-            description += "+";
-        description += value.ToString();
-        return description;
+        return value.ToString();
     }
 }
 
