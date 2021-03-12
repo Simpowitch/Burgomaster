@@ -10,28 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3a6e7e57a9395042bfac7ed572683e8, type: 3}
-  m_Name: SmallHouse
+  m_Name: Academy_2
   m_EditorClassIdentifier: 
-  projectName: Small House
+  projectName: Academy (level 2)
   description: 
-  sprite: {fileID: 21300000, guid: 8d9baaf1222874248aa5d629815a4046, type: 3}
-  category: 0
-  turnsToComplete: 3
+  sprite: {fileID: 21300000, guid: 41339b19db1561245b340a0298a17d60, type: 3}
+  category: 3
+  turnsToComplete: 10
   abilityTag: 6
-  blueprint: {fileID: 878028592654923265, guid: ccf4b50ebb734b345b364c2794406f9c, type: 3}
+  blueprint: {fileID: 5822658783910710594, guid: 6d174de468ac92843961994acb0eac4e, type: 3}
   serviceBuildingRequirement:
-    type: 0
-    value: 0
+    type: 3
+    value: 1
   cost:
-  - resourceType: 1
-    value: 25
-  income:
   - resourceType: 0
-    value: 8
+    value: 150
+  income: []
   upkeep:
-  - resourceType: 2
-    value: 4
+  - resourceType: 0
+    value: 20
   completionEffects:
-  - type: 0
-    effectValue: 4
-  levelUpProject: {fileID: 0}
+  - type: 2
+    effectValue: 2
+  levelUpProject: {fileID: 11400000, guid: 8a491cbbdf1628547a478a8635e06c0a, type: 2}

@@ -62,17 +62,17 @@ public class Resource
 
 public static class ResourceExtension
 {
-    public static Resource Copy(this Resource resource)
+    public static Resource Copy(this Resource resource, float multiplier = 1f)
     {
-        return new Resource(resource.resourceType, resource.value, resource.CanBeNegative);
+        return new Resource(resource.resourceType, Mathf.RoundToInt(resource.value * multiplier), resource.CanBeNegative);
     }
 
-    public static Resource[] Copy(this Resource[] resources)
+    public static Resource[] Copy(this Resource[] resources, float multiplier = 1f)
     {
         Resource[] newArray = new Resource[resources.Length];
         for (int i = 0; i < resources.Length; i++)
         {
-            newArray[i] = resources[i].Copy();
+            newArray[i] = resources[i].Copy(multiplier);
         }
         return newArray;
     }

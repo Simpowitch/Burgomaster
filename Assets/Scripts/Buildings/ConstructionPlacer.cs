@@ -59,6 +59,12 @@ public class ConstructionPlacer : MonoBehaviour
 
     List<Collider2D> collisions = new List<Collider2D>();
 
+    public void SetActive(bool value)
+    {
+        if (value != this.gameObject.activeSelf)
+            this.gameObject.SetActive(value);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collisions.Contains(collision))

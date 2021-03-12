@@ -26,20 +26,20 @@ public class ProjectPanelUI : MonoBehaviour
 
         for (int i = 0; i < costs.Length; i++)
         {
-            bool show = i < project.costToBegin.Length;
+            bool show = i < project.cost.Length;
             costs[i].Show(show);
 
             if (show)
             {
-                costs[i].Setup(project.costToBegin[i].resourceType);
-                costs[i].UpdatePanel(project.costToBegin[i].value);
+                costs[i].Setup(project.cost[i].resourceType);
+                costs[i].UpdatePanel(project.cost[i].value);
             }
         }
     }
 
     public void UpdateAffordable()
     {
-        button.interactable = player.IsAffordable(project.costToBegin);
+        button.interactable = player.IsAffordable(project.cost);
     }
 
     public void Clicked()

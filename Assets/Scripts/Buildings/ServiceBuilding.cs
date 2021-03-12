@@ -4,9 +4,9 @@ public class ServiceBuilding : Building
 {
     [SerializeField] SpriteRenderer effectRenderer = null;
     [SerializeField] float effectRadius = 3f;
-    public float productivityInfluence;
+    public float effectivityInfluence;
 
-    AbilityScore abilityScore;
+    AbilityScore abilityTag;
 
     protected override void OnEnable()
     {
@@ -28,14 +28,14 @@ public class ServiceBuilding : Building
     public override void Setup(Player player, Project project, int themeIndex)
     {
         base.Setup(player, project, themeIndex);
-        abilityScore = project.abilityScore;
+        abilityTag = project.abilityTag;
 
         foreach (var effect in projectInfo.completionEffects)
         {
             switch (effect.type)
             {
                 case Effect.Type.ProductivityPercentage:
-                    productivityInfluence = Utility.PercentageToFactor(effect.effectValue);
+                    effectivityInfluence = Utility.PercentageToFactor(effect.effectValue);
                     break;
                 case Effect.Type.Population:
                 case Effect.Type.Authority:
@@ -65,7 +65,7 @@ public class ServiceBuilding : Building
         base.FinishConstruction();
 
         AddChangeToNearbyResidences();
-        player.AddService(abilityScore, this);
+        player.AddService(abilityTag, this);
     }
 
     void AddChangeToNearbyResidences()
@@ -84,14 +84,13 @@ public class ServiceBuilding : Building
 
     protected override void Select()
     {
+        base.Select();
         effectRenderer.enabled = true;
-        BuildingInspector.instance.Show(true);
-        BuildingInspector.instance.SetupDefault(this.transform, projectInfo.name, projectInfo.sprite, projectInfo.completionEffects, income, upkeep);
     }
 
     protected override void DeSelect()
     {
-        effectRenderer.enabled = true;
-        BuildingInspector.instance.Show(false);
+        base.DeSelect();
+        effectRenderer.enabled = false;
     }
 }

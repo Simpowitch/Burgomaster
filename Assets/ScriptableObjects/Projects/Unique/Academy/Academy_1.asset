@@ -10,33 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3a6e7e57a9395042bfac7ed572683e8, type: 3}
-  m_Name: Academy
+  m_Name: Academy_1
   m_EditorClassIdentifier: 
-  projectName: Academy
+  projectName: Academy (level 1)
   description: 
   sprite: {fileID: 21300000, guid: 41339b19db1561245b340a0298a17d60, type: 3}
   category: 3
   turnsToComplete: 10
-  abilityScore: 3
+  abilityTag: 6
   blueprint: {fileID: 5822658783910710594, guid: 6d174de468ac92843961994acb0eac4e, type: 3}
   serviceBuildingRequirement:
     type: 3
     value: 1
-  costToBegin:
+  cost:
   - resourceType: 0
-    value: 200
-  - resourceType: 3
-    value: 50
-  - resourceType: 1
-    value: 50
+    value: 100
   income: []
-  upkeep: []
+  upkeep:
+  - resourceType: 0
+    value: 10
   completionEffects:
   - type: 2
     effectValue: 1
-  upgradeCost:
-  - resourceType: 0
-    value: 50
-  upgradeGain:
-  - type: 5
-    effectValue: 1
+  levelUpProject: {fileID: 11400000, guid: 82764fbfdb50be3408db54c1afa93520, type: 2}

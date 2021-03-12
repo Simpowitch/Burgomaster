@@ -12,16 +12,16 @@ public class Project : ScriptableObject
     public Category category;
 
     public int turnsToComplete;
-    public AbilityScore abilityScore = AbilityScore.UNUSED;
+    public AbilityScore abilityTag = AbilityScore.UNUSED;
     public ConstructionPlacer blueprint = null;
 
     public ServiceBuildingRequirement serviceBuildingRequirement;
 
-    public Resource[] costToBegin, income, upkeep;
+    public Resource[] cost, income, upkeep;
     public Effect[] completionEffects;
 
-    public Resource[] upgradeCost;
-    public Effect[] upgradeGain;
+    public Project levelUpProject;
+    public bool HasLevelUpProject => levelUpProject != null;
 
     [System.Serializable]
     public abstract class Requirement

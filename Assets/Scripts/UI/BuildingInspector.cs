@@ -7,16 +7,20 @@ using UnityEngine.Events;
 
 public class BuildingInspector : MonoBehaviour
 {
-    public GameObject mainParent;
-    public TextMeshProUGUI namePlate;
-    public Image mainImage;
-    public ClampUIToCanvasSpace UIToCanvasSpace;
-    public Button button;
-
-    public SpriteTextPanel[] currentEffectPanels, currentUpkeepPanels, currentIncomePanels;
-    public SpriteTextPanel[] upgradeCostPanels, updradeEffectPanels;
-
     public static BuildingInspector instance;
+
+    public GameObject mainParent;
+    public ClampUIToCanvasSpace UIToCanvasSpace;
+
+    public TextMeshProUGUI currentNamePlate;
+    public Image currentImage;
+    public SpriteTextPanel[] currentEffectPanels, currentIncomePanels, currentUpkeepPanels;
+
+    public Button upgradeButton;
+    public TextMeshProUGUI upgradeNamePlate;
+    public Image upgradeImage;
+    public SpriteTextPanel[] upgradeCostPanels, upgradeEffectPanels, upgradeIncomePanels, upgradeUpkeepPanels;
+
 
     private void Awake()
     {
@@ -29,71 +33,68 @@ public class BuildingInspector : MonoBehaviour
             instance = this;
     }
 
-
-    public void SetupDefault(Transform follow, string name, Sprite image, Effect[] effects, Resource[] incomes, Resource[] upkeep)
+    public void SetupDefault(Building building)
     {
-        UIToCanvasSpace.SetupFollowTransform(follow);
+        UIToCanvasSpace.SetupFollowTransform(building.transform);
 
-        namePlate.text = name;
-        mainImage.sprite = image;
+        currentNamePlate.text = building.MyName;
+        currentImage.sprite = building.InspectorSprite;
 
-        for (int i = 0; i < currentEffectPanels.Length; i++)
+        UpdatePanels(currentEffectPanels, building.CurrentEffects);
+        UpdatePanels(currentIncomePanels, building.Income);
+        UpdatePanels(currentUpkeepPanels, building.Upkeep);
+
+        upgradeButton.gameObject.SetActive(false);
+    }
+
+    public void SetupUpgradeable(Building building, UnityAction buttonAction, bool interactable)
+    {
+        SetupDefault(building);
+
+            upgradeNamePlate.text = building.NextLevelName;
+            upgradeImage.sprite = building.NextLevelInspectorSprite;
+
+            UpdatePanels(upgradeCostPanels, building.LevelUpCost);
+            UpdatePanels(upgradeEffectPanels, building.NextLevelEffects);
+            UpdatePanels(upgradeIncomePanels, building.NextLevelIncome);
+            UpdatePanels(upgradeUpkeepPanels, building.NextLevelUpkeep);
+
+            upgradeButton.gameObject.SetActive(true);
+            Button.ButtonClickedEvent onClick = new Button.ButtonClickedEvent();
+            onClick.AddListener(buttonAction);
+            upgradeButton.onClick = onClick;
+            upgradeButton.interactable = interactable;
+    }
+
+    void UpdatePanels(SpriteTextPanel[] panels, Effect[] effects)
+    {
+        for (int i = 0; i < panels.Length; i++)
         {
             bool show = i < effects.Length;
 
-            currentEffectPanels[i].SetActive(show);
+            panels[i].SetActive(show);
             if (show)
             {
-                currentEffectPanels[i].Setup(effects[i].ToString(), effects[i].Sprite);
+                panels[i].Setup(effects[i].ToString(), effects[i].Sprite);
             }
         }
-
-        for (int i = 0; i < currentIncomePanels.Length; i++)
-        {
-            bool show = i < incomes.Length;
-
-            currentIncomePanels[i].SetActive(show);
-            if (show)
-            {
-                currentIncomePanels[i].Setup(incomes[i].value.ToString(), incomes[i].Sprite);
-            }
-        }
-
-        for (int i = 0; i < currentUpkeepPanels.Length; i++)
-        {
-            bool show = i < upkeep.Length;
-
-            currentUpkeepPanels[i].SetActive(show);
-            if (show)
-            {
-                currentUpkeepPanels[i].Setup(upkeep[i].value.ToString(), upkeep[i].Sprite);
-            }
-        }
-
-        button.gameObject.SetActive(false);
     }
 
-    public void SetupUpgradeable(Transform follow, string name, Sprite image, Effect[] effects, Resource[] incomes, Resource[] upkeep, UnityAction buttonAction, Resource[] actionCost, bool interactable)
+    void UpdatePanels(SpriteTextPanel[] panels, Resource[] resources)
     {
-        SetupDefault(follow, name, image, effects, incomes, upkeep);
-
-        for (int i = 0; i < upgradeCostPanels.Length; i++)
+        for (int i = 0; i < panels.Length; i++)
         {
-            bool show = i < actionCost.Length;
+            bool show = i < resources.Length;
 
-            upgradeCostPanels[i].SetActive(show);
+            panels[i].SetActive(show);
             if (show)
             {
-                upgradeCostPanels[i].Setup(actionCost[i].ToString(), actionCost[i].Sprite);
+                panels[i].Setup(resources[i].ToString(), resources[i].Sprite);
             }
         }
-
-        button.gameObject.SetActive(true);
-        Button.ButtonClickedEvent onClick = new Button.ButtonClickedEvent();
-        onClick.AddListener(buttonAction);
-        button.onClick = onClick;
-        button.interactable = interactable;
     }
 
     public void Show(bool value) => mainParent.SetActive(value);
+
+    public void CloseAndDeselect() => Building.SelectedBuilding = null;
 }

@@ -33,8 +33,17 @@ public class BuildingManager : MonoBehaviour
             this.enabled = false;
         }
 
-        if (IsPointerOverUI() || previewObject == null)
+        if (previewObject == null)
             return;
+
+        if (IsPointerOverUI())
+        {
+            previewObject.SetActive(false);
+            return;
+        }
+
+        previewObject.SetActive(true);
+
 
         RaycastHit2D hit = Physics2D.Raycast(c.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, mask);
         if (hit.collider != null)

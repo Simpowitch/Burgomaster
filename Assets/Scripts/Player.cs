@@ -124,8 +124,8 @@ public class Player : MonoBehaviour
     }
 
     public void SelectProject(Project project) => buildingManager.SetCurrentProject(project);
-    public void PayForProject(Project project) => RemoveResources(project.costToBegin);
-    public bool CanDoProject(Project project) => availableProjects.Contains(project) && IsAffordable(project.costToBegin);
+    public void PayForProject(Project project) => RemoveResources(project.cost);
+    public bool CanDoProject(Project project) => availableProjects.Contains(project) && IsAffordable(project.cost);
 
     #region Economy
     private void SimulateEconomy(object sender, TurnManager.OnTurnEventArgs e)
@@ -161,6 +161,8 @@ public class Player : MonoBehaviour
     }
     public void AddResources(Resource[] allResourcesToAdd)
     {
+        if (allResourcesToAdd == null)
+            return;
         foreach (var resouceToAdd in allResourcesToAdd)
         {
             AddResource(resouceToAdd);
@@ -174,6 +176,8 @@ public class Player : MonoBehaviour
     }
     public void RemoveResources(Resource[] allResourcesToRemove)
     {
+        if (allResourcesToRemove == null)
+            return;
         foreach (var resourceToRemove in allResourcesToRemove)
         {
             RemoveResource(resourceToRemove);
@@ -182,6 +186,8 @@ public class Player : MonoBehaviour
 
     public void ChangeTurnIncomes(Resource[] affectedIncomes, bool increase)
     {
+        if (affectedIncomes == null)
+            return;
         foreach (var income in affectedIncomes)
         {
             if (increase)
@@ -194,6 +200,8 @@ public class Player : MonoBehaviour
 
     public void ChangeTurnExpenses(Resource[] affectedIncomes, bool increase)
     {
+        if (affectedIncomes == null)
+            return;
         foreach (var expense in affectedIncomes)
         {
             if (increase)
