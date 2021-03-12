@@ -21,6 +21,7 @@ public abstract class Building : MonoBehaviour, IPointerClickHandler
 
     protected Action OnCompletion;
     public UnityEvent OnCompletionInspector;
+    private Action OnLevelUpCompleted;
 
     [Header("References")]
     [SerializeField] SpriteRenderer spriteRenderer = null;
@@ -234,14 +235,17 @@ public abstract class Building : MonoBehaviour, IPointerClickHandler
     {
         if (level > 0)
         {
+            player.RemoveResources(LevelUpCost);
+
             projectInfo = projectInfo.levelUpProject;
             UpdateStats();
-            player.RemoveResources(LevelUpCost);
         }
         else
             UpdateStats(false);
 
         level++;
+
+        OnLevelUpCompleted?.Invoke();
     }
 
     private void UpdateStats(bool removeOld = true)
@@ -297,12 +301,12 @@ public abstract class Building : MonoBehaviour, IPointerClickHandler
     {
         SetupBuildingInspector();
         BuildingInspector.instance.Show(true);
-        player.OnEconomyChanged += SetupBuildingInspector;
+        OnLevelUpCompleted += SetupBuildingInspector;
     }
     protected virtual void DeSelect()
     {
         BuildingInspector.instance.Show(false);
-        player.OnEconomyChanged -= SetupBuildingInspector;
+        OnLevelUpCompleted -= SetupBuildingInspector;
     }
 
     private void SetupBuildingInspector()
