@@ -37,9 +37,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_A0CA7598: 0
-    - _WindScale: 0.5
-    - _WindSpeed: 0.75
+    - _WindScale: 1
+    - _WindSpeed: 0.25
     - _WindStrength: 1
     m_Colors:
-    - _WindDirection: {r: 1.5, g: 2.5, b: 2, a: 2}
+    - _WindDirection: {r: 2, g: 3, b: 3, a: 3}
   m_BuildTextureStacks: []
