@@ -13,10 +13,23 @@ MonoBehaviour:
   m_Name: Farm
   m_EditorClassIdentifier: 
   projectName: Farm
+  description: 
+  sprite: {fileID: 21300000, guid: da27731d89da68f499b7ac35db3be409, type: 3}
   category: 1
-  turnsToComplete: 1
-  costToBegin:
+  turnsToComplete: 5
+  abilityTag: 6
+  blueprint: {fileID: 5495393023480016008, guid: e4b0e6290d5806847ab573ac7cb9ebfd, type: 3}
+  serviceBuildingRequirement:
+    type: 6
+    value: 0
+  cost:
   - resourceType: 1
+    value: 100
+  income:
+  - resourceType: 2
     value: 50
-  sprite: {fileID: 21300000, guid: 2a21a113bd3c2754e8c7ef4001cf6330, type: 3}
-  blueprint: {fileID: 0}
+  upkeep:
+  - resourceType: 0
+    value: 10
+  completionEffects: []
+  levelUpProject: {fileID: 0}

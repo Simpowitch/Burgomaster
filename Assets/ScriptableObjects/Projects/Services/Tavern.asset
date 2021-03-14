@@ -17,7 +17,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 54a628255252c374885676cea3a18ba6, type: 3}
   category: 2
   turnsToComplete: 5
-  abilityTag: 3
+  abilityTag: 1
   blueprint: {fileID: 2492462109058513618, guid: 8ca2dcbf9855aae43b1e1f5147e1ad49, type: 3}
   serviceBuildingRequirement:
     type: 6

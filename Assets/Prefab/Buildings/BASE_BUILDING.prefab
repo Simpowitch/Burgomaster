@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fcddeb5c8a731df4b9cd95d31d95697c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 14d5bf40f6413cd48b2a7202002e212b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -100,7 +100,7 @@ MonoBehaviour:
   - {fileID: 3660560425225542357}
   - {fileID: 2657391846788969153}
   animationTime: 0.5
-  color: {r: 0, g: 0, b: 0, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &958851029384673333
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,14 +222,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fcddeb5c8a731df4b9cd95d31d95697c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 749fe280d19797941b282903ecc7979c, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 2904898803698952205}
   - component: {fileID: 7506150558072168427}
   m_Layer: 6
-  m_Name: BASE_Building
+  m_Name: BASE_BUILDING
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -405,7 +405,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fcddeb5c8a731df4b9cd95d31d95697c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 749fe280d19797941b282903ecc7979c, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -649,6 +649,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConstructionSlot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8589774010614619696, guid: 575df38ff84cd6a4c9789fc1329e165d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8845240375272037705, guid: 575df38ff84cd6a4c9789fc1329e165d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -751,6 +755,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConstructionSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 8589774010614619696, guid: 575df38ff84cd6a4c9789fc1329e165d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8845240375272037705, guid: 575df38ff84cd6a4c9789fc1329e165d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -852,6 +860,10 @@ PrefabInstance:
     - target: {fileID: 8589774010614619696, guid: 575df38ff84cd6a4c9789fc1329e165d, type: 3}
       propertyPath: m_Name
       value: ConstructionSlot (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589774010614619696, guid: 575df38ff84cd6a4c9789fc1329e165d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8845240375272037705, guid: 575df38ff84cd6a4c9789fc1329e165d, type: 3}
       propertyPath: m_Pivot.x
