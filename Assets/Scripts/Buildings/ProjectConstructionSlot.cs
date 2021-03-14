@@ -18,7 +18,7 @@ public class ProjectConstructionSlot : MonoBehaviour, IPointerClickHandler
         set
         {
             advisor = value;
-            portrait.sprite = value != null ? value.portrait : defaultPortrait;
+            portrait.sprite = value != null ? value.shield : defaultPortrait;
             if (value == null)
             {
                 portrait.color = new Color(1f, 1f, 1f, 1f);

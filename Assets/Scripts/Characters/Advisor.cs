@@ -7,6 +7,7 @@ public class Advisor
 {
     public string nameOfCharacter;
     public Sprite portrait;
+    public Sprite shield;
     //public int force, cunning, diplomacy, knowledge, survival, infrastructure;
 
     List<ProjectConstructionSlot> projectQueue = new List<ProjectConstructionSlot>();
