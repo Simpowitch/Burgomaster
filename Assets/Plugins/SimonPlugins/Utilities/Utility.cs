@@ -315,9 +315,9 @@ public static class Utility
     public static bool Between(float a, float b, float testValue)
     {
         if (testValue < b && testValue > a)
-        {
             return true;
-        }
+        if (testValue > b && testValue < a)
+            return true;
         return false;
     }
 
