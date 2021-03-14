@@ -32,6 +32,7 @@ public abstract class Building : MonoBehaviour, IPointerClickHandler
     [SerializeField] ConstructionPlacer constructionPlacer = null;
     [SerializeField] Rigidbody2D rb = null;
 
+    [SerializeField] GameObject[] levelObjects = null;
 
     protected bool isFinished = false;
     int turnsToBuild = 2;
@@ -242,6 +243,12 @@ public abstract class Building : MonoBehaviour, IPointerClickHandler
         }
         else
             UpdateStats(false);
+
+        if (levelObjects != null && level > 0)
+        {
+            levelObjects[level].SetActive(false);
+            levelObjects[level+1].SetActive(true);
+        }
 
         level++;
 
