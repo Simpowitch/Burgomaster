@@ -15,11 +15,7 @@ MonoBehaviour:
   race:
     raceName: Human
     sprites:
-    - {fileID: 21300000, guid: bc872ea11d9f6b746bc95eaf0fd64af4, type: 3}
-    - {fileID: 21300000, guid: a79e97e38b7ec594b98faf3d7ced32c4, type: 3}
-    - {fileID: 21300000, guid: da5db577ed2c2a149a2428929ec4ac20, type: 3}
-    - {fileID: 21300000, guid: 20939efe47b19be48b6424d5ff37bf28, type: 3}
-    - {fileID: 21300000, guid: 04477096b6514924e91ebf00c5cb5275, type: 3}
+    - {fileID: 21300000, guid: 98d2991f4bea6694c85bcc1532a15b43, type: 3}
     abilityScores:
       authority: 2
       cunning: 1
