@@ -7,7 +7,7 @@ public class ProjectPanelUI : MonoBehaviour
     public TextMeshProUGUI projectNamePlate, description;
     public TextMeshProUGUI turnPlate;
     public Image projectImage;
-    public ResourcePanelUI[] costs;
+    public SpriteTextPanel[] costs;
     public Button button;
 
     private Project project;
@@ -29,12 +29,11 @@ public class ProjectPanelUI : MonoBehaviour
         for (int i = 0; i < costs.Length; i++)
         {
             bool show = i < project.cost.Length;
-            costs[i].Show(show);
+            costs[i].SetActive(show);
 
             if (show)
             {
-                costs[i].Setup(project.cost[i].resourceType);
-                costs[i].UpdatePanel(project.cost[i].value);
+                costs[i].Setup(project.cost[i].value.ToString(), ResourceSpriteDatabase.GetSprite(project.cost[i].resourceType));
             }
         }
     }

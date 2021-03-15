@@ -16,14 +16,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   spriteRenderer: {fileID: 4672551019705467305}
-  constructed: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  constructed: {fileID: 2100000, guid: 373c131f790dd204a808b9f539afa04f, type: 2}
   constructionSlots:
   - {fileID: 1023624909222420165}
   canvasTransform: {fileID: 1403432611658970983}
   progressBar: {fileID: 6348261372527354273}
   constructionPlacer: {fileID: 5473716750716117445}
   rb: {fileID: 1255557034284465208}
-  inspectionPanel: {fileID: 3237806832708351303}
+  levelObjects: []
+  level: 0
   themes: []
 --- !u!1001 &2584424397535706670
 PrefabInstance:
@@ -153,16 +154,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae994d6454626f449b0316c09c448065, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3237806832708351303 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1095140395032906601, guid: 56c0791e2e3fe8c49ae608be1d9bd705, type: 3}
-  m_PrefabInstance: {fileID: 2584424397535706670}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35a69fd7269faa04780f9a98346e8651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

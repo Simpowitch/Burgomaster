@@ -3,7 +3,7 @@ using System;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public abstract class Building : MonoBehaviour, IPointerClickHandler
+public abstract class Building : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private static Building selectedBuilding;
     public static Building SelectedBuilding
@@ -247,7 +247,7 @@ public abstract class Building : MonoBehaviour, IPointerClickHandler
         if (levelObjects != null && level > 0)
         {
             levelObjects[level].SetActive(false);
-            levelObjects[level+1].SetActive(true);
+            levelObjects[level + 1].SetActive(true);
         }
 
         level++;
@@ -309,11 +309,16 @@ public abstract class Building : MonoBehaviour, IPointerClickHandler
         SetupBuildingInspector();
         BuildingInspector.instance.Show(true);
         OnLevelUpCompleted += SetupBuildingInspector;
+
+        spriteRenderer.material.SetInt(Shader.PropertyToID("_ShowOutline"), 1);
+        spriteRenderer.material.SetInt(Shader.PropertyToID("_IsPulsing"), 0);
     }
     protected virtual void DeSelect()
     {
         BuildingInspector.instance.Show(false);
         OnLevelUpCompleted -= SetupBuildingInspector;
+
+        spriteRenderer.material.SetInt(Shader.PropertyToID("_ShowOutline"), 0);
     }
 
     private void SetupBuildingInspector()
@@ -326,10 +331,25 @@ public abstract class Building : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (projectInfo)
+        Debug.Log("Building selected: " + projectInfo.name);
+        SelectedBuilding = this;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (this != SelectedBuilding)
         {
-            Debug.Log("Building selected: " + projectInfo.name);
-            SelectedBuilding = this;
+            spriteRenderer.material.SetInt(Shader.PropertyToID("_IsPulsing"), 1);
+            spriteRenderer.material.SetInt(Shader.PropertyToID("_ShowOutline"), 1);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (this != SelectedBuilding)
+        {
+            spriteRenderer.material.SetInt(Shader.PropertyToID("_IsPulsing"), 0);
+            spriteRenderer.material.SetInt(Shader.PropertyToID("_ShowOutline"), 0);
         }
     }
 }

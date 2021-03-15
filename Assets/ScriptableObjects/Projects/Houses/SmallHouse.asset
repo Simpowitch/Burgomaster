@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SmallHouse
   m_EditorClassIdentifier: 
   projectName: Small House
-  description: 
+  description: A small home. Simple but comfortable
   sprite: {fileID: 21300000, guid: 8d9baaf1222874248aa5d629815a4046, type: 3}
   category: 0
   turnsToComplete: 3

@@ -16,7 +16,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   spriteRenderer: {fileID: 2399342837154795545}
-  constructed: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  constructed: {fileID: 2100000, guid: 373c131f790dd204a808b9f539afa04f, type: 2}
   constructionSlots:
   - {fileID: 8043627473841409909}
   - {fileID: 3844965872754221386}

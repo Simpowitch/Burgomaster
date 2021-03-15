@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MediumHouse
   m_EditorClassIdentifier: 
   projectName: Medium House
-  description: 
+  description: An improved dwelling
   sprite: {fileID: 21300000, guid: e3b4b7c882596cf4a8db86e373f73cb3, type: 3}
   category: 0
   turnsToComplete: 4
