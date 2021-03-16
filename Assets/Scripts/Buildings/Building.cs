@@ -1,9 +1,8 @@
 using UnityEngine;
 using System;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
-public abstract class Building : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public abstract class Building : MonoBehaviour
 {
     private static Building selectedBuilding;
     public static Building SelectedBuilding
@@ -329,13 +328,13 @@ public abstract class Building : MonoBehaviour, IPointerClickHandler, IPointerEn
             BuildingInspector.instance.SetupDefault(this);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    private void OnMouseDown()
     {
         Debug.Log("Building selected: " + projectInfo.name);
         SelectedBuilding = this;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    void OnMouseEnter()
     {
         if (this != SelectedBuilding)
         {
@@ -344,7 +343,7 @@ public abstract class Building : MonoBehaviour, IPointerClickHandler, IPointerEn
         }
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    void OnMouseExit()
     {
         if (this != SelectedBuilding)
         {

@@ -53,6 +53,7 @@ public class PathManager : MonoBehaviour
                 SelectedCreator = pathUnderMouse.transform.parent.GetComponent<PathCreator>();
                 SetState(State.EditSegments);
                 selectedAnchor = null;
+                PathAnchorPoint.Selection = selectedAnchor;
                 editModeToggle.SetIsOnWithoutNotify(true);
                 return;
             }
@@ -61,11 +62,11 @@ public class PathManager : MonoBehaviour
                 SelectedCreator = anchorUnderMouse.transform.parent.GetComponent<PathCreator>();
                 SetState(State.EditSegments);
                 selectedAnchor = anchorUnderMouse;
+                PathAnchorPoint.Selection = selectedAnchor;
                 editModeToggle.SetIsOnWithoutNotify(true);
                 return;
             }
         }
-
 
         switch (state)
         {
@@ -93,6 +94,7 @@ public class PathManager : MonoBehaviour
                         if (Utility.GetObjectUnderMouse2D(out PathAnchorPoint anchor, selectedAnchor))
                         {
                             point = anchor.transform.position;
+                            PathAnchorPoint.Selection = selectedAnchor;
                         }
 
                         selectedAnchor.MovePoint(point);
@@ -106,6 +108,8 @@ public class PathManager : MonoBehaviour
                             SelectedCreator.DeleteLastSegment();
 
                             selectedAnchor = SelectedCreator.LastAnchorPoint;
+                            PathAnchorPoint.Selection = selectedAnchor;
+
                             buttonPanel.transform.position = SelectedCreator.LastAnchorPoint.transform.position;
                         }
                         else
@@ -121,10 +125,12 @@ public class PathManager : MonoBehaviour
                     if (Utility.GetObjectUnderMouse2D(out PathAnchorPoint anchor))
                     {
                         this.selectedAnchor = anchor;
+                            PathAnchorPoint.Selection = selectedAnchor;
                     }
                     else
                     {
                         this.selectedAnchor = null;
+                            PathAnchorPoint.Selection = selectedAnchor;
                     }
                 }
                 if (Input.GetKey(KeyCode.Mouse0)) //Held Down
@@ -170,6 +176,8 @@ public class PathManager : MonoBehaviour
         SelectedCreator = Instantiate(pathCreatorBP, creatorParent);
         SelectedCreator.Setup(pos);
         selectedAnchor = SelectedCreator.LastAnchorPoint;
+        PathAnchorPoint.Selection = selectedAnchor;
+
         SetState(State.AddAndRemoveSegments);
     }
 
@@ -184,6 +192,8 @@ public class PathManager : MonoBehaviour
     public void Confirm()
     {
         SelectedCreator = null;
+        selectedAnchor = null;
+        PathAnchorPoint.Selection = selectedAnchor;
         SetState(State.CreateNewRoad);
     }
 
@@ -192,6 +202,7 @@ public class PathManager : MonoBehaviour
         SelectedCreator.Destroy();
         SelectedCreator = null;
         selectedAnchor = null;
+        PathAnchorPoint.Selection = selectedAnchor;
         SetState(State.CreateNewRoad);
     }
 
