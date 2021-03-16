@@ -33731,8 +33731,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioPlayer: {fileID: 1241029627}
-  minPauseTime: 30
-  maxPauseTime: 180
+  minPauseTime: 10
+  maxPauseTime: 30
   scores:
   - {fileID: 8300000, guid: 1f5ff12f4e119694f936189c7647d398, type: 3}
   - {fileID: 8300000, guid: a8d7831f71cf75d458a1263c7f0f2af0, type: 3}
