@@ -11,6 +11,8 @@ public class MusicSystem : MonoBehaviour
 
     private void Start()
     {
+        audioPlayer.Stop();
+
         scoreIndex = Random.Range(0, scores.Length);
         audioPlayer.clip = scores[scoreIndex];
         audioPlayer.Play();
