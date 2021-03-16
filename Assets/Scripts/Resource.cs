@@ -41,6 +41,8 @@ public class Resource
 
     public static bool IsAffordable(Resource[] costs, Resource[] availableResources)
     {
+        if (costs == null)
+            return true;
         for (int i = 0; i < costs.Length; i++)
         {
             Resource resourceToCheck = GetResourceByType(availableResources, costs[i].resourceType);

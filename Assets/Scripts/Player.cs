@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] List<Project> allProjects = new List<Project>();
-    List<Project> availableProjects = new List<Project>();
+    [SerializeField] List<BuildingBlueprint> buildingBlueprints = new List<BuildingBlueprint>();
+    [SerializeField] List<PropBlueprint> propBlueprints = new List<PropBlueprint>();
+
+    List<BuildingBlueprint> availableBuildingBlueprints = new List<BuildingBlueprint>();
 
     [SerializeField] TextMeshProUGUI leaderNameText = null;
     [SerializeField] Image leaderImage = null;
@@ -16,9 +18,10 @@ public class Player : MonoBehaviour
     [SerializeField] TextMeshProUGUI populationText = null;
     [SerializeField] ResourcePanelUI[] resourcePanels = null;
 
-    [SerializeField] ProjectOverviewUI projectOverview = null;
+    [SerializeField] BuildingSelectionOverview buildingSelector = null;
+    [SerializeField] PropSelectionOverview propSelector = null;
 
-    [SerializeField] BuildingManager buildingManager = null;
+    [SerializeField] SpawnManager buildingManager = null;
 
     public delegate void PlayerChange();
     public PlayerChange OnEconomyChanged;
@@ -123,9 +126,25 @@ public class Player : MonoBehaviour
         AbilityScores = data.LeaderData.abilityScores;
     }
 
-    public void SelectProject(Project project) => buildingManager.SetCurrentProject(project);
-    public void PayForProject(Project project) => RemoveResources(project.cost);
-    public bool CanDoProject(Project project) => availableProjects.Contains(project) && IsAffordable(project.cost);
+    public void SelectBlueprint(Blueprint blueprint) => buildingManager.SetCurrentBlueprint(blueprint);
+
+    public void PayForProject(Blueprint blueprint) => RemoveResources(blueprint.Cost);
+    public bool CanDoProject(Blueprint blueprint)
+    {
+        if (blueprint is BuildingBlueprint)
+        {
+            return availableBuildingBlueprints.Contains(blueprint as BuildingBlueprint) && IsAffordable(blueprint.Cost);
+        }
+        else if (blueprint is PropBlueprint)
+        {
+            return propBlueprints.Contains(blueprint as PropBlueprint);
+        }
+        else
+        {
+            Debug.LogWarning("Check if blueprint can be spawned: Failed");
+            return false;
+        }
+    }
 
     #region Economy
     private void SimulateEconomy(object sender, TurnManager.OnTurnEventArgs e)
@@ -149,7 +168,7 @@ public class Player : MonoBehaviour
         {
             resourcePanels[i].UpdatePanel(resources[i].value, incomes[i].value, expenses[i].value);
         }
-        projectOverview.UpdateAffordables();
+        buildingSelector.UpdateAffordables();
     }
 
     public bool IsAffordable(Resource[] costs) => Resource.IsAffordable(costs, resources);
@@ -288,22 +307,24 @@ public class Player : MonoBehaviour
 
     private void UpdateAvailableProjects()
     {
-        availableProjects.Clear();
-        foreach (var project in allProjects)
+        availableBuildingBlueprints.Clear();
+        foreach (var project in buildingBlueprints)
         {
             if (project.serviceBuildingRequirement == null || project.serviceBuildingRequirement.RequirementFullfilled(this))
             {
-                availableProjects.Add(project);
+                availableBuildingBlueprints.Add(project);
             }
         }
-        projectOverview.UpdateProjectList(availableProjects, this);
+        buildingSelector.UpdateProjectList(availableBuildingBlueprints, this);
+
+        propSelector.UpdateProjectList(propBlueprints, this);
     }
 
-    public void RemoveUniqueProject(Project project)
+    public void RemoveUniqueBlueprint(BuildingBlueprint project)
     {
-        if (allProjects.Contains(project))
+        if (buildingBlueprints.Contains(project))
         {
-            allProjects.Remove(project);
+            buildingBlueprints.Remove(project);
             UpdateAvailableProjects();
         }
     }
