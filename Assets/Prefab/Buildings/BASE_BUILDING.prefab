@@ -100,7 +100,7 @@ MonoBehaviour:
   - {fileID: 3660560425225542357}
   - {fileID: 2657391846788969153}
   animationTime: 0.5
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 0.15263441, g: 0.26732007, b: 0.6603774, a: 1}
 --- !u!1 &958851029384673333
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.15263441, g: 0.26732007, b: 0.6603774, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
