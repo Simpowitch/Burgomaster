@@ -72,6 +72,9 @@ public class MouseTooltip : MonoBehaviour
 
     public void Hide()
     {
+        if (!this.isActiveAndEnabled)
+            return;
+
         StopAllCoroutines();
         animator.SetBool("Show", false);
     }

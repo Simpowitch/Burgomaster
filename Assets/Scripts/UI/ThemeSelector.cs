@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[System.Serializable]
 public class ThemeSelector : MonoBehaviour
 {
     List<SpriteButton> themeButtons = new List<SpriteButton>();
