@@ -30,6 +30,13 @@ MonoBehaviour:
   - resourceType: 0
     value: 10
   completionEffects:
-  - type: 2
+  - type: 5
     effectValue: 1
   levelUpBlueprint: {fileID: 11400000, guid: 82764fbfdb50be3408db54c1afa93520, type: 2}
+  levelUpNotification:
+    title: 
+    description: 
+    icon: {fileID: 0}
+    panelBackground: {fileID: 0}
+    inspectSound: {fileID: 0}
+    listPopupSound: {fileID: 0}

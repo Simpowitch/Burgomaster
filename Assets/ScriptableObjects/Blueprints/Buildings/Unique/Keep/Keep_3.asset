@@ -15,7 +15,7 @@ MonoBehaviour:
   prefab: {fileID: 5822658783910710594, guid: 3efdf7ee7f51753469b0532bcd28bb16, type: 3}
   buildingName: Keep
   description: Improves the authority
-  uiSprite: {fileID: 21300000, guid: d6ad6b31f0acdb84cb96930af6a9a8f7, type: 3}
+  uiSprite: {fileID: 21300000, guid: bfa6d379b4b44b543a7c52420642ea24, type: 3}
   category: 3
   turnsToComplete: 10
   abilityTag: 6
@@ -28,4 +28,11 @@ MonoBehaviour:
   completionEffects:
   - type: 2
     effectValue: 3
-  levelUpBlueprint: {fileID: 11400000, guid: 13a334235b8f2884db298e8abf98bdcc, type: 2}
+  levelUpBlueprint: {fileID: 0}
+  levelUpNotification:
+    title: Keep +3
+    description: Great keep keeps being great
+    icon: {fileID: 21300000, guid: 92fb773863298a04d9ffc71f41ce2c2b, type: 3}
+    panelBackground: {fileID: 21300000, guid: 1c1695cb7480f1c45b611e98b3391f38, type: 3}
+    inspectSound: {fileID: 8300000, guid: 2c7fadf8a16a6cd498185ac764cb61f9, type: 3}
+    listPopupSound: {fileID: 0}

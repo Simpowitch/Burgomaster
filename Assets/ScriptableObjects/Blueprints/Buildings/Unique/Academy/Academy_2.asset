@@ -30,6 +30,13 @@ MonoBehaviour:
   - resourceType: 0
     value: 20
   completionEffects:
-  - type: 2
+  - type: 5
     effectValue: 2
   levelUpBlueprint: {fileID: 11400000, guid: 8a491cbbdf1628547a478a8635e06c0a, type: 2}
+  levelUpNotification:
+    title: Academy +2
+    description: 
+    icon: {fileID: 21300000, guid: d149d1198396361478eed93f74c58112, type: 3}
+    panelBackground: {fileID: 0}
+    inspectSound: {fileID: 8300000, guid: 66053ed56b0061b44875f5bc021f63a6, type: 3}
+    listPopupSound: {fileID: 0}
