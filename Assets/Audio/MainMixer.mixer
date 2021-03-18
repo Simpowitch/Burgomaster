@@ -6,7 +6,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Score
+  m_Name: Music
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: fd761a93bb0b0dd49a7bbac33574f1b2
   m_Children: []
@@ -25,7 +25,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FX
+  m_Name: SFX
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 9437ccc8d0c92d84ab4068da75d9c3d6
   m_Children: []
@@ -67,7 +67,15 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 245a44895bc3fe249a758e76f4baff7f
+    name: SFXVolume
+  - guid: 629b37fe32817644d803a4b257b3eb0c
+    name: MasterVolume
+  - guid: 5fb3c895cbe05ea49aef8d7300e73705
+    name: MusicVolume
+  - guid: e28e81fc7b0238a47b10b2a4dc32eb23
+    name: UIVolume
   m_AudioMixerGroupViews:
   - guids:
     - 55492c57d8bdc6c47ab7216cfcb962d7
@@ -123,9 +131,9 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: fa1d1e8856d0acc4fabbd98b46cf3fc9
   m_FloatValues:
-    5fb3c895cbe05ea49aef8d7300e73705: -6
-    245a44895bc3fe249a758e76f4baff7f: -6
-    e28e81fc7b0238a47b10b2a4dc32eb23: -6
+    5fb3c895cbe05ea49aef8d7300e73705: 0
+    245a44895bc3fe249a758e76f4baff7f: 0
+    e28e81fc7b0238a47b10b2a4dc32eb23: 0
   m_TransitionOverrides: {}
 --- !u!243 &138989591873642031
 AudioMixerGroupController:
@@ -133,7 +141,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UX
+  m_Name: UI
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 3315d8868c3fb52418300ba6de057b5b
   m_Children: []
