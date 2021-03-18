@@ -6,6 +6,7 @@ public class BuildingSpawner : Spawner
 {
     Building building = null;
     public override void ChangeTheme(bool next) => building.ChangeTheme(next);
+    public override void ChangeTheme(int index) => building.ChangeTheme(index);
     public override int CurrentTheme => building.ThemeIndex;
 
     void Awake()

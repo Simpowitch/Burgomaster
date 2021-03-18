@@ -7,6 +7,7 @@ public class PropSpawner : Spawner
     Prop prop = null;
 
     public override void ChangeTheme(bool next) => prop.ChangeTheme(next);
+    public override void ChangeTheme(int index) => prop.ChangeTheme(index);
     public override int CurrentTheme => prop.ThemeIndex;
 
     void Awake()

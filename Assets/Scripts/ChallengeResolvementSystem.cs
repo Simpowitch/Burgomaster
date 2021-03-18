@@ -15,7 +15,7 @@ public class ChallengeResolvementSystem : MonoBehaviour
     public TextMeshProUGUI challengeText, modifierText, totalText;
     public Button diceButton, cancelButton;
     public Image modifierShield;
-    public Sprite[] modifierShields = new Sprite[6], challengeShields = new Sprite[6];
+    public Sprite[] modifierShields = new Sprite[6];
 
     int DiceResult => dice.DiceResult;
     int ResultTotal => DiceResult + statModifier;

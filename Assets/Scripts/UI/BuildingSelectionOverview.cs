@@ -6,6 +6,7 @@ public class BuildingSelectionOverview : MonoBehaviour
 {
     public BuildingBlueprintPanel projectPanel_BP;
     public Transform viewportContent;
+    public ThemeSelector themeSelector;
 
     private List<BuildingBlueprintPanel> allTab = new List<BuildingBlueprintPanel>();
     private List<BuildingBlueprintPanel> housingTab = new List<BuildingBlueprintPanel>();

@@ -9,7 +9,7 @@ public abstract class WorldObject : MonoBehaviour
     Rigidbody2D rb = null;
 
     [SerializeField] protected Material constructedMaterial = null;
-    [SerializeField] Sprite[] themes = null;
+    public Sprite[] themes = null;
     public int ThemeIndex { get; private set; } = 0;
     public bool HasThemes => themes != null && themes.Length > 0;
 
@@ -25,7 +25,7 @@ public abstract class WorldObject : MonoBehaviour
         Destroy(rb);
         this.gameObject.layer = 0;
 
-        SetThemeIndex(themeIndex);
+        ChangeTheme(themeIndex);
     }
     public void ChangeTheme(bool next)
     {
@@ -37,7 +37,7 @@ public abstract class WorldObject : MonoBehaviour
         }
     }
 
-    private void SetThemeIndex(int index)
+    public void ChangeTheme(int index)
     {
         if (themes == null || index >= themes.Length)
             return;

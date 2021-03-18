@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] Camera c = null;
     [SerializeField] GraphicRaycaster m_Raycaster = null;
     [SerializeField] Transform spawnParent = null;
+    public ThemeSelector themeSelector;
+
     public LayerMask mask;
     Spawner spawner;
     [SerializeField] float keyRotationSpeed = 30;
@@ -18,6 +21,14 @@ public class SpawnManager : MonoBehaviour
 
     Blueprint selectedBlueprint;
 
+    [Header("Key commands")]
+    public KeyCode cancelSpawn = KeyCode.C;
+    public KeyCode rotateClockwise = KeyCode.Period;
+    public KeyCode rotateCounterClockwise = KeyCode.Comma;
+    public KeyCode rotate90 = KeyCode.R;
+    public KeyCode nextTheme = KeyCode.B;
+    public KeyCode previousTheme = KeyCode.V;
+
     private void OnDisable()
     {
         DestroyPreviewObject();
@@ -25,7 +36,7 @@ public class SpawnManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(cancelSpawn))
         {
             mouseTooltip.Hide();
             DestroyPreviewObject();
@@ -73,24 +84,24 @@ public class SpawnManager : MonoBehaviour
             DestroyPreviewObject();
 
         //Rotate Left
-        if (Input.GetKey(KeyCode.Comma))
+        if (Input.GetKey(rotateCounterClockwise))
         {
             spawner.transform.rotation *= Quaternion.Euler(Vector3.forward * keyRotationSpeed * Time.deltaTime);
         }
         //Rotate Right
-        if (Input.GetKey(KeyCode.Period))
+        if (Input.GetKey(rotateClockwise))
         {
             spawner.transform.rotation *= Quaternion.Euler(Vector3.forward * -keyRotationSpeed * Time.deltaTime);
         }
         //Rotate 90 degrees right
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(rotate90))
             spawner.transform.rotation *= Quaternion.Euler(Vector3.forward * -90f);
 
         //Change to next available theme
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(nextTheme))
             spawner.ChangeTheme(true);
         //Change to previous available theme
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(previousTheme))
             spawner.ChangeTheme(false);
     }
 
@@ -100,6 +111,25 @@ public class SpawnManager : MonoBehaviour
             DestroyPreviewObject();
 
         spawner = Instantiate(selectedBlueprint.prefab, spawnParent);
+
+        //Theme setup
+        WorldObject objectToSpawn = spawner.GetComponent<WorldObject>();
+        if (objectToSpawn.HasThemes)
+        {
+            Sprite[] themeSprites = objectToSpawn.themes;
+            Action[] themeChoiceActions = new Action[themeSprites.Length];
+
+            for (int i = 0; i < themeChoiceActions.Length; i++)
+            {
+                int index = i;
+                themeChoiceActions[i] = () => spawner.ChangeTheme(index);
+            }
+            themeSelector.Setup(themeSprites, themeChoiceActions);
+        }
+        else
+        {
+            themeSelector.SetActive(false);
+        }
     }
 
     public void CancelBuild()
@@ -129,6 +159,7 @@ public class SpawnManager : MonoBehaviour
             return;
         Destroy(spawner.gameObject);
         mouseTooltip.Hide();
+        themeSelector.SetActive(false);
     }
 
     public void SetCurrentBlueprint(Blueprint blueprint)
@@ -141,6 +172,12 @@ public class SpawnManager : MonoBehaviour
             DestroyPreviewObject();
         }
         SpawnPreviewObject();
+    }
+
+    public void SetThemeIndex(int index)
+    {
+        if (spawner)
+            spawner.ChangeTheme(index);
     }
 
     private bool IsPointerOverUI()

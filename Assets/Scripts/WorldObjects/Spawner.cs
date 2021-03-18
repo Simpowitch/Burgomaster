@@ -49,6 +49,7 @@ public abstract class Spawner : MonoBehaviour
     }
 
     public abstract void ChangeTheme(bool next);
+    public abstract void ChangeTheme(int index);
     public abstract int CurrentTheme { get; }
 
     public void SetActive(bool value)
