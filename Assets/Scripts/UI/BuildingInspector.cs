@@ -21,6 +21,7 @@ public class BuildingInspector : MonoBehaviour
     public Image upgradeImage;
     public SpriteTextPanel[] upgradeCostPanels, upgradeEffectPanels, upgradeIncomePanels, upgradeUpkeepPanels;
 
+    public NotificationInspector notificationInspector;
 
     private void Awake()
     {
@@ -47,24 +48,28 @@ public class BuildingInspector : MonoBehaviour
         upgradeButton.gameObject.SetActive(false);
     }
 
-    public void SetupUpgradeable(Building building, UnityAction buttonAction, bool interactable)
+    public void SetupUpgradeable(Building building, UnityAction buttonAction, bool interactable, NotificationInformation levelUpNoficiation)
     {
         SetupDefault(building);
 
-            upgradeNamePlate.text = building.NextLevelName;
-            upgradeImage.sprite = building.NextLevelInspectorSprite;
+        upgradeNamePlate.text = building.NextLevelName;
+        upgradeImage.sprite = building.NextLevelInspectorSprite;
 
-            UpdatePanels(upgradeCostPanels, building.LevelUpCost);
-            UpdatePanels(upgradeEffectPanels, building.NextLevelEffects);
-            UpdatePanels(upgradeIncomePanels, building.NextLevelIncome);
-            UpdatePanels(upgradeUpkeepPanels, building.NextLevelUpkeep);
+        UpdatePanels(upgradeCostPanels, building.LevelUpCost);
+        UpdatePanels(upgradeEffectPanels, building.NextLevelEffects);
+        UpdatePanels(upgradeIncomePanels, building.NextLevelIncome);
+        UpdatePanels(upgradeUpkeepPanels, building.NextLevelUpkeep);
 
-            upgradeButton.gameObject.SetActive(true);
-            Button.ButtonClickedEvent onClick = new Button.ButtonClickedEvent();
-            onClick.AddListener(buttonAction);
-            upgradeButton.onClick = onClick;
-            upgradeButton.interactable = interactable;
+        upgradeButton.gameObject.SetActive(true);
+        Button.ButtonClickedEvent onClick = new Button.ButtonClickedEvent();
+        onClick.AddListener(buttonAction);
+        UnityAction openNotificationEvent = () => SetupNotification(levelUpNoficiation);
+        onClick.AddListener(openNotificationEvent);
+        upgradeButton.onClick = onClick;
+        upgradeButton.interactable = interactable;
     }
+
+    void SetupNotification(NotificationInformation levelUpNoficiation) => notificationInspector.Setup(levelUpNoficiation);
 
     void UpdatePanels(SpriteTextPanel[] panels, Effect[] effects)
     {

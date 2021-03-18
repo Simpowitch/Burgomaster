@@ -19,7 +19,9 @@ public class BuildingBlueprint : Blueprint
     public Resource[] cost, income, upkeep;
     public Effect[] completionEffects;
 
+    [Header("Level Up")]
     public BuildingBlueprint levelUpBlueprint;
+    public NotificationInformation levelUpNotification;
     public bool HasLevelUpBlueprint => levelUpBlueprint != null;
 
     public override Resource[] Cost => cost;

@@ -300,7 +300,7 @@ public abstract class Building : WorldObject
     private void SetupBuildingInspector()
     {
         if (projectInfo.HasLevelUpBlueprint)
-            BuildingInspector.instance.SetupUpgradeable(this, LevelUp, CanLevelUp);
+            BuildingInspector.instance.SetupUpgradeable(this, LevelUp, CanLevelUp, projectInfo.levelUpBlueprint.levelUpNotification);
         else
             BuildingInspector.instance.SetupDefault(this);
     }
