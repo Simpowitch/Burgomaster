@@ -56,7 +56,7 @@ Material:
     - _PulseSpeed: 4
     - _ShowOutline: 0
     m_Colors:
-    - Color_82690c3e75224d518cb002fa40bed119: {r: 1, g: 1, b: 1, a: 0}
+    - Color_82690c3e75224d518cb002fa40bed119: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0.06987562, b: 0.972549, a: 1}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c93965c3d9ddd44685085471ccefd90, type: 3}
   m_Name: Tree_Medium
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6748621880768822646, guid: 38ae3a21f801c9a4180a33e2f0c73db2, type: 3}
+  prefab: {fileID: 7112203614389808903, guid: 1a2255d313fe29f438cee9e0f3f52359, type: 3}
   propName: Small Medium
   uiSprite: {fileID: 21300000, guid: 8ebc050199cd4c3418fb3db18c7d2766, type: 3}
   category: 0
