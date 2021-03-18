@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3a6e7e57a9395042bfac7ed572683e8, type: 3}
-  m_Name: Tavern
+  m_Name: Marketplace
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2492462109058513618, guid: 8ca2dcbf9855aae43b1e1f5147e1ad49, type: 3}
-  buildingName: Tavern
-  description: Provides food for nearby houses
-  uiSprite: {fileID: 21300000, guid: 54a628255252c374885676cea3a18ba6, type: 3}
+  prefab: {fileID: 2492462109058513618, guid: 5b805c03c89b55242b79584c0afc4dd3, type: 3}
+  buildingName: Marketplace
+  description: Trades gold for wares
+  uiSprite: {fileID: 21300000, guid: 3784e99a308583c4a9e7dbd44451d2c9, type: 3}
   category: 2
   turnsToComplete: 5
   abilityTag: 1
@@ -23,15 +23,17 @@ MonoBehaviour:
     type: 6
     value: 0
   cost:
-  - resourceType: 1
-    value: 50
-  income:
   - resourceType: 0
-    value: 20
-  upkeep:
+    value: 100
+  income:
+  - resourceType: 1
+    value: 15
   - resourceType: 2
-    value: 10
-  completionEffects:
-  - type: 1
-    effectValue: 10
+    value: 15
+  - resourceType: 3
+    value: 15
+  upkeep:
+  - resourceType: 0
+    value: 30
+  completionEffects: []
   levelUpBlueprint: {fileID: 0}
