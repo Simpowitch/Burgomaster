@@ -222,8 +222,8 @@ public abstract class Building : WorldObject
 
         if (levelObjects != null && level > 0)
         {
-            levelObjects[level].SetActive(false);
-            levelObjects[level + 1].SetActive(true);
+            levelObjects[level - 1].SetActive(false);
+            levelObjects[level].SetActive(true);
         }
 
         level++;
