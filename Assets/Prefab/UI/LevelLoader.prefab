@@ -69,7 +69,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267a063a7d466224a9fb5765c396f129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: 1
   animator: {fileID: 580968400118167323}
   sceneOpenAnimation: {fileID: 7400000, guid: bd14df56586d03b419ffc32ab8da1e0f, type: 2}
   sceneCloseAnimation: {fileID: 7400000, guid: 19b32a7945276c146bf39af01a636048, type: 2}
@@ -139,8 +138,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 6fe7201656d41ba4b83634bb4df60522, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
