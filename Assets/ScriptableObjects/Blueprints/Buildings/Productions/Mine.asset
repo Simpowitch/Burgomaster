@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mine
   m_EditorClassIdentifier: 
   prefab: {fileID: 5495393023480016008, guid: c3c4fea943490544db8749808c5fbdfc, type: 3}
-  buildingName: Farm
+  buildingName: Mine
   description: Extracts iron from deep underground
   uiSprite: {fileID: 21300000, guid: a8f02c42e96b9f146b0dd07e7a43e773, type: 3}
   category: 1
