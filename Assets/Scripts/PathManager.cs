@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class PathManager : MonoBehaviour
 {
+    public delegate void StateHandler(bool value);
+    public StateHandler OnStateChanged;
+
     public GraphicRaycaster[] graphicRaycasters = null;
 
     public PathCreator pathCreatorBP;
@@ -33,9 +36,15 @@ public class PathManager : MonoBehaviour
     public enum State { CreateNewRoad, AddAndRemoveSegments, EditSegments }
     private State state;
 
+    private void OnEnable()
+    {
+        OnStateChanged?.Invoke(true);
+    }
+
     private void OnDisable()
     {
         buttonPanel.SetActive(false);
+        OnStateChanged?.Invoke(false);
     }
 
     private void Update()
@@ -174,7 +183,7 @@ public class PathManager : MonoBehaviour
     private void CreateRoad(Vector2 pos)
     {
         SelectedCreator = Instantiate(pathCreatorBP, creatorParent);
-        SelectedCreator.Setup(pos);
+        SelectedCreator.Setup(pos, this);
         selectedAnchor = SelectedCreator.LastAnchorPoint;
         PathAnchorPoint.Selection = selectedAnchor;
 
@@ -183,7 +192,7 @@ public class PathManager : MonoBehaviour
 
     private void CreateNewNodeAndSegment(Vector2 pos)
     {
-        SelectedCreator.AddSegment(pos);
+        SelectedCreator.AddSegment(pos, this);
         selectedAnchor = SelectedCreator.LastAnchorPoint;
 
         buttonPanel.transform.position = pos;

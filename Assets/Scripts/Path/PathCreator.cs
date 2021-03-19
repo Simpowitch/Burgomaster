@@ -45,20 +45,20 @@ public class PathCreator : MonoBehaviour
         path = new Path(position);
     }
 
-    public PathCreator Setup(Vector2 pos)
+    public PathCreator Setup(Vector2 pos, PathManager manager)
     {
         //Adds a segment automatically with 2 anchor points
         CreatePath(pos);
 
         //Create point 0
         PathAnchorPoint newAnchor = Instantiate(anchorPointBP, this.transform);
-        newAnchor.Setup(this, path, 0, pos, pathWidth);
+        newAnchor.Setup(this, path, 0, pos, pathWidth, manager);
 
         pathAnchorPoints.Add(newAnchor);
 
         //Create point 1
         newAnchor = Instantiate(anchorPointBP, this.transform);
-        newAnchor.Setup(this, path, path.LastAnchor, pos, pathWidth);
+        newAnchor.Setup(this, path, path.LastAnchor, pos, pathWidth, manager);
 
         pathAnchorPoints.Add(newAnchor);
 
@@ -82,12 +82,12 @@ public class PathCreator : MonoBehaviour
 
     
 
-    public void AddSegment(Vector2 pos)
+    public void AddSegment(Vector2 pos, PathManager manager)
     {
         path.AddSegment(pos);
 
         PathAnchorPoint newAnchor = Instantiate(anchorPointBP, this.transform);
-        newAnchor.Setup(this, path, path.LastAnchor, pos, pathWidth);
+        newAnchor.Setup(this, path, path.LastAnchor, pos, pathWidth, manager);
 
         pathAnchorPoints.Add(newAnchor);
     }

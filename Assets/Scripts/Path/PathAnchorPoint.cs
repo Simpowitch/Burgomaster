@@ -23,8 +23,11 @@ public abstract class PathAnchorPoint : MonoBehaviour
     int pointIndex;
     public SpriteRenderer handle = null;
     public SpriteRenderer handleOutline = null;
+    public Color handleOutLineMainTexColor = Color.white;
 
-    public virtual void Setup(PathCreator creator, Path path, int pointIndex, Vector2 startPos, float width)
+    bool interactable = true;
+
+    public virtual void Setup(PathCreator creator, Path path, int pointIndex, Vector2 startPos, float width, PathManager manager)
     {
         this.creator = creator;
         this.path = path;
@@ -32,6 +35,9 @@ public abstract class PathAnchorPoint : MonoBehaviour
         MovePoint(startPos);
 
         handleOutline.material = handleOutline.material;
+        handleOutline.material.SetColor(Shader.PropertyToID("_MainTexColor"), handleOutLineMainTexColor);
+
+        manager.OnStateChanged += (bool value) => interactable = value;
     }
 
     public void ShowHandle(bool show) => handle.enabled = show;
@@ -74,7 +80,7 @@ public abstract class PathAnchorPoint : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (this != Selection)
+        if (this != Selection && interactable)
         {
             HooverStart();
         }
