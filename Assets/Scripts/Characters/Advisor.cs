@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [System.Serializable]
 public class Advisor
@@ -9,8 +10,11 @@ public class Advisor
     public Sprite portrait;
     public Sprite shield;
     //public int force, cunning, diplomacy, knowledge, survival, infrastructure;
+    public Action OnAdvisorQueueChanged;
 
     List<ProjectConstructionSlot> projectQueue = new List<ProjectConstructionSlot>();
+
+    public bool HasAssignment => projectQueue.Count > 0;
 
     public void AddProject(ProjectConstructionSlot projectToAdd)
     {
@@ -57,5 +61,6 @@ public class Advisor
             projectQueue[i].UpdateQueueText(i);
             projectQueue[i].ActivelyWorkedOn = i == 0;
         }
+        OnAdvisorQueueChanged?.Invoke();
     }
 }

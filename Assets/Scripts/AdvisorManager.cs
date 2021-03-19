@@ -5,8 +5,9 @@ public class AdvisorManager : MonoBehaviour
     public static Advisor SelectedAdvisor { get; private set; }
     int selectedIndex = -1;
 
-    [SerializeField] Advisor[] advisors = null;
-    [SerializeField] GameObject[] advisorSelectionFrames = null;
+    public Advisor[] advisors = null;
+    public GameObject[] advisorSelectionFrames = null;
+    public GameObject[] idleAdvisorIcon = null;
 
     private void OnEnable()
     {
@@ -16,6 +17,23 @@ public class AdvisorManager : MonoBehaviour
     private void OnDisable()
     {
         TurnManager.OnUpdateAdvisors -= TurnUpdate;
+    }
+
+    private void Start()
+    {
+        foreach (var advisor in advisors)
+        {
+            advisor.OnAdvisorQueueChanged += UpdateAdvisorPanels;
+        }
+        UpdateAdvisorPanels();
+    }
+
+    void UpdateAdvisorPanels()
+    {
+        for (int i = 0; i < advisors.Length; i++)
+        {
+            idleAdvisorIcon[i].SetActive(!advisors[i].HasAssignment);
+        }
     }
 
     public void TurnUpdate(object sender, TurnManager.OnTurnEventArgs e)
