@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sawmill
   m_EditorClassIdentifier: 
   prefab: {fileID: 5495393023480016008, guid: 5daff5caed2da5a49bd61c2cc5fbab1a, type: 3}
-  buildingName: Farm
+  buildingName: Sawmill
   description: Harvests wood from the forest
   uiSprite: {fileID: 21300000, guid: 6a7b361d77fd7734883c0fcd82cc0bda, type: 3}
   category: 1

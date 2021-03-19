@@ -32,7 +32,7 @@ MonoBehaviour:
   - resourceType: 3
     value: 15
   completionEffects:
-  - type: 0
+  - type: 1
     effectValue: 10
   levelUpBlueprint: {fileID: 0}
   levelUpNotification:
