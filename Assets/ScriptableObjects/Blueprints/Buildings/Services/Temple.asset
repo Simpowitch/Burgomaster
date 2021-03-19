@@ -10,28 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3a6e7e57a9395042bfac7ed572683e8, type: 3}
-  m_Name: Farm
+  m_Name: Temple
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5495393023480016008, guid: e4b0e6290d5806847ab573ac7cb9ebfd, type: 3}
-  buildingName: Farm
-  description: Produces food for the citizens
-  uiSprite: {fileID: 21300000, guid: da27731d89da68f499b7ac35db3be409, type: 3}
-  category: 1
+  prefab: {fileID: 2492462109058513618, guid: 86ca559065b7d374399bdbc0751d7550, type: 3}
+  buildingName: Temple
+  description: A place of worship
+  uiSprite: {fileID: 21300000, guid: dc2a6abdffb86484bbad2b5197d68f35, type: 3}
+  category: 2
   turnsToComplete: 5
-  abilityTag: 6
+  abilityTag: 5
   serviceBuildingRequirement:
     type: 6
     value: 0
   cost:
-  - resourceType: 0
-    value: 100
+  - resourceType: 3
+    value: 50
   income:
   - resourceType: 2
-    value: 50
+    value: 20
   upkeep:
   - resourceType: 0
     value: 10
-  completionEffects: []
+  completionEffects:
+  - type: 1
+    effectValue: 10
   levelUpBlueprint: {fileID: 0}
   levelUpNotification:
     title: 

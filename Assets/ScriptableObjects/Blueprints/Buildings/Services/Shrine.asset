@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3a6e7e57a9395042bfac7ed572683e8, type: 3}
-  m_Name: Farm
+  m_Name: Shrine
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5495393023480016008, guid: e4b0e6290d5806847ab573ac7cb9ebfd, type: 3}
-  buildingName: Farm
-  description: Produces food for the citizens
-  uiSprite: {fileID: 21300000, guid: da27731d89da68f499b7ac35db3be409, type: 3}
-  category: 1
+  prefab: {fileID: 2492462109058513618, guid: 344417e4bcee6b14ebeac6e23c2f4bd1, type: 3}
+  buildingName: Shrine
+  description: A beacon of wisdom
+  uiSprite: {fileID: 21300000, guid: cf3184f3cb87cde4fbb844a4468b99a1, type: 3}
+  category: 2
   turnsToComplete: 5
-  abilityTag: 6
+  abilityTag: 5
   serviceBuildingRequirement:
     type: 6
     value: 0
   cost:
   - resourceType: 0
-    value: 100
-  income:
-  - resourceType: 2
-    value: 50
+    value: 200
+  income: []
   upkeep:
-  - resourceType: 0
-    value: 10
-  completionEffects: []
+  - resourceType: 2
+    value: 20
+  completionEffects:
+  - type: 1
+    effectValue: 20
   levelUpBlueprint: {fileID: 0}
   levelUpNotification:
     title: 

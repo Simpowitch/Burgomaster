@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3a6e7e57a9395042bfac7ed572683e8, type: 3}
-  m_Name: Farm
+  m_Name: Sawmill
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5495393023480016008, guid: e4b0e6290d5806847ab573ac7cb9ebfd, type: 3}
+  prefab: {fileID: 5495393023480016008, guid: 5daff5caed2da5a49bd61c2cc5fbab1a, type: 3}
   buildingName: Farm
-  description: Produces food for the citizens
-  uiSprite: {fileID: 21300000, guid: da27731d89da68f499b7ac35db3be409, type: 3}
+  description: Harvests wood from the forest
+  uiSprite: {fileID: 21300000, guid: 6a7b361d77fd7734883c0fcd82cc0bda, type: 3}
   category: 1
   turnsToComplete: 5
   abilityTag: 6
@@ -26,7 +26,7 @@ MonoBehaviour:
   - resourceType: 0
     value: 100
   income:
-  - resourceType: 2
+  - resourceType: 1
     value: 50
   upkeep:
   - resourceType: 0

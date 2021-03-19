@@ -10,28 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3a6e7e57a9395042bfac7ed572683e8, type: 3}
-  m_Name: Farm
+  m_Name: Potion brewery
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5495393023480016008, guid: e4b0e6290d5806847ab573ac7cb9ebfd, type: 3}
-  buildingName: Farm
-  description: Produces food for the citizens
-  uiSprite: {fileID: 21300000, guid: da27731d89da68f499b7ac35db3be409, type: 3}
-  category: 1
+  prefab: {fileID: 2492462109058513618, guid: 38f22667651d2ef4ea1f8ff9ceaad833, type: 3}
+  buildingName: Potion brewery
+  description: From herbs to magical potions
+  uiSprite: {fileID: 21300000, guid: 364901ffee984ce46a119a16f1debeaa, type: 3}
+  category: 2
   turnsToComplete: 5
-  abilityTag: 6
+  abilityTag: 4
   serviceBuildingRequirement:
     type: 6
     value: 0
   cost:
-  - resourceType: 0
-    value: 100
-  income:
-  - resourceType: 2
+  - resourceType: 1
     value: 50
-  upkeep:
+  income:
   - resourceType: 0
+    value: 20
+  upkeep:
+  - resourceType: 2
     value: 10
-  completionEffects: []
+  completionEffects:
+  - type: 1
+    effectValue: 10
   levelUpBlueprint: {fileID: 0}
   levelUpNotification:
     title: 
