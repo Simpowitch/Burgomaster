@@ -11,6 +11,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] GraphicRaycaster m_Raycaster = null;
     [SerializeField] Transform spawnParent = null;
     public ThemeSelector themeSelector;
+    public Toggle propRemovalToggle;
 
     public LayerMask mask;
     Spawner spawner;
@@ -29,80 +30,126 @@ public class SpawnManager : MonoBehaviour
     public KeyCode nextTheme = KeyCode.B;
     public KeyCode previousTheme = KeyCode.V;
 
+    bool removeClicked;
+
     private void OnDisable()
     {
         DestroyPreviewObject();
+        propRemovalToggle.SetIsOnWithoutNotify(false);
+        removeClicked = false;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(cancelSpawn))
+        if (removeClicked)
         {
-            mouseTooltip.Hide();
-            DestroyPreviewObject();
-            this.enabled = false;
-        }
-
-        if (spawner == null)
-            return;
-
-        if (IsPointerOverUI())
-        {
-            spawner.SetActive(false);
-            return;
-        }
-
-        spawner.SetActive(true);
-
-
-        RaycastHit2D hit = Physics2D.Raycast(c.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, mask);
-        if (hit.collider != null)
-        {
-            spawner.transform.position = hit.point;
-        }
-
-        string newTooltip = spawner.TooltipExplanation;
-
-        if (latestTooltip != newTooltip)
-        {
-            latestTooltip = newTooltip;
-            if (latestTooltip != "" && latestTooltip != null)
+            if (spawner)
             {
-                Debug.Log($"Setup tooltip: {latestTooltip}");
-                mouseTooltip.SetUp(MouseTooltip.ColorText.Default, latestTooltip);
+                DestroyPreviewObject();
             }
-            else
+
+            if (IsPointerOverUI())
             {
-                Debug.Log($"Hiding tooltip");
+                return;
+            }
+
+            RaycastHit2D hit = Physics2D.Raycast(c.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, mask);
+            if (hit.collider != null)
+            {
+                string newTooltip = hit.transform.name;
+
+                if (latestTooltip != newTooltip)
+                {
+                    latestTooltip = newTooltip;
+                    if (latestTooltip != "" && latestTooltip != null)
+                    {
+                        mouseTooltip.SetUp(MouseTooltip.ColorText.Default, latestTooltip);
+                    }
+                    else
+                    {
+                        mouseTooltip.Hide();
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    Prop prop = hit.transform.GetComponent<Prop>();
+                    if (prop)
+                    {
+                        prop.Despawn();
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(cancelSpawn))
+            {
                 mouseTooltip.Hide();
+                DestroyPreviewObject();
+                this.enabled = false;
             }
+
+            if (spawner == null)
+                return;
+
+            if (IsPointerOverUI())
+            {
+                spawner.SetActive(false);
+                return;
+            }
+
+            spawner.SetActive(true);
+
+            RaycastHit2D hit = Physics2D.Raycast(c.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, mask);
+            if (hit.collider != null)
+            {
+                spawner.transform.position = hit.point;
+            }
+
+            string newTooltip = spawner.TooltipExplanation;
+
+            if (latestTooltip != newTooltip)
+            {
+                latestTooltip = newTooltip;
+                if (latestTooltip != "" && latestTooltip != null)
+                {
+                    mouseTooltip.SetUp(MouseTooltip.ColorText.Default, latestTooltip);
+                }
+                else
+                {
+                    mouseTooltip.Hide();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+                ConfirmPlacement();
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+                DestroyPreviewObject();
+
+            //Rotate Left
+            if (Input.GetKey(rotateCounterClockwise))
+            {
+                spawner.transform.rotation *= Quaternion.Euler(Vector3.forward * keyRotationSpeed * Time.deltaTime);
+            }
+            //Rotate Right
+            if (Input.GetKey(rotateClockwise))
+            {
+                spawner.transform.rotation *= Quaternion.Euler(Vector3.forward * -keyRotationSpeed * Time.deltaTime);
+            }
+            //Rotate 90 degrees right
+            if (Input.GetKeyDown(rotate90))
+                spawner.transform.rotation *= Quaternion.Euler(Vector3.forward * -90f);
+
+            //Change to next available theme
+            if (Input.GetKeyDown(nextTheme))
+                spawner.ChangeTheme(true);
+            //Change to previous available theme
+            if (Input.GetKeyDown(previousTheme))
+                spawner.ChangeTheme(false);
+
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-            ConfirmPlacement();
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-            DestroyPreviewObject();
-
-        //Rotate Left
-        if (Input.GetKey(rotateCounterClockwise))
-        {
-            spawner.transform.rotation *= Quaternion.Euler(Vector3.forward * keyRotationSpeed * Time.deltaTime);
-        }
-        //Rotate Right
-        if (Input.GetKey(rotateClockwise))
-        {
-            spawner.transform.rotation *= Quaternion.Euler(Vector3.forward * -keyRotationSpeed * Time.deltaTime);
-        }
-        //Rotate 90 degrees right
-        if (Input.GetKeyDown(rotate90))
-            spawner.transform.rotation *= Quaternion.Euler(Vector3.forward * -90f);
-
-        //Change to next available theme
-        if (Input.GetKeyDown(nextTheme))
-            spawner.ChangeTheme(true);
-        //Change to previous available theme
-        if (Input.GetKeyDown(previousTheme))
-            spawner.ChangeTheme(false);
     }
 
     private void SpawnPreviewObject()
@@ -179,6 +226,8 @@ public class SpawnManager : MonoBehaviour
         if (spawner)
             spawner.ChangeTheme(index);
     }
+
+    public void SetRemoveState(bool removeStateOn) => removeClicked = removeStateOn;
 
     private bool IsPointerOverUI()
     {

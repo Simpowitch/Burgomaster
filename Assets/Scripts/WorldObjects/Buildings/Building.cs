@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using UnityEngine.Events;
 
 public abstract class Building : WorldObject
 {
@@ -19,7 +18,6 @@ public abstract class Building : WorldObject
     }
 
     protected Action OnCompletion;
-    public UnityEvent OnCompletionInspector;
     private Action OnLevelUpCompleted;
 
     [Header("References")]
@@ -41,6 +39,8 @@ public abstract class Building : WorldObject
     public Sprite InspectorSprite { protected set; get; }
     public Resource[] Income { protected set; get; }
     public Resource[] Upkeep { protected set; get; }
+    public Resource[] DemolishRefund { protected set; get; }
+
     public Effect[] CurrentEffects { protected set; get; }
 
     protected float effectivity = 1f;
@@ -96,6 +96,16 @@ public abstract class Building : WorldObject
         DisplayConstructionProgress();
     }
 
+    public override void Despawn()
+    {
+        base.Despawn();
+        player.ChangeTurnIncomes(Income, false);
+        player.ChangeTurnExpenses(Upkeep, false);
+        UseEffects(false);
+
+        player.AddResources(DemolishRefund);
+    }
+
     private void UpdateConstruction(object sender, TurnManager.OnTurnEventArgs e)
     {
         foreach (var slot in constructionSlots)
@@ -124,7 +134,7 @@ public abstract class Building : WorldObject
     {
         TurnManager.OnUpdateConstruction -= UpdateConstruction;
         OnCompletion?.Invoke();
-        OnCompletionInspector?.Invoke();
+        OnCompletionEvents?.Invoke();
 
         isFinished = true;
         visuals.material = constructedMaterial;
@@ -201,7 +211,7 @@ public abstract class Building : WorldObject
                         player.DecreasePopulation(effect.effectValue);
                         break;
                     case Effect.Type.ProductivityPercentage:
-                        Debug.LogWarning("Unhandled effecttype for Building" + gameObject.name);
+                        //Currently only set up in service buildings
                         break;
                 }
             }
@@ -244,6 +254,7 @@ public abstract class Building : WorldObject
         InspectorSprite = projectInfo.uiSprite;
         Income = projectInfo.income.Copy(effectivity);
         Upkeep = projectInfo.upkeep.Copy(1f / effectivity);
+        DemolishRefund = projectInfo.demolishRefund;
         CurrentEffects = projectInfo.completionEffects.Copy(effectivity);
 
         if (isFinished)
@@ -309,8 +320,15 @@ public abstract class Building : WorldObject
     {
         if (projectInfo)
         {
-            Debug.Log("Building selected: " + projectInfo.name);
-            SelectedBuilding = this;
+            if (this == SelectedBuilding)
+            {
+                SelectedBuilding = null;
+            }
+            else
+            {
+                Debug.Log("Building selected: " + projectInfo.name);
+                SelectedBuilding = this;
+            }
         }
     }
 

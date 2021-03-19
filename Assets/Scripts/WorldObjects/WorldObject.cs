@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class WorldObject : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public abstract class WorldObject : MonoBehaviour
     public Sprite[] themes = null;
     public int ThemeIndex { get; private set; } = 0;
     public bool HasThemes => themes != null && themes.Length > 0;
+    public float despawnTime = 0.5f;
+
+    public UnityEvent OnCompletionEvents, OnDespawnEvents;
+
 
     protected virtual void Awake()
     {
@@ -27,6 +32,13 @@ public abstract class WorldObject : MonoBehaviour
 
         ChangeTheme(themeIndex);
     }
+
+    public virtual void Despawn()
+    {
+        Destroy(this.gameObject, despawnTime);
+        OnDespawnEvents?.Invoke();
+    }
+
     public void ChangeTheme(bool next)
     {
         if (HasThemes)

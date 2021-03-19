@@ -320,11 +320,20 @@ public class Player : MonoBehaviour
         propSelector.UpdateProjectList(propBlueprints, this);
     }
 
-    public void RemoveUniqueBlueprint(BuildingBlueprint project)
+    public void AddUniqueBlueprint(BuildingBlueprint blueprint)
     {
-        if (buildingBlueprints.Contains(project))
+        if (!buildingBlueprints.Contains(blueprint))
         {
-            buildingBlueprints.Remove(project);
+            buildingBlueprints.Add(blueprint);
+            UpdateAvailableProjects();
+        }
+    }
+
+    public void RemoveUniqueBlueprint(BuildingBlueprint blueprint)
+    {
+        if (buildingBlueprints.Contains(blueprint))
+        {
+            buildingBlueprints.Remove(blueprint);
             UpdateAvailableProjects();
         }
     }

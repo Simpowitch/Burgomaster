@@ -20,7 +20,7 @@ public class ServiceBuilding : Building
         TurnManager.OnUpdateServiceEffects -= UpdateServiceEffect;
     }
 
-    protected override  void Awake()
+    protected override void Awake()
     {
         base.Awake();
         effectRenderer.transform.localScale *= effectRadius / 2;
@@ -53,23 +53,30 @@ public class ServiceBuilding : Building
         effectRenderer.enabled = false;
     }
 
+    public override void Despawn()
+    {
+        base.Despawn();
+        UpdateEffectivityOfNearbyBuildings(false);
+        this.enabled = false;
+    }
+
     void UpdateServiceEffect(object sender, TurnManager.OnTurnEventArgs e)
     {
         if (!isFinished)
             return;
 
-        AddChangeToNearbyResidences();
+        UpdateEffectivityOfNearbyBuildings(true);
     }
 
     protected override void FinishConstruction()
     {
         base.FinishConstruction();
 
-        AddChangeToNearbyResidences();
+        UpdateEffectivityOfNearbyBuildings(true);
         player.AddService(abilityTag, this);
     }
 
-    void AddChangeToNearbyResidences()
+    void UpdateEffectivityOfNearbyBuildings(bool positive)
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(this.transform.position, effectRadius);
 
@@ -78,7 +85,14 @@ public class ServiceBuilding : Building
             Residence residence = collider.GetComponent<Residence>();
             if (residence)
             {
-                residence.AddServiceBuilding(this);
+                if (positive)
+                {
+                    residence.AddServiceBuilding(this);
+                }
+                else
+                {
+                    residence.RemoveServiceBuilding(this);
+                }
             }
         }
     }

@@ -31,7 +31,17 @@ MonoBehaviour:
   upkeep:
   - resourceType: 2
     value: 16
+  demolishRefund:
+  - resourceType: 1
+    value: 25
   completionEffects:
   - type: 0
     effectValue: 8
   levelUpBlueprint: {fileID: 0}
+  levelUpNotification:
+    title: 
+    description: 
+    icon: {fileID: 0}
+    panelBackground: {fileID: 0}
+    inspectSound: {fileID: 0}
+    listPopupSound: {fileID: 0}

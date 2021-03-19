@@ -15,4 +15,14 @@ public class Residence : Building
             ChangeEffectivity(serviceBuilding.effectivityInfluence);
         }
     }
+
+    public void RemoveServiceBuilding(ServiceBuilding serviceBuilding)
+    {
+        if (nearbyServices.Contains(serviceBuilding))
+        {
+            Debug.Log("Removing nearby service from residence");
+            nearbyServices.Remove(serviceBuilding);
+            ChangeEffectivity(-serviceBuilding.effectivityInfluence);
+        }
+    }
 }

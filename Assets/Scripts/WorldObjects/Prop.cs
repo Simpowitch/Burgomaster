@@ -16,5 +16,6 @@ public class Prop : WorldObject
     {
         base.Setup(player, project, themeIndex);
         visuals.material = constructedMaterial;
+        OnCompletionEvents?.Invoke();
     }
 }

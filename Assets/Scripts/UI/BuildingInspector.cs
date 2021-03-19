@@ -14,9 +14,9 @@ public class BuildingInspector : MonoBehaviour
 
     public TextMeshProUGUI currentNamePlate;
     public Image currentImage;
-    public SpriteTextPanel[] currentEffectPanels, currentIncomePanels, currentUpkeepPanels;
+    public SpriteTextPanel[] currentEffectPanels, currentIncomePanels, currentUpkeepPanels, demolishRefundPanels;
 
-    public Button upgradeButton;
+    public Button upgradeButton, demolishButton;
     public TextMeshProUGUI upgradeNamePlate;
     public Image upgradeImage;
     public SpriteTextPanel[] upgradeCostPanels, upgradeEffectPanels, upgradeIncomePanels, upgradeUpkeepPanels;
@@ -44,11 +44,17 @@ public class BuildingInspector : MonoBehaviour
         UpdatePanels(currentEffectPanels, building.CurrentEffects);
         UpdatePanels(currentIncomePanels, building.Income);
         UpdatePanels(currentUpkeepPanels, building.Upkeep);
+        UpdatePanels(demolishRefundPanels, building.DemolishRefund);
+
+        Button.ButtonClickedEvent demolishClickEvent = new Button.ButtonClickedEvent();
+        demolishClickEvent.AddListener(building.Despawn);
+        demolishClickEvent.AddListener(CloseAndDeselect);
+        demolishButton.onClick = demolishClickEvent;
 
         upgradeButton.gameObject.SetActive(false);
     }
 
-    public void SetupUpgradeable(Building building, UnityAction buttonAction, bool interactable, NotificationInformation levelUpNoficiation)
+    public void SetupUpgradeable(Building building, UnityAction upgradeAction, bool interactable, NotificationInformation levelUpNoficiation)
     {
         SetupDefault(building);
 
@@ -61,11 +67,11 @@ public class BuildingInspector : MonoBehaviour
         UpdatePanels(upgradeUpkeepPanels, building.NextLevelUpkeep);
 
         upgradeButton.gameObject.SetActive(true);
-        Button.ButtonClickedEvent onClick = new Button.ButtonClickedEvent();
-        onClick.AddListener(buttonAction);
+        Button.ButtonClickedEvent upgradeClickEvent = new Button.ButtonClickedEvent();
+        upgradeClickEvent.AddListener(upgradeAction);
         UnityAction openNotificationEvent = () => SetupNotification(levelUpNoficiation);
-        onClick.AddListener(openNotificationEvent);
-        upgradeButton.onClick = onClick;
+        upgradeClickEvent.AddListener(openNotificationEvent);
+        upgradeButton.onClick = upgradeClickEvent;
         upgradeButton.interactable = interactable;
     }
 
@@ -101,5 +107,9 @@ public class BuildingInspector : MonoBehaviour
 
     public void Show(bool value) => mainParent.SetActive(value);
 
-    public void CloseAndDeselect() => Building.SelectedBuilding = null;
+    public void CloseAndDeselect()
+    {
+        Building.SelectedBuilding = null;
+        Show(false);
+    }
 }

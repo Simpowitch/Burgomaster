@@ -16,7 +16,7 @@ public class BuildingBlueprint : Blueprint
 
     public ServiceBuildingRequirement serviceBuildingRequirement;
 
-    public Resource[] cost, income, upkeep;
+    public Resource[] cost, income, upkeep, demolishRefund;
     public Effect[] completionEffects;
 
     [Header("Level Up")]
