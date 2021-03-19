@@ -168,7 +168,7 @@ public abstract class Building : WorldObject
                         player.IncreasePopulation(effect.effectValue);
                         break;
                     case Effect.Type.ProductivityPercentage:
-                        Debug.LogWarning("Unhandled effecttype for Building" + gameObject.name);
+                        //Currently only set up in service buildings
                         break;
                 }
             }

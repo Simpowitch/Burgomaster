@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: -586004317
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2ea4d434a6e96e04c96f16933f042f53, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c66bbbd47bf80794aaba5927400d207a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handle: {fileID: 7433603875297831034}
   handleOutline: {fileID: 4321769283267218525}
+  handleOutLineMainTexColor: {r: 1, g: 1, b: 1, a: 0}
   scaleMultiplier: 2.25
 --- !u!1 &6725387457426837044
 GameObject:

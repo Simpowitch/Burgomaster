@@ -16,9 +16,9 @@ public class PathAnchorPointMesh : PathAnchorPoint
     [Range(3, 1000)]
     public int circleVertices = 50;
 
-    public override void Setup(PathCreator creator, Path path, int pointIndex, Vector2 startPos, float width)
+    public override void Setup(PathCreator creator, Path path, int pointIndex, Vector2 startPos, float width, PathManager manager)
     {
-        base.Setup(creator, path, pointIndex, startPos, width);
+        base.Setup(creator, path, pointIndex, startPos, width, manager);
 
         handle.gameObject.transform.localScale = new Vector3(width, width, 1);
         handleOutline.gameObject.transform.localScale = new Vector3(width, width, 1);
