@@ -11,20 +11,41 @@ public class BuildingBlueprintInspector : MonoBehaviour
     public TextMeshProUGUI currentNamePlate;
     public Image currentImage;
     public SpriteTextPanel[] costPanels, effectPanels, incomePanels, upkeepPanels;
+    public GameObject costParentPanel, effectParentPanel, incomeParentPanel, upkeepParentPanel;
 
-    public void Setup(BuildingBlueprint blueprint)
+
+    public GameObject levelUpRequirementPanel;
+    public SpriteTextPanel levelUpRequirement;
+
+    public void Setup(BuildingBlueprint blueprint, Player player)
     {
         currentNamePlate.text = blueprint.buildingName;
         currentImage.sprite = blueprint.uiSprite;
 
-        UpdatePanels(effectPanels, blueprint.completionEffects);
-        UpdatePanels(incomePanels, blueprint.income);
-        UpdatePanels(upkeepPanels, blueprint.upkeep);
-        UpdatePanels(costPanels, blueprint.cost);
+        UpdatePanels(effectPanels, blueprint.completionEffects, effectParentPanel);
+        UpdatePanels(incomePanels, blueprint.income, incomeParentPanel);
+        UpdatePanels(upkeepPanels, blueprint.upkeep, upkeepParentPanel);
+        UpdatePanels(costPanels, blueprint.cost, costParentPanel);
+
+        if (blueprint.HasRequirement)
+        {
+            levelUpRequirementPanel.SetActive(true);
+
+            string status = blueprint.serviceBuildingRequirement.GetRequirementTextState(player);
+            Sprite requirementSprite = TagSpriteDatabase.GetSprite(blueprint.serviceBuildingRequirement.type);
+            levelUpRequirement.Setup(status, requirementSprite);
+        }
+        else
+        {
+            levelUpRequirementPanel.SetActive(false);
+        }
     }
 
-    void UpdatePanels(SpriteTextPanel[] panels, Effect[] effects)
+    void UpdatePanels(SpriteTextPanel[] panels, Effect[] effects, GameObject parentPanel)
     {
+        parentPanel.SetActive(effects != null && effects.Length > 0);
+
+
         for (int i = 0; i < panels.Length; i++)
         {
             bool show = i < effects.Length;
@@ -37,8 +58,10 @@ public class BuildingBlueprintInspector : MonoBehaviour
         }
     }
 
-    void UpdatePanels(SpriteTextPanel[] panels, Resource[] resources)
+    void UpdatePanels(SpriteTextPanel[] panels, Resource[] resources, GameObject parentPanel)
     {
+        parentPanel.SetActive(resources != null && resources.Length > 0);
+
         for (int i = 0; i < panels.Length; i++)
         {
             bool show = i < resources.Length;

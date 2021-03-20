@@ -21,10 +21,11 @@ MonoBehaviour:
   abilityTag: 6
   serviceBuildingRequirement:
     type: 0
-    value: 1
+    value: 3
   cost: []
   income: []
   upkeep: []
+  demolishRefund: []
   completionEffects:
   - type: 2
     effectValue: 3

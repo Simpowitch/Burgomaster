@@ -33,6 +33,7 @@ public abstract class Building : WorldObject
 
     protected Player player;
     protected BuildingBlueprint projectInfo;
+    public BuildingBlueprint NextLevelBlueprint => projectInfo.levelUpBlueprint;
 
     #region CurrentStats
     public string MyName { protected set; get; }
@@ -48,7 +49,25 @@ public abstract class Building : WorldObject
     #endregion
     #region Levels
     int level;
-    protected bool CanLevelUp => isFinished && projectInfo.levelUpBlueprint && player.IsAffordable(projectInfo.levelUpBlueprint.cost);
+    protected bool CanLevelUp()
+    {
+        BuildingBlueprint levelUpBlueprint = projectInfo.levelUpBlueprint;
+
+        if (!levelUpBlueprint || !isFinished)
+        {
+            return false;
+        }
+        else
+        {
+            bool affordable = player.IsAffordable(projectInfo.levelUpBlueprint.cost);
+            if (levelUpBlueprint.HasRequirement)
+            {
+                bool requirementsFullfilled = levelUpBlueprint.serviceBuildingRequirement.RequirementFullfilled(player);
+                return requirementsFullfilled && affordable;
+            }
+            return affordable;
+        }
+    }
 
     public string NextLevelName { private set; get; }
     public Sprite NextLevelInspectorSprite { private set; get; }
@@ -311,7 +330,7 @@ public abstract class Building : WorldObject
     private void SetupBuildingInspector()
     {
         if (projectInfo.HasLevelUpBlueprint)
-            BuildingInspector.instance.SetupUpgradeable(this, LevelUp, CanLevelUp, projectInfo.levelUpBlueprint.levelUpNotification);
+            BuildingInspector.instance.SetupUpgradeable(this, LevelUp, CanLevelUp(), projectInfo.levelUpBlueprint.levelUpNotification, player);
         else
             BuildingInspector.instance.SetupDefault(this);
     }

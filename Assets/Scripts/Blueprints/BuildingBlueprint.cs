@@ -15,6 +15,7 @@ public class BuildingBlueprint : Blueprint
     public AbilityScore abilityTag = AbilityScore.UNUSED;
 
     public ServiceBuildingRequirement serviceBuildingRequirement;
+    public bool HasRequirement => serviceBuildingRequirement != null && serviceBuildingRequirement.type != AbilityScore.UNUSED && serviceBuildingRequirement.value > 0;
 
     public Resource[] cost, income, upkeep, demolishRefund;
     public Effect[] completionEffects;
@@ -43,6 +44,15 @@ public class BuildingBlueprint : Blueprint
             if (type == AbilityScore.UNUSED)
                 return true;
             return value <= player.GetServices(type).Count;
+        }
+
+        public string GetRequirementTextState(Player player)
+        {
+            if (player == null)
+                return null;
+            if (type == AbilityScore.UNUSED)
+                return null;
+            return $"{player.GetServices(type).Count} / {value}";
         }
     }
 

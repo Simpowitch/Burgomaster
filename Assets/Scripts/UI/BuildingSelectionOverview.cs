@@ -6,7 +6,6 @@ public class BuildingSelectionOverview : MonoBehaviour
 {
     public BuildingBlueprintPanel projectPanel_BP;
     public Transform viewportContent;
-    public ThemeSelector themeSelector;
 
     private List<BuildingBlueprintPanel> allTab = new List<BuildingBlueprintPanel>();
     private List<BuildingBlueprintPanel> housingTab = new List<BuildingBlueprintPanel>();
@@ -58,11 +57,11 @@ public class BuildingSelectionOverview : MonoBehaviour
         allToggle.Select();
     }
 
-    public void UpdateAffordables()
+    public void UpdateInteractable()
     {
         foreach (var panel in allTab)
         {
-            panel.UpdateAffordable();
+            panel.UpdateInteractable();
         }
     }
 
@@ -95,7 +94,7 @@ public class BuildingSelectionOverview : MonoBehaviour
     public void SelectBlueprint(BuildingBlueprint selected)
     {
         blueprintInspector.Show(true);
-        blueprintInspector.Setup(selected);
+        blueprintInspector.Setup(selected, player);
         player.SelectBlueprint(selected);
     }
 }

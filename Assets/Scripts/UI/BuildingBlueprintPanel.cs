@@ -10,6 +10,9 @@ public class BuildingBlueprintPanel : MonoBehaviour
     public SpriteTextPanel[] costs;
     public Button button;
 
+    public SpriteTextPanel requirement;
+    public GameObject requirementPanel;
+
     private BuildingBlueprint blueprint;
     private Player player;
     private BuildingSelectionOverview overview;
@@ -36,11 +39,33 @@ public class BuildingBlueprintPanel : MonoBehaviour
                 costs[i].Setup(blueprint.cost[i].value.ToString(), ResourceSpriteDatabase.GetSprite(blueprint.cost[i].resourceType));
             }
         }
+
+        if (blueprint.HasRequirement)
+        {
+            requirementPanel.SetActive(true);
+
+            string status = blueprint.serviceBuildingRequirement.GetRequirementTextState(player);
+            Sprite requirementSprite = TagSpriteDatabase.GetSprite(blueprint.serviceBuildingRequirement.type);
+            requirement.Setup(status, requirementSprite);
+        }
+        else
+        {
+            requirementPanel.SetActive(false);
+        }
+        UpdateInteractable();
     }
 
-    public void UpdateAffordable()
+    public void UpdateInteractable()
     {
-        button.interactable = player.IsAffordable(blueprint.cost);
+        bool interactable = true;
+
+        if (!player.IsAffordable(blueprint.cost))
+            interactable = false;
+
+        if (blueprint.HasRequirement)
+            if (!blueprint.serviceBuildingRequirement.RequirementFullfilled(player))
+                interactable = false;
+        button.interactable = interactable;
     }
 
     public void Clicked()

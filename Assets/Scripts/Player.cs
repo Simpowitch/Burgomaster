@@ -61,9 +61,13 @@ public class Player : MonoBehaviour
         populationText.text = population.ToString();
 
         OnEconomyChanged += UpdateEconomyUI;
-        OnEconomyChanged += UpdateAvailableProjects;
+        OnEconomyChanged += UpdateAvailableBlueprints;
 
-        UpdateAvailableProjects();
+        foreach (var blueprint in buildingBlueprints)
+        {
+            availableBuildingBlueprints.Add(blueprint);
+        }
+        UpdateAvailableBlueprints();
     }
 
     void LoadSave(SaveData data)
@@ -168,7 +172,7 @@ public class Player : MonoBehaviour
         {
             resourcePanels[i].UpdatePanel(resources[i].value, incomes[i].value, expenses[i].value);
         }
-        buildingSelector.UpdateAffordables();
+        buildingSelector.UpdateInteractable();
     }
 
     public bool IsAffordable(Resource[] costs) => Resource.IsAffordable(costs, resources);
@@ -270,7 +274,7 @@ public class Player : MonoBehaviour
                 religiousServices.Add(serviceBuilding);
                 break;
         }
-        UpdateAvailableProjects();
+        UpdateAvailableBlueprints();
     }
 
     public List<ServiceBuilding> GetServices(AbilityScore tag)
@@ -305,36 +309,27 @@ public class Player : MonoBehaviour
 
     private void UpdateAbilityScoreUI() => abilityScoreUI.UpdateUI(AbilityScores);
 
-    private void UpdateAvailableProjects()
+    private void UpdateAvailableBlueprints()
     {
-        availableBuildingBlueprints.Clear();
-        foreach (var project in buildingBlueprints)
-        {
-            if (project.serviceBuildingRequirement == null || project.serviceBuildingRequirement.RequirementFullfilled(this))
-            {
-                availableBuildingBlueprints.Add(project);
-            }
-        }
         buildingSelector.UpdateProjectList(availableBuildingBlueprints, this);
-
         propSelector.UpdateProjectList(propBlueprints, this);
     }
 
     public void AddUniqueBlueprint(BuildingBlueprint blueprint)
     {
-        if (!buildingBlueprints.Contains(blueprint))
+        if (!availableBuildingBlueprints.Contains(blueprint))
         {
-            buildingBlueprints.Add(blueprint);
-            UpdateAvailableProjects();
+            availableBuildingBlueprints.Add(blueprint);
+            UpdateAvailableBlueprints();
         }
     }
 
     public void RemoveUniqueBlueprint(BuildingBlueprint blueprint)
     {
-        if (buildingBlueprints.Contains(blueprint))
+        if (availableBuildingBlueprints.Contains(blueprint))
         {
-            buildingBlueprints.Remove(blueprint);
-            UpdateAvailableProjects();
+            availableBuildingBlueprints.Remove(blueprint);
+            UpdateAvailableBlueprints();
         }
     }
 }
