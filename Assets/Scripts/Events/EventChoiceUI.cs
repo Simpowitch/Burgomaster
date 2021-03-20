@@ -8,8 +8,8 @@ public class EventChoiceUI : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI description = null;
     [SerializeField] Button button = null;
-    [SerializeField] ResourcePanelUI[] costPanels = null;
-    [SerializeField] TextMeshProUGUI skillcheckInfo = null;
+    [SerializeField] SpriteTextPanel[] costPanels = null;
+    [SerializeField] SpriteTextPanel skillcheckInfo = null;
 
     public void Show(bool value) => this.gameObject.SetActive(value);
 
@@ -18,17 +18,24 @@ public class EventChoiceUI : MonoBehaviour
         description.text = option.optionText;
         button.interactable = interactable;
 
-        skillcheckInfo.text = $"Difficulty: {option.checkType} - {option.challengeRating}";
+        //Challenge rating
+        string challengetext = $"Difficulty: {option.checkType} - {option.challengeRating}";
+        Sprite challengeSprite = AbilityScoreSpriteDatabase.GetSprite(option.checkType);
 
+        skillcheckInfo.Setup(challengetext, challengeSprite);
+
+        //Costs
         for (int i = 0; i < costPanels.Length; i++)
         {
             bool show = i < option.cost.Length;
-            costPanels[i].Show(show);
+            costPanels[i].SetActive(show);
 
             if (show)
             {
-                costPanels[i].Setup(option.cost[i].resourceType);
-                costPanels[i].UpdatePanel(option.cost[i].value);
+                string text = option.cost[i].value.ToString();
+                Sprite sprite = ResourceSpriteDatabase.GetSprite(option.cost[i].resourceType);
+
+                costPanels[i].Setup(text , sprite);
             }
         }
     }

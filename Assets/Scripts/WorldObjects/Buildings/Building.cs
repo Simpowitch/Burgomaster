@@ -118,8 +118,8 @@ public abstract class Building : WorldObject
     public override void Despawn()
     {
         base.Despawn();
-        player.ChangeTurnIncomes(Income, false);
-        player.ChangeTurnExpenses(Upkeep, false);
+        player.ChangeTurnIncomes(Income, false, MyName);
+        player.ChangeTurnExpenses(Upkeep, false, MyName);
         UseEffects(false);
 
         player.AddResources(DemolishRefund);
@@ -264,8 +264,8 @@ public abstract class Building : WorldObject
     {
         if (isFinished && removeOld)
         {
-            player.ChangeTurnIncomes(Income, false);
-            player.ChangeTurnExpenses(Upkeep, false);
+            player.ChangeTurnIncomes(Income, false, MyName);
+            player.ChangeTurnExpenses(Upkeep, false, MyName);
             UseEffects(false);
         }
 
@@ -278,8 +278,8 @@ public abstract class Building : WorldObject
 
         if (isFinished)
         {
-            player.ChangeTurnIncomes(Income, true);
-            player.ChangeTurnExpenses(Upkeep, true);
+            player.ChangeTurnIncomes(Income, true, MyName);
+            player.ChangeTurnExpenses(Upkeep, true, MyName);
             UseEffects(true);
         }
 

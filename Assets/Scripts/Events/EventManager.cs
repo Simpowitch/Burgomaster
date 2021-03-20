@@ -67,14 +67,14 @@ public class EventManager : MonoBehaviour
         ScourgePreset preset = Utility.ReturnRandom(allScourges);
         Scourge newScourge = new Scourge(preset.scourge);
         activeScourges.Add(newScourge);
-        player.ChangeTurnExpenses(newScourge.activeResourceDrain, true);
+        player.ChangeTurnExpenses(newScourge.activeResourceDrain, true, newScourge.title);
         UpdateUI();
     }
 
     private void RemoveScourge(Scourge scourge)
     {
         activeScourges.Remove(scourge);
-        player.ChangeTurnExpenses(scourge.activeResourceDrain, false);
+        player.ChangeTurnExpenses(scourge.activeResourceDrain, false, scourge.title);
         UpdateUI();
     }
 

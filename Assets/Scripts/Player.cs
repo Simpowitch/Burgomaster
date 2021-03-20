@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI populationText = null;
     [SerializeField] ResourcePanelUI[] resourcePanels = null;
+    [SerializeField] EconomicSummary[] economySummaries = null;
 
     [SerializeField] BuildingSelectionOverview buildingSelector = null;
     [SerializeField] PropSelectionOverview propSelector = null;
@@ -207,30 +208,42 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ChangeTurnIncomes(Resource[] affectedIncomes, bool increase)
+    public void ChangeTurnIncomes(Resource[] affectedIncomes, bool increase, string message)
     {
         if (affectedIncomes == null)
             return;
         foreach (var income in affectedIncomes)
         {
             if (increase)
-                incomes[(int)income.resourceType].AddValue(income.value);
+            {
+            incomes[(int)income.resourceType].AddValue(income.value);
+                economySummaries[(int)income.resourceType].AddMessage(message, income.value);
+            }
             else
+            {
                 incomes[(int)income.resourceType].RemoveValue(income.value);
+                economySummaries[(int)income.resourceType].RemoveMessage(message, income.value);
+            }
         }
         OnEconomyChanged?.Invoke();
     }
 
-    public void ChangeTurnExpenses(Resource[] affectedIncomes, bool increase)
+    public void ChangeTurnExpenses(Resource[] affectedIncomes, bool increase, string message)
     {
         if (affectedIncomes == null)
             return;
         foreach (var expense in affectedIncomes)
         {
             if (increase)
+            {
                 this.expenses[(int)expense.resourceType].AddValue(expense.value);
+                economySummaries[(int)expense.resourceType].AddMessage(message, -expense.value);
+            }
             else
+            {
                 this.expenses[(int)expense.resourceType].RemoveValue(expense.value);
+                economySummaries[(int)expense.resourceType].RemoveMessage(message, -expense.value);
+            }
         }
         OnEconomyChanged?.Invoke();
     }
