@@ -54,5 +54,6 @@ Material:
     - Color_0c4e8aff1ce24620ac9456fb21d44f3d: {r: 0, g: 0.2156863, b: 1, a: 1}
     - Color_82690c3e75224d518cb002fa40bed119: {r: 1, g: 1, b: 1, a: 0.5882353}
     - Color_cdc9900176b74ed3aa99ad9522bbb1ef: {r: 1, g: 1, b: 1, a: 0.5882353}
-    - _OutlineColor: {r: 0, g: 1, b: 0.08991361, a: 1}
+    - _MainTexColor: {r: 1, g: 1, b: 1, a: 0.5882353}
+    - _OutlineColor: {r: 0, g: 0.06987562, b: 0.972549, a: 1}
   m_BuildTextureStacks: []
