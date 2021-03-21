@@ -8,7 +8,7 @@ using TMPro;
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
-    public string masterVolumeParam = "MasterVolume", musicVolumeParam = "MusicVolume", sfxVolumeParam = "SFXVolume", uiVolumeParam = "UIVolume";
+    public string masterVolumeParam = "MasterVolume", musicVolumeParam = "MusicVolume", ambienceVolumeParam = "AmbienceVolume", sfxVolumeParam = "SFXVolume", uiVolumeParam = "UIVolume";
     public TMP_Dropdown resolutionDropdown;
     Resolution[] resolutions;
 
@@ -37,6 +37,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetMasterVolume(float volume) => audioMixer.SetFloat(masterVolumeParam, Mathf.Log10(volume) * 20);
     public void SetMusicVolume(float volume) => audioMixer.SetFloat(musicVolumeParam, Mathf.Log10(volume) * 20);
+    public void SetAmbienceVolume(float volume) => audioMixer.SetFloat(ambienceVolumeParam, Mathf.Log10(volume) * 20);
     public void SetSFXVolume(float volume) => audioMixer.SetFloat(sfxVolumeParam, Mathf.Log10(volume) * 20);
     public void SetUIVolume(float volume) => audioMixer.SetFloat(uiVolumeParam, Mathf.Log10(volume) * 20);
 
