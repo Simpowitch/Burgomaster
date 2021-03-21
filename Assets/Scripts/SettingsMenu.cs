@@ -35,10 +35,10 @@ public class SettingsMenu : MonoBehaviour
     }
 
 
-    public void SetMasterVolume(float volume) => audioMixer.SetFloat(masterVolumeParam, Mathf.Log10(volume * 20));
-    public void SetMusicVolume(float volume) => audioMixer.SetFloat(musicVolumeParam, Mathf.Log10(volume * 20));
-    public void SetSFXVolume(float volume) => audioMixer.SetFloat(sfxVolumeParam, Mathf.Log10(volume * 20));
-    public void SetUIVolume(float volume) => audioMixer.SetFloat(uiVolumeParam, Mathf.Log10(volume * 20));
+    public void SetMasterVolume(float volume) => audioMixer.SetFloat(masterVolumeParam, Mathf.Log10(volume) * 20);
+    public void SetMusicVolume(float volume) => audioMixer.SetFloat(musicVolumeParam, Mathf.Log10(volume) * 20);
+    public void SetSFXVolume(float volume) => audioMixer.SetFloat(sfxVolumeParam, Mathf.Log10(volume) * 20);
+    public void SetUIVolume(float volume) => audioMixer.SetFloat(uiVolumeParam, Mathf.Log10(volume) * 20);
 
     public void ToggleFullscreen(bool value) => Screen.fullScreen = value;
     public void SetResolution(int index)
